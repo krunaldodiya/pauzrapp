@@ -1,5 +1,13 @@
 import React, {PureComponent} from 'react';
-import {Dimensions, FlatList, Image, View, SafeAreaView, StatusBar} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  View,
+  SafeAreaView,
+  StatusBar,
+  TouchableHighlight,
+} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 
 const Video = require('react-native-video').default;
@@ -73,17 +81,19 @@ class Post extends PureComponent<PostProps, PostState> {
           )}
 
           {item.content_type == 'video' && (
-            <Video
-              source={{uri: item.url}}
-              style={{
-                width: Dimensions.get('window').width - 2,
-                height: (Dimensions.get('window').width * 3) / 4,
-                backgroundColor: 'black',
-              }}
-              paused={paused}
-              muted={muted}
-              controls={false}
-            />
+            <TouchableHighlight onPress={() => this.setState({muted: !this.state.muted})}>
+              <Video
+                source={{uri: item.url}}
+                style={{
+                  width: Dimensions.get('window').width - 2,
+                  height: (Dimensions.get('window').width * 3) / 4,
+                  backgroundColor: 'black',
+                }}
+                paused={paused}
+                muted={muted}
+                controls={false}
+              />
+            </TouchableHighlight>
           )}
         </View>
       </SafeAreaView>
@@ -94,7 +104,7 @@ class Post extends PureComponent<PostProps, PostState> {
     return (
       <View style={{flex: 1}}>
         <FlatList
-          initialNumToRender={5}
+          initialNumToRender={10}
           data={data}
           renderItem={this.renderItem}
           keyExtractor={(_, index) => index.toString()}
