@@ -1,6 +1,7 @@
 import {observer} from 'mobx-react';
+// import {Icon} from 'native-base';
 import React from 'react';
-import {Dimensions, Image, TouchableHighlight, View} from 'react-native';
+import {Dimensions, Image, TouchableHighlight, View, Text} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import FeedStore from '../stores/feed';
 
@@ -50,6 +51,20 @@ const PostLayout = (props: PostProps) => {
             muted={muted}
             controls={false}
           />
+
+          {muted && (
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                backgroundColor: '#000',
+                padding: 5,
+              }}>
+              <Text>muted</Text>
+              {/* <Icon type="MaterialIcons" name="volume-off" style={{color: '#fff', fontSize: 14}} /> */}
+            </View>
+          )}
         </TouchableHighlight>
       )}
     </View>
