@@ -7,8 +7,10 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableHighlight,
+  Text,
 } from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
+// import {Icon} from 'native-base';
 
 const Video = require('react-native-video').default;
 
@@ -46,75 +48,101 @@ class Post extends PureComponent<PostProps, PostState> {
   onViewableItemsChanged = (data: any) => {
     data.viewableItems.forEach((viewableItem: any) => {
       if (viewableItem.item.content_type == 'video') {
-        this.setState({viewableItem: viewableItem});
+        this.setState({muted: false, viewableItem: viewableItem});
       }
     });
   };
 
   renderItem = (data: any) => {
-    console.log(data);
-
     const {muted, viewableItem} = this.state;
     const {item, index} = data;
     const paused = viewableItem != null && viewableItem.index != index;
+    const {width} = Dimensions.get('window');
 
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <StatusBar barStyle="light-content" backgroundColor="black" />
+      <View
+        style={{
+          backgroundColor: 'black',
+          width: width,
+          height: width,
+          marginBottom: 10,
+          justifyContent: 'center',
+        }}>
+        {item.content_type == 'image' && (
+          <Image
+            style={{
+              width: width,
+              height: width,
+            }}
+            source={{uri: item.url}}
+          />
+        )}
 
-        <View
-          style={{
-            backgroundColor: 'black',
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').width,
-            marginBottom: 10,
-            justifyContent: 'center',
-          }}>
-          {item.content_type == 'image' && (
-            <Image
-              style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').width,
-              }}
+        {item.content_type == 'video' && (
+          <TouchableHighlight
+            onPress={() => {
+              if (viewableItem.index == index) {
+                this.setState({muted: !muted});
+              }
+            }}>
+            <Video
               source={{uri: item.url}}
+              style={{
+                width: width - 2,
+                height: (width * 3) / 4,
+                backgroundColor: 'black',
+              }}
+              paused={paused}
+              muted={muted}
+              controls={false}
             />
-          )}
 
-          {item.content_type == 'video' && (
-            <TouchableHighlight onPress={() => this.setState({muted: !this.state.muted})}>
-              <Video
-                source={{uri: item.url}}
+            <View>
+              <Text>test</Text>
+            </View>
+
+            {/* {muted && (
+              <View
                 style={{
-                  width: Dimensions.get('window').width - 2,
-                  height: (Dimensions.get('window').width * 3) / 4,
-                  backgroundColor: 'black',
-                }}
-                paused={paused}
-                muted={muted}
-                controls={false}
-              />
-            </TouchableHighlight>
-          )}
-        </View>
-      </SafeAreaView>
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  backgroundColor: '#000',
+                  padding: 5,
+                }}>
+                <Icon
+                  type="MaterialIcons"
+                  name="volume-off"
+                  style={{color: '#fff', fontSize: 14}}
+                />
+              </View>
+            )} */}
+          </TouchableHighlight>
+        )}
+      </View>
     );
   };
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <FlatList
-          initialNumToRender={10}
-          data={data}
-          renderItem={this.renderItem}
-          keyExtractor={(_, index) => index.toString()}
-          viewabilityConfig={{
-            itemVisiblePercentThreshold: 50,
-          }}
-          onViewableItemsChanged={this.onViewableItemsChanged}
-        />
-      </View>
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar barStyle="light-content" backgroundColor="black" />
+
+        <View style={{flex: 1}}>
+          <FlatList
+            initialNumToRender={10}
+            data={data}
+            renderItem={this.renderItem}
+            keyExtractor={(_, index) => index.toString()}
+            viewabilityConfig={{
+              itemVisiblePercentThreshold: 50,
+            }}
+            onViewableItemsChanged={this.onViewableItemsChanged}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 }
+
 export default Post;
