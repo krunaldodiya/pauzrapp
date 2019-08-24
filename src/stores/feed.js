@@ -10,7 +10,8 @@ const FeedStore = types
     last_page: types.maybeNull(types.integer),
     total: types.maybeNull(types.integer),
     feedable_ids: types.optional(types.array(types.integer), []),
-    viewableItems: types.optional(types.array(types.integer), []),
+    playing_index: types.optional(types.maybeNull(types.integer)),
+    muted: types.optional(types.boolean, false),
     loading: false,
     errors: types.maybeNull(ValidationError),
   })
@@ -22,8 +23,15 @@ const FeedStore = types
     },
   }))
   .actions(self => ({
-    onViewableItemsChanged(data) {
-      self.viewableItems = data.viewableItems.map(item => item.index);
+    updatePlayingIndex(playing_index) {
+      self.playing_index = playing_index;
+      self.muted = false;
+    },
+
+    updateMutedIndex(index) {
+      if (self.playing_index == index) {
+        self.muted = !self.muted;
+      }
     },
 
     getFeeds: flow(function*() {
