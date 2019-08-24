@@ -1,14 +1,16 @@
+import {Icon} from 'native-base';
 import React, {PureComponent} from 'react';
 import {
   Dimensions,
   FlatList,
   Image,
-  View,
   SafeAreaView,
   StatusBar,
   TouchableHighlight,
+  View,
 } from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
+// import FeedStore from '../stores/feed';
 
 const Video = require('react-native-video').default;
 
@@ -18,7 +20,7 @@ interface PostProps {
 
 interface PostState {
   muted: boolean;
-  viewableItem: any;
+  playing_index: number | null;
 }
 
 interface User {
@@ -40,80 +42,103 @@ const data: Post[] = require('./posts.json');
 class Post extends PureComponent<PostProps, PostState> {
   state: PostState = {
     muted: false,
-    viewableItem: null,
+    playing_index: null,
   };
 
   onViewableItemsChanged = (data: any) => {
     data.viewableItems.forEach((viewableItem: any) => {
       if (viewableItem.item.content_type == 'video') {
-        this.setState({viewableItem: viewableItem});
+        this.setState({muted: false, playing_index: viewableItem.index});
+
+        // FeedStore.updatePlayingIndex(viewableItem.index);
       }
     });
   };
 
   renderItem = (data: any) => {
-    console.log(data);
-
-    const {muted, viewableItem} = this.state;
     const {item, index} = data;
-    const paused = viewableItem != null && viewableItem.index != index;
+
+    const {playing_index, muted} = this.state;
+    // const {playing_index, muted} = FeedStore;
+    const playing = playing_index != null && playing_index == index;
 
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <StatusBar barStyle="light-content" backgroundColor="black" />
+      <View
+        style={{
+          backgroundColor: 'black',
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').width,
+          marginBottom: 10,
+          justifyContent: 'center',
+        }}>
+        {item.content_type == 'image' && (
+          <Image
+            style={{
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').width,
+            }}
+            source={{uri: item.url}}
+          />
+        )}
 
-        <View
-          style={{
-            backgroundColor: 'black',
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').width,
-            marginBottom: 10,
-            justifyContent: 'center',
-          }}>
-          {item.content_type == 'image' && (
-            <Image
-              style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').width,
-              }}
+        {item.content_type == 'video' && (
+          <TouchableHighlight
+            onPress={() => {
+              if (playing_index == index) {
+                this.setState({muted: !muted});
+              }
+            }}>
+            <Video
               source={{uri: item.url}}
+              style={{
+                width: Dimensions.get('window').width - 2,
+                height: (Dimensions.get('window').width * 3) / 4,
+                backgroundColor: 'black',
+              }}
+              paused={!playing}
+              muted={muted}
+              controls={false}
             />
-          )}
 
-          {item.content_type == 'video' && (
-            <TouchableHighlight onPress={() => this.setState({muted: !this.state.muted})}>
-              <Video
-                source={{uri: item.url}}
+            {muted && (
+              <View
                 style={{
-                  width: Dimensions.get('window').width - 2,
-                  height: (Dimensions.get('window').width * 3) / 4,
-                  backgroundColor: 'black',
-                }}
-                paused={paused}
-                muted={muted}
-                controls={false}
-              />
-            </TouchableHighlight>
-          )}
-        </View>
-      </SafeAreaView>
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  backgroundColor: '#000',
+                  padding: 5,
+                }}>
+                <Icon
+                  type="MaterialIcons"
+                  name="volume-off"
+                  style={{color: '#fff', fontSize: 14}}
+                />
+              </View>
+            )}
+          </TouchableHighlight>
+        )}
+      </View>
     );
   };
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <FlatList
-          initialNumToRender={10}
-          data={data}
-          renderItem={this.renderItem}
-          keyExtractor={(_, index) => index.toString()}
-          viewabilityConfig={{
-            itemVisiblePercentThreshold: 50,
-          }}
-          onViewableItemsChanged={this.onViewableItemsChanged}
-        />
-      </View>
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar barStyle="light-content" backgroundColor="black" />
+        <View style={{flex: 1}}>
+          <FlatList
+            initialNumToRender={5}
+            data={data}
+            renderItem={this.renderItem}
+            keyExtractor={(_, index) => index.toString()}
+            viewabilityConfig={{
+              itemVisiblePercentThreshold: 50,
+            }}
+            onViewableItemsChanged={this.onViewableItemsChanged}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 }

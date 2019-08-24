@@ -1,7 +1,7 @@
 import {observer} from 'mobx-react';
-// import {Icon} from 'native-base';
+import {Icon} from 'native-base';
 import React from 'react';
-import {Dimensions, Image, TouchableHighlight, View, Text} from 'react-native';
+import {Dimensions, Image, TouchableHighlight, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import FeedStore from '../stores/feed';
 
@@ -10,13 +10,14 @@ const Video = require('react-native-video').default;
 interface PostProps {
   navigation: NavigationScreenProp<any, any>;
   data: any;
+  state: any;
 }
 
 const PostLayout = (props: PostProps) => {
-  const {data} = props;
+  const {data, state} = props;
   const {item, index} = data;
 
-  const {playing_index, muted} = FeedStore;
+  const {playing_index, muted} = state;
   const playing = playing_index != null && playing_index == index;
 
   return (
@@ -61,8 +62,7 @@ const PostLayout = (props: PostProps) => {
                 backgroundColor: '#000',
                 padding: 5,
               }}>
-              <Text>muted</Text>
-              {/* <Icon type="MaterialIcons" name="volume-off" style={{color: '#fff', fontSize: 14}} /> */}
+              <Icon type="MaterialIcons" name="volume-off" style={{color: '#fff', fontSize: 14}} />
             </View>
           )}
         </TouchableHighlight>
