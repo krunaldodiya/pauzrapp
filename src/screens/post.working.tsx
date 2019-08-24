@@ -1,16 +1,15 @@
-import {Icon} from 'native-base';
 import React, {PureComponent} from 'react';
 import {
   Dimensions,
   FlatList,
   Image,
+  View,
   SafeAreaView,
   StatusBar,
   TouchableHighlight,
-  View,
 } from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
-// import FeedStore from '../stores/feed';
+import {Icon} from 'native-base';
 
 const Video = require('react-native-video').default;
 
@@ -20,7 +19,7 @@ interface PostProps {
 
 interface PostState {
   muted: boolean;
-  playing_index: number | null;
+  viewableItem: any;
 }
 
 interface User {
@@ -42,25 +41,21 @@ const data: Post[] = require('./posts.json');
 class Post extends PureComponent<PostProps, PostState> {
   state: PostState = {
     muted: false,
-    playing_index: null,
+    viewableItem: null,
   };
 
   onViewableItemsChanged = (data: any) => {
     data.viewableItems.forEach((viewableItem: any) => {
       if (viewableItem.item.content_type == 'video') {
-        this.setState({muted: false, playing_index: viewableItem.index});
-
-        // FeedStore.updatePlayingIndex(viewableItem.index);
+        this.setState({muted: false, viewableItem: viewableItem});
       }
     });
   };
 
   renderItem = (data: any) => {
+    const {muted, viewableItem} = this.state;
     const {item, index} = data;
-
-    const {playing_index, muted} = this.state;
-    // const {playing_index, muted} = FeedStore;
-    const playing = playing_index != null && playing_index == index;
+    const paused = viewableItem != null && viewableItem.index != index;
 
     return (
       <View
@@ -84,8 +79,8 @@ class Post extends PureComponent<PostProps, PostState> {
         {item.content_type == 'video' && (
           <TouchableHighlight
             onPress={() => {
-              if (playing_index == index) {
-                this.setState({muted: !muted});
+              if (viewableItem.index == index) {
+                this.setState({muted: !this.state.muted});
               }
             }}>
             <Video
@@ -95,7 +90,7 @@ class Post extends PureComponent<PostProps, PostState> {
                 height: (Dimensions.get('window').width * 3) / 4,
                 backgroundColor: 'black',
               }}
-              paused={!playing}
+              paused={paused}
               muted={muted}
               controls={false}
             />
@@ -126,9 +121,10 @@ class Post extends PureComponent<PostProps, PostState> {
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar barStyle="light-content" backgroundColor="black" />
+
         <View style={{flex: 1}}>
           <FlatList
-            initialNumToRender={5}
+            initialNumToRender={10}
             data={data}
             renderItem={this.renderItem}
             keyExtractor={(_, index) => index.toString()}
@@ -142,4 +138,5 @@ class Post extends PureComponent<PostProps, PostState> {
     );
   }
 }
+
 export default Post;
