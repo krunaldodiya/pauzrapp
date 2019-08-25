@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAuthToken } from './auth';
+import {getAuthToken} from './auth';
 
 const makeRequest = async (url, data, type) => {
   const authToken = await getAuthToken();
@@ -9,11 +9,11 @@ const makeRequest = async (url, data, type) => {
     Authorization: authToken ? `Bearer ${authToken}` : '',
   };
 
-  if (type === undefined) {
-    return axios.post(url, data, { headers });
+  if (type === 'POST') {
+    return axios.post(url, data, {headers});
   }
 
-  return axios.get(url, { headers });
+  return axios.get(url, {headers});
 };
 
 export default makeRequest;

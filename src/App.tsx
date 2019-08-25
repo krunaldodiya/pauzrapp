@@ -1,5 +1,7 @@
 import React from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
+import {Provider} from 'react-redux';
+import {store} from './store';
 
 const AppNavigator = createStackNavigator(
   {
@@ -20,7 +22,12 @@ const AppNavigator = createStackNavigator(
 class App extends React.PureComponent {
   render() {
     const AppContainer = createAppContainer(AppNavigator);
-    return <AppContainer />;
+
+    return (
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    );
   }
 }
 
