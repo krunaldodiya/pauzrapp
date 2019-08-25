@@ -1,18 +1,13 @@
 import React, {PureComponent} from 'react';
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  View,
-  SafeAreaView,
-  StatusBar,
-  TouchableHighlight,
-  Text,
-} from 'react-native';
+import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
-// import {Icon} from 'native-base';
-
-const Video = require('react-native-video').default;
+import FeedStore from '../stores/feed';
+import RegularImagePost from '../components/regular_image_post';
+import RegularVideoPost from '../components/regular_video_post';
+import SponsoredVideoPost from '../components/sponosred_video_post';
+import AffiliateVideoPost from '../components/affiliate_video_post';
+import SponsoredImagePost from '../components/sponsored_image_post';
+import AffiliateImagePost from '../components/affiliate_image_post';
 
 interface PostProps {
   navigation: NavigationScreenProp<any, any>;
@@ -48,78 +43,35 @@ class Post extends PureComponent<PostProps, PostState> {
   onViewableItemsChanged = (data: any) => {
     data.viewableItems.forEach((viewableItem: any) => {
       if (viewableItem.item.content_type == 'video') {
-        this.setState({muted: false, viewableItem: viewableItem});
+        FeedStore.updateViewableItems(viewableItem);
       }
     });
   };
 
   renderItem = (data: any) => {
-    const {muted, viewableItem} = this.state;
-    const {item, index} = data;
-    const paused = viewableItem != null && viewableItem.index != index;
-    const {width} = Dimensions.get('window');
+    const {item} = data;
+    const {viewableItem, muted} = FeedStore;
 
     return (
-      <View
-        style={{
-          backgroundColor: 'black',
-          width: width,
-          height: width,
-          marginBottom: 10,
-          justifyContent: 'center',
-        }}>
-        {item.content_type == 'image' && (
-          <Image
-            style={{
-              width: width,
-              height: width,
-            }}
-            source={{uri: item.url}}
-          />
+      <React.Fragment>
+        {item.type == 'regular' && item.type == 'image' && <RegularImagePost data={data} />}
+
+        {item.type == 'regular' && item.type == 'video' && (
+          <RegularVideoPost data={data} viewableItem={viewableItem} muted={muted} />
         )}
 
-        {item.content_type == 'video' && (
-          <TouchableHighlight
-            onPress={() => {
-              if (viewableItem.index == index) {
-                this.setState({muted: !muted});
-              }
-            }}>
-            <Video
-              source={{uri: item.url}}
-              style={{
-                width: width - 2,
-                height: (width * 3) / 4,
-                backgroundColor: 'black',
-              }}
-              paused={paused}
-              muted={muted}
-              controls={false}
-            />
+        {item.type == 'sponsored' && item.type == 'image' && <SponsoredImagePost data={data} />}
 
-            <View>
-              <Text>test</Text>
-            </View>
-
-            {/* {muted && (
-              <View
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  backgroundColor: '#000',
-                  padding: 5,
-                }}>
-                <Icon
-                  type="MaterialIcons"
-                  name="volume-off"
-                  style={{color: '#fff', fontSize: 14}}
-                />
-              </View>
-            )} */}
-          </TouchableHighlight>
+        {item.type == 'sponsored' && item.type == 'video' && (
+          <SponsoredVideoPost data={data} viewableItem={viewableItem} muted={muted} />
         )}
-      </View>
+
+        {item.type == 'affiliate' && item.type == 'image' && <AffiliateImagePost data={data} />}
+
+        {item.type == 'affiliate' && item.type == 'video' && (
+          <AffiliateVideoPost data={data} viewableItem={viewableItem} muted={muted} />
+        )}
+      </React.Fragment>
     );
   };
 
