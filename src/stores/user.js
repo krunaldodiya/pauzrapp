@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'; // A
+import {types} from 'mobx-state-tree'; // A
 import User from '../models/user';
 
 const UserStore = types

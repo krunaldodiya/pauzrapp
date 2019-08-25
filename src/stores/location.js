@@ -1,5 +1,5 @@
-import { types, flow } from 'mobx-state-tree'; // A
-import { api } from '../libs/api';
+import {types, flow} from 'mobx-state-tree'; // A
+import {api} from '../libs/api';
 import Country from '../models/country';
 import ValidationError from '../models/validation_error';
 import makeRequest from '../services/make_request';
@@ -20,7 +20,7 @@ const LocationStore = types
       self.loading = true;
 
       try {
-        const { data } = yield makeRequest(api.getCountries);
+        const {data} = yield makeRequest(api.getCountries);
 
         self.countries.push(...data['countries']);
         self.loading = false;

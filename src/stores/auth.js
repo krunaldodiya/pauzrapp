@@ -23,11 +23,11 @@ const AuthStore = types
 
     toggleDrawer() {
       self.isDrawerToggling = true;
-      self.isDrawerOpened = self.isDrawerOpened == true ? false : true;
+      self.isDrawerOpened = !self.isDrawerOpened;
     },
 
     onChangeDrawer() {
-      if (self.isDrawerToggling == false && self.isDrawerOpened == true) {
+      if (self.isDrawerToggling === false && self.isDrawerOpened === true) {
         self.isDrawerOpened = false;
       }
 

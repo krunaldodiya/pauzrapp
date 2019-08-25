@@ -10,9 +10,9 @@ const FeedStore = types
     last_page: types.maybeNull(types.integer),
     total: types.maybeNull(types.integer),
     feedable_ids: types.optional(types.array(types.integer), []),
-    viewableItem: null,
-    muted: false,
-    loading: false,
+    viewableItem: types.maybeNull(types.integer),
+    muted: types.optional(types.boolean, false),
+    loading: types.optional(types.boolean, false),
     errors: types.maybeNull(ValidationError),
   })
   .views(self => ({

@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import {types} from 'mobx-state-tree';
 import Post from './post';
 import User from './user';
 
@@ -8,7 +8,7 @@ const Notification = types.model('Notification', {
   notifiable_type: types.string,
   notifiable_id: types.integer,
   when: types.string,
-  read: types.boolean,
+  read: types.optional(types.boolean, false),
   user: types.maybeNull(User),
   post: types.maybeNull(Post),
   follower: types.maybeNull(User),

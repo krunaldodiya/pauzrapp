@@ -1,6 +1,7 @@
+import {observer} from 'mobx-react';
 import {Icon} from 'native-base';
 import React from 'react';
-import {Dimensions, Image, View} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import FeedStore from '../stores/feed';
@@ -14,13 +15,13 @@ interface SponsoredVideoPostProps {
 const SponsoredVideoPost = (props: SponsoredVideoPostProps) => {
   const {data, viewableItem, muted} = props;
   const {item, index} = data;
-  const paused = viewableItem != null && viewableItem.index != index;
+  const paused = viewableItem != index;
   const {width} = Dimensions.get('window');
 
   return (
     <TouchableHighlight
       onPress={() => {
-        if (viewableItem.index == index) {
+        if (viewableItem == index) {
           FeedStore.updateMutedIndex();
         }
       }}>
@@ -54,4 +55,4 @@ const SponsoredVideoPost = (props: SponsoredVideoPostProps) => {
   );
 };
 
-export default SponsoredVideoPost;
+export default observer(SponsoredVideoPost);

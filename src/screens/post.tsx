@@ -1,13 +1,14 @@
+import {observer} from 'mobx-react';
 import React, {PureComponent} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
-import FeedStore from '../stores/feed';
+import AffiliateImagePost from '../components/affiliate_image_post';
+import AffiliateVideoPost from '../components/affiliate_video_post';
 import RegularImagePost from '../components/regular_image_post';
 import RegularVideoPost from '../components/regular_video_post';
 import SponsoredVideoPost from '../components/sponosred_video_post';
-import AffiliateVideoPost from '../components/affiliate_video_post';
 import SponsoredImagePost from '../components/sponsored_image_post';
-import AffiliateImagePost from '../components/affiliate_image_post';
+import FeedStore from '../stores/feed';
 
 interface PostProps {
   navigation: NavigationScreenProp<any, any>;
@@ -32,7 +33,7 @@ interface Post {
   type: 'regular' | 'sponsored' | 'affiliate';
 }
 
-const data: Post[] = require('./posts.json');
+const posts: Post[] = require('./posts.json');
 
 class Post extends PureComponent<PostProps, PostState> {
   state: PostState = {
@@ -43,7 +44,7 @@ class Post extends PureComponent<PostProps, PostState> {
   onViewableItemsChanged = (data: any) => {
     data.viewableItems.forEach((viewableItem: any) => {
       if (viewableItem.item.content_type == 'video') {
-        FeedStore.updateViewableItems(viewableItem);
+        FeedStore.updateViewableItems(viewableItem.index);
       }
     });
   };
@@ -54,21 +55,25 @@ class Post extends PureComponent<PostProps, PostState> {
 
     return (
       <React.Fragment>
-        {item.type == 'regular' && item.type == 'image' && <RegularImagePost data={data} />}
+        {item.type == 'regular' && item.content_type == 'image' && <RegularImagePost data={data} />}
 
-        {item.type == 'regular' && item.type == 'video' && (
+        {item.type == 'regular' && item.content_type == 'video' && (
           <RegularVideoPost data={data} viewableItem={viewableItem} muted={muted} />
         )}
 
-        {item.type == 'sponsored' && item.type == 'image' && <SponsoredImagePost data={data} />}
+        {item.type == 'sponsored' && item.content_type == 'image' && (
+          <SponsoredImagePost data={data} />
+        )}
 
-        {item.type == 'sponsored' && item.type == 'video' && (
+        {item.type == 'sponsored' && item.content_type == 'video' && (
           <SponsoredVideoPost data={data} viewableItem={viewableItem} muted={muted} />
         )}
 
-        {item.type == 'affiliate' && item.type == 'image' && <AffiliateImagePost data={data} />}
+        {item.type == 'affiliate' && item.content_type == 'image' && (
+          <AffiliateImagePost data={data} />
+        )}
 
-        {item.type == 'affiliate' && item.type == 'video' && (
+        {item.type == 'affiliate' && item.content_type == 'video' && (
           <AffiliateVideoPost data={data} viewableItem={viewableItem} muted={muted} />
         )}
       </React.Fragment>
@@ -76,6 +81,8 @@ class Post extends PureComponent<PostProps, PostState> {
   };
 
   render() {
+    console.log(FeedStore.viewableItem);
+
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar barStyle="light-content" backgroundColor="black" />
@@ -83,7 +90,7 @@ class Post extends PureComponent<PostProps, PostState> {
         <View style={{flex: 1}}>
           <FlatList
             initialNumToRender={10}
-            data={data}
+            data={posts}
             renderItem={this.renderItem}
             keyExtractor={(_, index) => index.toString()}
             viewabilityConfig={{
@@ -97,4 +104,4 @@ class Post extends PureComponent<PostProps, PostState> {
   }
 }
 
-export default Post;
+export default observer(Post);

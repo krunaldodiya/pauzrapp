@@ -1,3 +1,4 @@
+import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {Dimensions, Image, View} from 'react-native';
 
@@ -13,7 +14,6 @@ const RegularImagePost = (props: RegularImagePostProps) => {
   return (
     <View
       style={{
-        backgroundColor: 'black',
         width: width,
         height: width,
         marginBottom: 10,
@@ -30,4 +30,4 @@ const RegularImagePost = (props: RegularImagePostProps) => {
   );
 };
 
-export default RegularImagePost;
+export default observer(RegularImagePost);

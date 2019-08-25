@@ -1,7 +1,7 @@
-import { flow, types } from 'mobx-state-tree'; // A
-import { AsyncStorage } from 'react-native';
+import {flow, types} from 'mobx-state-tree'; // A
+import {AsyncStorage} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { api } from '../libs/api';
+import {api} from '../libs/api';
 import screens from '../libs/screens';
 import Country from '../models/country';
 import ValidationError from '../models/validation_error';
@@ -18,7 +18,7 @@ const OtpStore = types
     loading: types.optional(types.boolean, false),
     errors: types.maybeNull(ValidationError),
   })
-  .views(self => ({
+  .views(() => ({
     //
   }))
   .actions(self => ({
@@ -43,7 +43,7 @@ const OtpStore = types
       self.loading = true;
 
       try {
-        const { data } = yield makeRequest(api.requestOtp, {
+        const {data} = yield makeRequest(api.requestOtp, {
           mobile: self.mobile,
           country: self.country,
         });
@@ -63,7 +63,7 @@ const OtpStore = types
       self.loading = true;
 
       try {
-        const { data } = yield makeRequest(api.verifyOtp, {
+        const {data} = yield makeRequest(api.verifyOtp, {
           mobile: self.mobile,
           otp: self.clientOtp,
           country: self.country,
@@ -73,7 +73,7 @@ const OtpStore = types
 
         AsyncStorage.setItem('authToken', data['access_token']);
 
-        const { user } = data;
+        const {user} = data;
 
         UserStore.setAuthUser(user);
         AuthStore.setAuthUserId(user['id']);

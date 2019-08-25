@@ -1,5 +1,5 @@
-import { flow, types } from 'mobx-state-tree'; // A
-import { api } from '../libs/api';
+import {flow, types} from 'mobx-state-tree'; // A
+import {api} from '../libs/api';
 import Post from '../models/post';
 import makeRequest from '../services/make_request';
 
@@ -20,8 +20,8 @@ const PostStore = types
       self.loading = true;
 
       try {
-        const { data } = yield makeRequest(api.getPosts, { page });
-        const { posts } = data;
+        const {data} = yield makeRequest(api.getPosts, {page});
+        const {posts} = data;
 
         console.log(posts);
 

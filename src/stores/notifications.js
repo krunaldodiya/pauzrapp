@@ -1,5 +1,5 @@
-import { flow, types } from 'mobx-state-tree'; // A
-import { api } from '../libs/api';
+import {flow, types} from 'mobx-state-tree'; // A
+import {api} from '../libs/api';
 import Notification from '../models/notification';
 import ValidationError from '../models/validation_error';
 import makeRequest from '../services/make_request';
@@ -26,8 +26,8 @@ const NotificationStore = types
       const nextPage = self.current_page + 1;
 
       try {
-        const { data } = yield makeRequest(api.getNotifications, { page: nextPage });
-        const { notifications, meta } = data;
+        const {data} = yield makeRequest(api.getNotifications, {page: nextPage});
+        const {notifications, meta} = data;
 
         self.current_page = nextPage;
         self.last_page = meta['last_page'];

@@ -1,3 +1,4 @@
+import {observer} from 'mobx-react';
 import React from 'react';
 import {Dimensions, Image, View} from 'react-native';
 
@@ -13,7 +14,6 @@ const SponsoredImagePost = (props: SponsoredImagePostProps) => {
   return (
     <View
       style={{
-        backgroundColor: 'black',
         width: width,
         height: width,
         marginBottom: 10,
@@ -30,4 +30,4 @@ const SponsoredImagePost = (props: SponsoredImagePostProps) => {
   );
 };
 
-export default SponsoredImagePost;
+export default observer(SponsoredImagePost);
