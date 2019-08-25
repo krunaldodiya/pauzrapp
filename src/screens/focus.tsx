@@ -9,6 +9,7 @@ import {
 } from 'react-navigation';
 import IntroContainer from '../containers/intro';
 import ProfileContainer from '../containers/profile';
+import {Icon} from 'native-base';
 
 function Two(props: any) {
   return <View />;
@@ -36,31 +37,48 @@ function DrawerMenu(props: any) {
   );
 }
 
-const FocusTabs = createBottomTabNavigator(
+const FocusTabs = createBottomTabNavigator({
+  Intro: {
+    screen: IntroContainer,
+  },
+  Two: {
+    screen: Two,
+  },
+  Three: {
+    screen: Three,
+  },
+});
+
+const FocusStackNavigator = createStackNavigator(
   {
-    Intro: {
-      screen: IntroContainer,
-    },
-    Two: {
-      screen: Two,
-    },
-    Three: {
-      screen: Three,
-    },
+    Tabs: FocusTabs,
+    Profile: ProfileContainer,
   },
   {
-    navigationOptions: () => {
+    headerLayoutPreset: 'center',
+    defaultNavigationOptions: ({navigation}) => {
       return {
-        header: null,
+        headerLeft: (
+          <Icon
+            type="SimpleLineIcons"
+            name="menu"
+            style={{marginLeft: 10, fontSize: 22}}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
+        title: navigation.state.routes[navigation.state.index].routeName,
+        headerRight: (
+          <Icon
+            type="SimpleLineIcons"
+            name="bulb"
+            style={{marginRight: 10, fontSize: 22}}
+            onPress={() => navigation.openDrawer()}
+          />
+        ),
       };
     },
   }
 );
-
-const FocusStackNavigator = createStackNavigator({
-  Tabs: FocusTabs,
-  Profile: ProfileContainer,
-});
 
 const Focus = createDrawerNavigator(
   {
