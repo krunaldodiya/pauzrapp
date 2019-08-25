@@ -29,6 +29,10 @@ class AffiliateVideoPost extends React.PureComponent<
     const {item} = data;
     const {width} = Dimensions.get('window');
 
+    const poster = item.url
+      .replace('video/upload/', 'video/upload/e_blur:100/w_300/')
+      .replace('.mp4', '.jpg');
+
     return (
       <TouchableHighlight
         onPress={() => {
@@ -45,6 +49,8 @@ class AffiliateVideoPost extends React.PureComponent<
             paused={paused}
             muted={muted}
             controls={false}
+            poster={poster}
+            posterResizeMode="cover"
           />
 
           {muted && (
