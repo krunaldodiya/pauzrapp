@@ -34,8 +34,6 @@ class Post extends PureComponent<PostProps, PostState> {
   renderItem = (data: any) => {
     const {item} = data;
 
-    console.log(this.props);
-
     return (
       <React.Fragment>
         {item.type == 'regular' && item.content_type == 'image' && <RegularImagePost data={data} />}

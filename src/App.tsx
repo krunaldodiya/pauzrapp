@@ -1,13 +1,18 @@
 import React from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {Provider} from 'react-redux';
+import HomeContainer from './containers/home';
+import IntroContainer from './containers/intro';
+import PostContainer from './containers/post';
+import ProfileContainer from './containers/profile';
 import {store} from './store';
 
 const AppNavigator = createStackNavigator(
   {
-    Home: {screen: require('./containers/home').default},
-    Intro: {screen: require('./containers/intro').default},
-    Post: {screen: require('./containers/post').default},
+    Home: {screen: HomeContainer},
+    Intro: {screen: IntroContainer},
+    Post: {screen: PostContainer},
+    Profile: {screen: ProfileContainer},
   },
   {
     initialRouteName: 'Home',

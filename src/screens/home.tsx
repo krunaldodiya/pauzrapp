@@ -1,9 +1,9 @@
 import React from 'react';
 import Swiper from 'react-native-swiper';
-import Intro from '../containers/intro';
-import Post from '../containers/post';
+import FocusContainer from '../containers/focus';
+import FunContainer from '../containers/fun';
 
-const Home = (props: any) => {
+const Home = () => {
   return (
     <Swiper
       showsHorizontalScrollIndicator={false}
@@ -11,8 +11,8 @@ const Home = (props: any) => {
       showsButtons={false}
       showsPagination={false}
       loop={false}>
-      <Post {...props} />
-      <Intro {...props} />
+      <FocusContainer />
+      <FunContainer />
     </Swiper>
   );
 };
