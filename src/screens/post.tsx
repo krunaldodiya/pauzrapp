@@ -51,22 +51,19 @@ class Post extends PureComponent<PostProps, PostState> {
 
   renderItem = (data: any) => {
     const {item} = data;
-    const {viewableItem, muted} = FeedStore;
 
     return (
       <React.Fragment>
         {item.type == 'regular' && item.content_type == 'image' && <RegularImagePost data={data} />}
 
-        {item.type == 'regular' && item.content_type == 'video' && (
-          <RegularVideoPost data={data} viewableItem={viewableItem} muted={muted} />
-        )}
+        {item.type == 'regular' && item.content_type == 'video' && <RegularVideoPost data={data} />}
 
         {item.type == 'sponsored' && item.content_type == 'image' && (
           <SponsoredImagePost data={data} />
         )}
 
         {item.type == 'sponsored' && item.content_type == 'video' && (
-          <SponsoredVideoPost data={data} viewableItem={viewableItem} muted={muted} />
+          <SponsoredVideoPost data={data} />
         )}
 
         {item.type == 'affiliate' && item.content_type == 'image' && (
@@ -74,15 +71,13 @@ class Post extends PureComponent<PostProps, PostState> {
         )}
 
         {item.type == 'affiliate' && item.content_type == 'video' && (
-          <AffiliateVideoPost data={data} viewableItem={viewableItem} muted={muted} />
+          <AffiliateVideoPost data={data} />
         )}
       </React.Fragment>
     );
   };
 
   render() {
-    console.log(FeedStore.viewableItem);
-
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar barStyle="light-content" backgroundColor="black" />
