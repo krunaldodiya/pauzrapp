@@ -12,10 +12,7 @@ interface PostProps {
   navigation: NavigationScreenProp<any, any>;
 }
 
-interface PostState {
-  muted: boolean;
-  viewableItem: any;
-}
+interface PostState {}
 
 interface User {
   name: string;
@@ -34,19 +31,6 @@ interface Post {
 const posts: Post[] = require('./posts.json');
 
 class Post extends PureComponent<PostProps, PostState> {
-  state: PostState = {
-    muted: false,
-    viewableItem: null,
-  };
-
-  onViewableItemsChanged = (data: any) => {
-    data.viewableItems.forEach((viewableItem: any) => {
-      if (viewableItem.item.content_type == 'video') {
-        //
-      }
-    });
-  };
-
   renderItem = (data: any) => {
     const {item} = data;
 
@@ -86,10 +70,6 @@ class Post extends PureComponent<PostProps, PostState> {
             data={posts}
             renderItem={this.renderItem}
             keyExtractor={(_, index) => index.toString()}
-            viewabilityConfig={{
-              viewAreaCoveragePercentThreshold: 100,
-            }}
-            onViewableItemsChanged={this.onViewableItemsChanged}
           />
         </View>
       </SafeAreaView>

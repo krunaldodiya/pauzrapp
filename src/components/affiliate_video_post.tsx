@@ -6,10 +6,10 @@ import Video from 'react-native-video';
 
 interface AffiliateVideoPostProps {
   data: any;
-  viewableItem: any;
 }
 
 interface AffiliateVideoPostState {
+  paused: boolean;
   muted: boolean;
 }
 
@@ -18,27 +18,21 @@ class AffiliateVideoPost extends React.PureComponent<
   AffiliateVideoPostState
 > {
   state = {
+    paused: true,
     muted: false,
   };
 
-  onLayout = (event: any) => {
-    console.log(event.nativeEvent);
-  };
-
   render() {
-    const {data, viewableItem} = this.props;
-    const {muted} = this.state;
+    const {data} = this.props;
+    const {muted, paused} = this.state;
 
-    const {item, index} = data;
-    const paused = viewableItem != index;
+    const {item} = data;
     const {width} = Dimensions.get('window');
 
     return (
       <TouchableHighlight
         onPress={() => {
-          if (viewableItem == index) {
-            this.setState({muted: !muted});
-          }
+          this.setState({muted: !muted});
         }}>
         <View>
           <Video
@@ -51,7 +45,6 @@ class AffiliateVideoPost extends React.PureComponent<
             paused={paused}
             muted={muted}
             controls={false}
-            onLayout={this.onLayout}
           />
 
           {muted && (
