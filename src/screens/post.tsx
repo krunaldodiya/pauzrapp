@@ -89,7 +89,7 @@ class Post extends PureComponent<PostProps, PostState> {
             renderItem={this.renderItem}
             keyExtractor={(_, index) => index.toString()}
             viewabilityConfig={{
-              itemVisiblePercentThreshold: 50,
+              viewAreaCoveragePercentThreshold: 100,
             }}
             onViewableItemsChanged={this.onViewableItemsChanged}
           />

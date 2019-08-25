@@ -22,6 +22,10 @@ class SponsoredVideoPost extends React.PureComponent<
     muted: false,
   };
 
+  onLayout = (event: any) => {
+    console.log(event.nativeEvent);
+  };
+
   render() {
     const {data} = this.props;
     const {viewableItem} = FeedStore;
@@ -49,6 +53,7 @@ class SponsoredVideoPost extends React.PureComponent<
             paused={paused}
             muted={muted}
             controls={false}
+            onLayout={this.onLayout}
           />
 
           {muted && (
