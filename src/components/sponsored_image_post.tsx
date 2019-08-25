@@ -1,5 +1,6 @@
 import React from 'react';
-import {Dimensions, Image, View} from 'react-native';
+import {Dimensions, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 interface SponsoredImagePostProps {
   data: any;
@@ -18,7 +19,7 @@ const SponsoredImagePost = (props: SponsoredImagePostProps) => {
         marginBottom: 10,
         justifyContent: 'center',
       }}>
-      <Image
+      <FastImage
         style={{
           width: width,
           height: width,

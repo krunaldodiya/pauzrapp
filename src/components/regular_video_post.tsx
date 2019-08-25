@@ -35,13 +35,12 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
         onPress={() => {
           this.setState({muted: !muted});
         }}>
-        <View>
+        <View style={{marginBottom: 10}}>
           <Video
             source={{uri: item.url}}
             style={{
               width: width - 2,
               height: (width * 3) / 4,
-              backgroundColor: 'black',
             }}
             paused={paused}
             muted={muted}
@@ -59,7 +58,7 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
                 backgroundColor: '#000',
                 padding: 5,
               }}>
-              <Icon type="MaterialIcons" name="volume-off" style={{color: '#fff', fontSize: 14}} />
+              <Icon type="MaterialIcons" name="volume-off" style={{color: '#fff', fontSize: 16}} />
             </View>
           )}
         </View>
