@@ -20,8 +20,6 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
   };
 
   render() {
-    console.log('regular');
-
     const {data} = this.props;
     const {muted, paused} = this.state;
 

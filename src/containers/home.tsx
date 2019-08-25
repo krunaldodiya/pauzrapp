@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Post from '../screens/post';
+import Home from '../screens/home';
 import {changeName} from '../store/actions';
 import authData from '../store/selectors/auth';
 
@@ -17,9 +17,9 @@ const mapDispatchToProps = (dispatch: any) => {
   );
 };
 
-const PostContainer = connect(
+const HomeContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Post);
+)(Home);
 
-export default PostContainer;
+export default HomeContainer;

@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import {AsyncStorage} from 'react-native';
 
 const AUTH_TOKEN_KEY = 'authToken';
 
@@ -18,4 +18,4 @@ const resetAuthToken = async () => {
   return AsyncStorage.removeItem(AUTH_TOKEN_KEY);
 };
 
-export { setAuthToken, getAuthToken, resetAuth, resetAuthToken };
+export {setAuthToken, getAuthToken, resetAuth, resetAuthToken};

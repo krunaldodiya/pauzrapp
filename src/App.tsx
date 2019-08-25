@@ -5,12 +5,12 @@ import {store} from './store';
 
 const AppNavigator = createStackNavigator(
   {
-    Home: {screen: require('./screens/home').default},
-    Intro: {screen: require('./screens/intro').default},
+    Home: {screen: require('./containers/home').default},
+    Intro: {screen: require('./containers/intro').default},
     Post: {screen: require('./containers/post').default},
   },
   {
-    initialRouteName: 'Post',
+    initialRouteName: 'Home',
     defaultNavigationOptions: () => {
       return {
         header: null,

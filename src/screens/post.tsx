@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
+import {Button, FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AffiliateImagePost from '../components/affiliate_image_post';
 import AffiliateVideoPost from '../components/affiliate_video_post';
@@ -7,16 +7,16 @@ import RegularImagePost from '../components/regular_image_post';
 import RegularVideoPost from '../components/regular_video_post';
 import SponsoredVideoPost from '../components/sponosred_video_post';
 import SponsoredImagePost from '../components/sponsored_image_post';
+import User from '../models/user';
+import AuthProvider from '../store/providers/auth';
 
 interface PostProps {
   navigation: NavigationScreenProp<any, any>;
+  auth: AuthProvider;
+  changeName: any;
 }
 
 interface PostState {}
-
-interface User {
-  name: string;
-}
 
 interface Post {
   url: string;
@@ -33,6 +33,8 @@ const posts: Post[] = require('./posts.json');
 class Post extends PureComponent<PostProps, PostState> {
   renderItem = (data: any) => {
     const {item} = data;
+
+    console.log(this.props);
 
     return (
       <React.Fragment>
@@ -60,9 +62,17 @@ class Post extends PureComponent<PostProps, PostState> {
   };
 
   render() {
+    const {auth} = this.props;
+    const user = auth.authUser;
+
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar barStyle="light-content" backgroundColor="black" />
+
+        <View>
+          <Button title="change name" onPress={this.props.changeName} />
+          <Text>{user && user.name}</Text>
+        </View>
 
         <View style={{flex: 1}}>
           <FlatList

@@ -23,8 +23,6 @@ class SponsoredVideoPost extends React.PureComponent<
   };
 
   render() {
-    console.log('sponsored');
-
     const {data} = this.props;
     const {muted, paused} = this.state;
 

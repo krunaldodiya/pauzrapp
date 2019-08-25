@@ -1,8 +1,9 @@
 import {GET_AUTH_USER, GET_AUTH_USER_FAIL, GET_AUTH_USER_SUCCESS} from '../actions';
-import Auth from '../../models/auth';
+import AuthProvider from '../providers/auth';
 
-const initialState: Auth = {
-  authUserId: null,
+const initialState: AuthProvider = {
+  authUserId: 1,
+  authUser: null,
   errors: null,
   loading: false,
   loaded: false,

@@ -1,61 +1,20 @@
-import React, {PureComponent} from 'react';
-import {FlatList, Text, View} from 'react-native';
-import {NavigationScreenProp} from 'react-navigation';
+import React from 'react';
+import Swiper from 'react-native-swiper';
+import Intro from '../containers/intro';
+import Post from '../containers/post';
 
-const dataFactory = () => {
-  const array = [];
-
-  for (let index = 0; index < 1000; index++) {
-    array.push(index + 1);
-  }
-
-  return array;
+const Home = (props: any) => {
+  return (
+    <Swiper
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      showsButtons={false}
+      showsPagination={false}
+      loop={false}>
+      <Post {...props} />
+      <Intro {...props} />
+    </Swiper>
+  );
 };
 
-interface HomeProps {
-  navigation: NavigationScreenProp<any, any>;
-}
-
-interface HomeState {
-  data: number[];
-}
-
-class Home extends PureComponent<HomeProps, HomeState> {
-  state: HomeState = {
-    data: [],
-  };
-
-  componentDidMount() {
-    this.setState({data: dataFactory()});
-  }
-
-  renderItem = (data: any) => {
-    return (
-      <View
-        style={{
-          backgroundColor: 'yellow',
-          marginBottom: 10,
-          height: 300,
-          justifyContent: 'center',
-        }}>
-        <Text style={{fontSize: 22, color: 'red', textAlign: 'center'}}>
-          yahoo #{data.index + 1}
-        </Text>
-      </View>
-    );
-  };
-
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <FlatList
-          initialNumToRender={5}
-          data={dataFactory()}
-          renderItem={this.renderItem}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </View>
-    );
-  }
-}
 export default Home;
