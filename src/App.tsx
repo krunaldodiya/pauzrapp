@@ -7,7 +7,7 @@ const AppNavigator = createStackNavigator(
   {
     Home: {screen: require('./screens/home').default},
     Intro: {screen: require('./screens/intro').default},
-    Post: {screen: require('./screens/post').default},
+    Post: {screen: require('./containers/post').default},
   },
   {
     initialRouteName: 'Post',

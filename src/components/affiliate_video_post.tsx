@@ -23,6 +23,8 @@ class AffiliateVideoPost extends React.PureComponent<
   };
 
   render() {
+    console.log('affiliate');
+
     const {data} = this.props;
     const {muted, paused} = this.state;
 
