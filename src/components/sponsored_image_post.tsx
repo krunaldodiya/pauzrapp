@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react';
 import React from 'react';
 import {Dimensions, Image, View} from 'react-native';
 
@@ -30,4 +29,4 @@ const SponsoredImagePost = (props: SponsoredImagePostProps) => {
   );
 };
 
-export default observer(SponsoredImagePost);
+export default SponsoredImagePost;

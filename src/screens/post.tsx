@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react';
 import React, {PureComponent} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
@@ -8,7 +7,6 @@ import RegularImagePost from '../components/regular_image_post';
 import RegularVideoPost from '../components/regular_video_post';
 import SponsoredVideoPost from '../components/sponosred_video_post';
 import SponsoredImagePost from '../components/sponsored_image_post';
-import FeedStore from '../stores/feed';
 
 interface PostProps {
   navigation: NavigationScreenProp<any, any>;
@@ -44,7 +42,7 @@ class Post extends PureComponent<PostProps, PostState> {
   onViewableItemsChanged = (data: any) => {
     data.viewableItems.forEach((viewableItem: any) => {
       if (viewableItem.item.content_type == 'video') {
-        FeedStore.updateViewableItems(viewableItem.index);
+        //
       }
     });
   };
@@ -99,4 +97,4 @@ class Post extends PureComponent<PostProps, PostState> {
   }
 }
 
-export default observer(Post);
+export default Post;

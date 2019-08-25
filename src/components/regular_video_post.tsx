@@ -1,13 +1,12 @@
-import {observer} from 'mobx-react';
 import {Icon} from 'native-base';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Video from 'react-native-video';
-import FeedStore from '../stores/feed';
 
 interface RegularVideoPostProps {
   data: any;
+  viewableItem: any;
 }
 
 interface RegularVideoPostState {
@@ -24,8 +23,7 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
   };
 
   render() {
-    const {data} = this.props;
-    const {viewableItem} = FeedStore;
+    const {data, viewableItem} = this.props;
     const {muted} = this.state;
 
     const {item, index} = data;
@@ -71,4 +69,4 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
   }
 }
 
-export default observer(RegularVideoPost);
+export default RegularVideoPost;

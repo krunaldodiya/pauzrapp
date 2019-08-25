@@ -1,9 +1,11 @@
 packages
 ----------
 react-navigation react-native-gesture-handler react-native-reanimated
-axios react-native-app-intro-slider react-native-device-info react-native-fast-image mobx mobx-react mobx-state-tree react-native-loading-spinner-overlay react-native-side-menu react-native-swiper
+axios react-native-app-intro-slider react-native-device-info react-native-fast-image 
+react-native-loading-spinner-overlay react-native-side-menu react-native-swiper
 react-native-firebase native-base
 react-native-segmented-control-tab react-native-awesome-alerts
+redux react-redux redux-saga
 
 .eslintrc.js
 .prettierrc.js
@@ -24,4 +26,3 @@ react-native run-android
 npm start --reset-cache
 
 don't use arrow function, it causes hot reload issue
-don't use @observer instead observer(RequestOtpPage) use this, it causes hot reload issue

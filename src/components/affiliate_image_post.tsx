@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {Dimensions, Image, View} from 'react-native';
 
@@ -30,4 +29,4 @@ const AffiliateImagePost = (props: AffiliateImagePostProps) => {
   );
 };
 
-export default observer(AffiliateImagePost);
+export default AffiliateImagePost;
