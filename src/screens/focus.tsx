@@ -37,17 +37,41 @@ function DrawerMenu(props: any) {
   );
 }
 
-const FocusTabs = createBottomTabNavigator({
-  Intro: {
-    screen: IntroContainer,
+const FocusTabs = createBottomTabNavigator(
+  {
+    Intro: {
+      screen: IntroContainer,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon type="Ionicons" name="ios-people" style={{color: tintColor, fontSize: 28}} />
+        ),
+      },
+    },
+    Two: {
+      screen: Two,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon type="Ionicons" name="ios-pause" style={{color: tintColor, fontSize: 28}} />
+        ),
+      },
+    },
+    Three: {
+      screen: Three,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon type="Ionicons" name="ios-stats" style={{color: tintColor, fontSize: 28}} />
+        ),
+      },
+    },
   },
-  Two: {
-    screen: Two,
-  },
-  Three: {
-    screen: Three,
-  },
-});
+  {
+    tabBarOptions: {
+      showLabel: false,
+      activeTintColor: 'red',
+    },
+    initialRouteName: 'Two',
+  }
+);
 
 const FocusStackNavigator = createStackNavigator(
   {
