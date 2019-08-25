@@ -36,17 +36,26 @@ function DrawerMenu(props: any) {
   );
 }
 
-const FocusTabs = createBottomTabNavigator({
-  Intro: {
-    screen: IntroContainer,
+const FocusTabs = createBottomTabNavigator(
+  {
+    Intro: {
+      screen: IntroContainer,
+    },
+    Two: {
+      screen: Two,
+    },
+    Three: {
+      screen: Three,
+    },
   },
-  Two: {
-    screen: Two,
-  },
-  Three: {
-    screen: Three,
-  },
-});
+  {
+    navigationOptions: () => {
+      return {
+        header: null,
+      };
+    },
+  }
+);
 
 const FocusStackNavigator = createStackNavigator({
   Tabs: FocusTabs,

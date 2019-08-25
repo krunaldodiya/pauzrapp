@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
-import IntroContainer from '../containers/intro';
+import PostContainer from '../containers/post';
 import ProfileContainer from '../containers/profile';
 
 function Two(props: any) {
@@ -20,23 +20,32 @@ function Five(props: any) {
   return <View />;
 }
 
-const FunTabs = createBottomTabNavigator({
-  Intro: {
-    screen: IntroContainer,
+const FunTabs = createBottomTabNavigator(
+  {
+    Intro: {
+      screen: PostContainer,
+    },
+    Two: {
+      screen: Two,
+    },
+    Three: {
+      screen: Three,
+    },
+    Four: {
+      screen: Four,
+    },
+    Five: {
+      screen: Five,
+    },
   },
-  Two: {
-    screen: Two,
-  },
-  Three: {
-    screen: Three,
-  },
-  Four: {
-    screen: Four,
-  },
-  Five: {
-    screen: Five,
-  },
-});
+  {
+    navigationOptions: () => {
+      return {
+        header: null,
+      };
+    },
+  }
+);
 
 const Fun = createStackNavigator({
   Tabs: FunTabs,
