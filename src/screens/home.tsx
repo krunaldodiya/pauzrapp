@@ -1,6 +1,6 @@
 import {createMaterialTopTabNavigator} from 'react-navigation';
-import FocusContainer from '../containers/focus';
-import FunContainer from '../containers/fun';
+import FocusContainer from '../screens/focus';
+import FunContainer from '../screens/fun';
 
 const Tabs = createMaterialTopTabNavigator(
   {

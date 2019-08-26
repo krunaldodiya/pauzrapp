@@ -1,7 +1,7 @@
 import {Icon} from 'native-base';
 import React from 'react';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
-import PostContainer from '../containers/post';
+import PostContainer from '../screens/post';
 
 const FunTabNavigator = createBottomTabNavigator(
   {

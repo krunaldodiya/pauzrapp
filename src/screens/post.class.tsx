@@ -1,22 +1,37 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {Button, FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {NavigationScreenProp} from 'react-navigation';
 import AffiliateImagePost from '../components/affiliate_image_post';
 import AffiliateVideoPost from '../components/affiliate_video_post';
 import RegularImagePost from '../components/regular_image_post';
 import RegularVideoPost from '../components/regular_video_post';
 import SponsoredVideoPost from '../components/sponosred_video_post';
 import SponsoredImagePost from '../components/sponsored_image_post';
+import User from '../models/user';
+import AuthProvider from '../store/providers/auth';
 
-const Post = (props: any) => {
-  const user = useSelector((state: any) => {
-    return state.user.users.find((user: any) => user.id == state.auth.authUserId);
-  });
+interface PostProps {
+  navigation: NavigationScreenProp<any, any>;
+  auth: AuthProvider;
+  changeName: any;
+}
 
-  const dispatch = useDispatch();
-  const changeName = () => dispatch({type: 'CHANGE_NAME'});
+interface PostState {}
 
-  const renderItem = (data: any) => {
+interface Post {
+  url: string;
+  title?: string;
+  description?: string;
+  owner: User;
+  when: string;
+  content_type: 'image' | 'video';
+  type: 'regular' | 'sponsored' | 'affiliate';
+}
+
+const posts: Post[] = require('./posts.json');
+
+class Post extends PureComponent<PostProps, PostState> {
+  renderItem = (data: any) => {
     const {item} = data;
 
     return (
@@ -44,25 +59,30 @@ const Post = (props: any) => {
     );
   };
 
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="light-content" backgroundColor="black" />
+  render() {
+    const {auth} = this.props;
+    const user = auth.authUser;
 
-      <View>
-        <Button title="change name" onPress={changeName} />
-        <Text>{user.name}</Text>
-      </View>
+    return (
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar barStyle="light-content" backgroundColor="black" />
 
-      <View style={{flex: 1}}>
-        <FlatList
-          initialNumToRender={10}
-          data={require('./posts.json')}
-          renderItem={renderItem}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </View>
-    </SafeAreaView>
-  );
-};
+        <View>
+          <Button title="change name" onPress={this.props.changeName} />
+          <Text>{user && user.name}</Text>
+        </View>
+
+        <View style={{flex: 1}}>
+          <FlatList
+            initialNumToRender={10}
+            data={posts}
+            renderItem={this.renderItem}
+            keyExtractor={(_, index) => index.toString()}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+}
 
 export default Post;

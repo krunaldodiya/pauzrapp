@@ -5,7 +5,7 @@ import {
   createDrawerNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import IntroContainer from '../containers/intro';
+import IntroContainer from '../screens/intro';
 import {SafeAreaView, View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -13,7 +13,7 @@ const DrawerMenu = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1, padding: 10}}>
-        <TouchableOpacity onPress={() => goToProfile(props)}>
+        <TouchableOpacity onPress={() => console.log(props)}>
           <Text>Profile</Text>
         </TouchableOpacity>
       </View>
