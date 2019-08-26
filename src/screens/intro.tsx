@@ -65,4 +65,4 @@ const IntroButton = styled.Button`
   color: #000;
 `;
 
-export default Intro;
+export default React.memo(Intro);
