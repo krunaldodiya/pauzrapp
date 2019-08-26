@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const goToHome = (props: any) => props.navigation.replace('RequestOtp');
+const goToHome = (props: any) => props.navigation.replace('Home');
 
-const Intro = (props: any) => {
+const RequestOtp = (props: any) => {
   return (
     <IntroWrapper>
       <IntroInfo>
-        <IntroText>I'm an intro, you can skip me too.</IntroText>
+        <IntroText>RequestOtp screen</IntroText>
       </IntroInfo>
 
       <IntroInfo>
@@ -36,4 +36,4 @@ const IntroButton = styled.Button`
   color: #000;
 `;
 
-export default Intro;
+export default RequestOtp;

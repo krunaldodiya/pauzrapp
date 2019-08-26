@@ -1,8 +1,8 @@
-import {Icon} from 'native-base';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Video from 'react-native-video';
+import Icon from './Icon';
 
 interface AffiliateVideoPostProps {
   data: any;

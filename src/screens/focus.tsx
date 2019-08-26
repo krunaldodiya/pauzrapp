@@ -1,4 +1,3 @@
-import {Icon} from 'native-base';
 import React from 'react';
 import {
   createBottomTabNavigator,
@@ -8,6 +7,7 @@ import {
 import IntroContainer from '../screens/intro';
 import {SafeAreaView, View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from '../components/Icon';
 
 const DrawerMenu = (props: any) => {
   return (

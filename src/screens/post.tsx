@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import AffiliateImagePost from '../components/affiliate_image_post';
 import AffiliateVideoPost from '../components/affiliate_video_post';
 import RegularImagePost from '../components/regular_image_post';
@@ -9,12 +8,12 @@ import SponsoredVideoPost from '../components/sponosred_video_post';
 import SponsoredImagePost from '../components/sponsored_image_post';
 
 const Post = (props: any) => {
-  const user = useSelector((state: any) => {
-    return state.user.users.find((user: any) => user.id == state.auth.authUserId);
-  });
+  // const user = useSelector((state: any) => {
+  //   return state.user.users.find((user: any) => user.id == state.auth.authUserId);
+  // });
 
-  const dispatch = useDispatch();
-  const changeName = () => dispatch({type: 'CHANGE_NAME'});
+  // const dispatch = useDispatch();
+  // const changeName = () => dispatch({type: 'CHANGE_NAME', payload: {props}});
 
   const renderItem = (data: any) => {
     const {item} = data;
@@ -47,11 +46,6 @@ const Post = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="black" />
-
-      <View>
-        <Button title="change name" onPress={changeName} />
-        <Text>{user.name}</Text>
-      </View>
 
       <View style={{flex: 1}}>
         <FlatList
