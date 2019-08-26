@@ -1,35 +1,15 @@
+import {Icon} from 'native-base';
 import React from 'react';
-import {Text, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import {
-  createAppContainer,
   createBottomTabNavigator,
   createDrawerNavigator,
   createStackNavigator,
-  StackActions,
 } from 'react-navigation';
 import IntroContainer from '../containers/intro';
-import ProfileContainer from '../containers/profile';
-import {Icon} from 'native-base';
+import {SafeAreaView, View, Text} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function Two(props: any) {
-  return <View />;
-}
-
-function Three(props: any) {
-  return <View />;
-}
-
-function goToProfile(props: any) {
-  const pushAction = StackActions.push({
-    routeName: 'Profile',
-  });
-
-  props.navigation.dispatch(pushAction);
-}
-
-function DrawerMenu(props: any) {
-  console.log('drawer props', props);
-
+const DrawerMenu = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1, padding: 10}}>
@@ -39,7 +19,7 @@ function DrawerMenu(props: any) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const FocusTabNavigator = createBottomTabNavigator(
   {
@@ -52,7 +32,7 @@ const FocusTabNavigator = createBottomTabNavigator(
       },
     },
     Two: {
-      screen: Two,
+      screen: IntroContainer,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon type="Ionicons" name="ios-pause" style={{color: tintColor, fontSize: 28}} />
@@ -60,7 +40,7 @@ const FocusTabNavigator = createBottomTabNavigator(
       },
     },
     Three: {
-      screen: Three,
+      screen: IntroContainer,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon type="Ionicons" name="ios-stats" style={{color: tintColor, fontSize: 28}} />
@@ -79,8 +59,7 @@ const FocusTabNavigator = createBottomTabNavigator(
 
 const FocusStackNavigator = createStackNavigator(
   {
-    Tabs: FocusTabNavigator,
-    Profile: ProfileContainer,
+    FocusTabNavigator: FocusTabNavigator,
   },
   {
     headerLayoutPreset: 'center',
@@ -117,11 +96,4 @@ const FocusDrawerNavigator = createDrawerNavigator(
   }
 );
 
-class Focus extends React.PureComponent {
-  render() {
-    const FocusApp = createAppContainer(FocusDrawerNavigator);
-    return <FocusApp />;
-  }
-}
-
-export default Focus;
+export default FocusDrawerNavigator;

@@ -1,25 +1,7 @@
 import {Icon} from 'native-base';
 import React from 'react';
-import {View} from 'react-native';
-import {createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import PostContainer from '../containers/post';
-import ProfileContainer from '../containers/profile';
-
-function Two(props: any) {
-  return <View />;
-}
-
-function Three(props: any) {
-  return <View />;
-}
-
-function Four(props: any) {
-  return <View />;
-}
-
-function Five(props: any) {
-  return <View />;
-}
 
 const FunTabNavigator = createBottomTabNavigator(
   {
@@ -32,7 +14,7 @@ const FunTabNavigator = createBottomTabNavigator(
       },
     },
     Two: {
-      screen: Two,
+      screen: PostContainer,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon type="EvilIcons" name="trophy" style={{color: tintColor, fontSize: 36}} />
@@ -40,7 +22,7 @@ const FunTabNavigator = createBottomTabNavigator(
       },
     },
     Three: {
-      screen: Three,
+      screen: PostContainer,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon type="EvilIcons" name="user" style={{color: tintColor, fontSize: 36}} />
@@ -48,7 +30,7 @@ const FunTabNavigator = createBottomTabNavigator(
       },
     },
     Four: {
-      screen: Four,
+      screen: PostContainer,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon type="EvilIcons" name="search" style={{color: tintColor, fontSize: 36}} />
@@ -56,7 +38,7 @@ const FunTabNavigator = createBottomTabNavigator(
       },
     },
     Five: {
-      screen: Five,
+      screen: PostContainer,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon type="EvilIcons" name="heart" style={{color: tintColor, fontSize: 36}} />
@@ -69,14 +51,13 @@ const FunTabNavigator = createBottomTabNavigator(
       showLabel: false,
       activeTintColor: 'red',
     },
-    initialRouteName: 'Three',
+    initialRouteName: 'Two',
   }
 );
 
-const FunStatckNavigator = createStackNavigator(
+const FunStackNavigator = createStackNavigator(
   {
-    Tabs: FunTabNavigator,
-    Profile: ProfileContainer,
+    FunTabNavigator: FunTabNavigator,
   },
   {
     headerLayoutPreset: 'center',
@@ -96,11 +77,4 @@ const FunStatckNavigator = createStackNavigator(
   }
 );
 
-class Fun extends React.PureComponent {
-  render() {
-    const FunApp = createAppContainer(FunStatckNavigator);
-    return <FunApp />;
-  }
-}
-
-export default Fun;
+export default FunStackNavigator;
