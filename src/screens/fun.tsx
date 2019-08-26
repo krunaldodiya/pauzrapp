@@ -21,7 +21,7 @@ function Five(props: any) {
   return <View />;
 }
 
-const FunTabs = createBottomTabNavigator(
+const FunTabNavigator = createBottomTabNavigator(
   {
     Intro: {
       screen: PostContainer,
@@ -73,9 +73,9 @@ const FunTabs = createBottomTabNavigator(
   }
 );
 
-const Fun = createStackNavigator(
+const FunStatckNavigator = createStackNavigator(
   {
-    Tabs: FunTabs,
+    Tabs: FunTabNavigator,
     Profile: ProfileContainer,
   },
   {
@@ -96,4 +96,11 @@ const Fun = createStackNavigator(
   }
 );
 
-export default createAppContainer(Fun);
+class Fun extends React.PureComponent {
+  render() {
+    const FunApp = createAppContainer(FunStatckNavigator);
+    return <FunApp />;
+  }
+}
+
+export default Fun;

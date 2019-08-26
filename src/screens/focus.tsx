@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, SafeAreaView} from 'react-native';
 import {
   createAppContainer,
   createBottomTabNavigator,
@@ -28,16 +28,20 @@ function goToProfile(props: any) {
 }
 
 function DrawerMenu(props: any) {
+  console.log('drawer props', props);
+
   return (
-    <View style={{flex: 1, backgroundColor: 'yellow'}}>
-      <TouchableOpacity onPress={() => goToProfile(props)}>
-        <Text>Profile</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1, padding: 10}}>
+        <TouchableOpacity onPress={() => goToProfile(props)}>
+          <Text>Profile</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
-const FocusTabs = createBottomTabNavigator(
+const FocusTabNavigator = createBottomTabNavigator(
   {
     Intro: {
       screen: IntroContainer,
@@ -75,7 +79,7 @@ const FocusTabs = createBottomTabNavigator(
 
 const FocusStackNavigator = createStackNavigator(
   {
-    Tabs: FocusTabs,
+    Tabs: FocusTabNavigator,
     Profile: ProfileContainer,
   },
   {
@@ -104,7 +108,7 @@ const FocusStackNavigator = createStackNavigator(
   }
 );
 
-const Focus = createDrawerNavigator(
+const FocusDrawerNavigator = createDrawerNavigator(
   {
     Main: FocusStackNavigator,
   },
@@ -113,4 +117,11 @@ const Focus = createDrawerNavigator(
   }
 );
 
-export default createAppContainer(Focus);
+class Focus extends React.PureComponent {
+  render() {
+    const FocusApp = createAppContainer(FocusDrawerNavigator);
+    return <FocusApp />;
+  }
+}
+
+export default Focus;
