@@ -1,40 +1,26 @@
 import React from 'react';
 
-interface VectorIconsProps {
-  MaterialIcons: string;
-  EvilIcons: string;
-  Entypo: string;
-  FontAwesome: string;
-  Foundation: string;
-  Ionicons: string;
-  MaterialCommunityIcons: string;
-  Zocial: string;
-  Octicons: string;
-  SimpleLineIcons: string;
-}
-
 interface IconProps {
+  type:
+    | 'AntDesign'
+    | 'MaterialIcons'
+    | 'EvilIcons'
+    | 'Entypo'
+    | 'FontAwesome'
+    | 'Foundation'
+    | 'Ionicons'
+    | 'MaterialCommunityIcons'
+    | 'Zocial'
+    | 'Octicons'
+    | 'SimpleLineIcons';
   name: string;
-  type: string;
   size?: number;
   color?: string;
   style?: React.CSSProperties;
+  onPress?: Function;
 }
 
-const VectorIcons: VectorIconsProps = {
-  MaterialIcons: 'MaterialIcons',
-  EvilIcons: 'EvilIcons',
-  Entypo: 'Entypo',
-  FontAwesome: 'FontAwesome',
-  Foundation: 'Foundation',
-  Ionicons: 'Ionicons',
-  MaterialCommunityIcons: 'MaterialCommunityIcons',
-  Zocial: 'Zocial',
-  Octicons: 'Octicons',
-  SimpleLineIcons: 'SimpleLineIcons',
-};
-
-const Icon = (props: IconProps): JSX.Element => {
+export default (props: IconProps): JSX.Element => {
   switch (props.type) {
     case 'AntDesign': {
       const AntDesign = require('react-native-vector-icons/AntDesign').default;
@@ -43,6 +29,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -54,6 +42,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -65,6 +55,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -76,6 +68,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -87,6 +81,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -98,6 +94,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -109,6 +107,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -120,6 +120,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -132,6 +134,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -143,6 +147,8 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
@@ -154,15 +160,23 @@ const Icon = (props: IconProps): JSX.Element => {
           name={props.name}
           color={props.color ? props.color : '#000'}
           size={props.size ? props.size : 18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
         />
       );
     }
 
     default: {
       const MaterialIcons = require('react-native-vector-icons/MaterialIcons').default;
-      return <MaterialIcons name={props.name} color={'#000'} size={18} />;
+      return (
+        <MaterialIcons
+          name={props.name}
+          color="#000"
+          size={18}
+          onPress={props.onPress ? props.onPress : null}
+          style={props.style ? props.style : {}}
+        />
+      );
     }
   }
 };
-
-export {Icon, VectorIcons};
