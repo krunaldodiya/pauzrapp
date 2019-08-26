@@ -2,25 +2,38 @@ import React, {useContext} from 'react';
 import {Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
-import {RootContext} from '../stores/providers/root';
 import {changeName} from '../stores/actions/change_name';
+import {AuthContext} from '../stores/providers/auth';
+import {UserContext} from '../stores/providers/user';
+import getAuthUser from '../stores/selectors';
 
 const goToHome = (props: any) => props.navigation.replace('RequestOtp');
 
 const Intro = (props: any) => {
-  const [state, dispatch] = useContext(RootContext);
+  const [authState, authDispatch] = useContext(AuthContext);
+  const [userState] = useContext(UserContext);
+
+  const authUser = getAuthUser({name: authState.name, users: userState.users});
 
   return (
     <IntroWrapper>
       <View>
-        <Text>{state.name}</Text>
+        <Text>{authUser && authUser.name}</Text>
       </View>
 
-      <View>
-        <TouchableOpacity onPress={() => dispatch(changeName('kalpit'))}>
-          <Text>Change Name</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={() => authDispatch(changeName('kalpit'))}
+        style={{backgroundColor: 'red', marginRight: 10, padding: 15, borderRadius: 50}}>
+        <Text
+          style={{
+            color: 'white',
+            textAlign: 'center',
+            fontWeight: 'bold',
+            fontSize: 18,
+          }}>
+          Change Name
+        </Text>
+      </TouchableOpacity>
 
       <IntroInfo>
         <IntroText>I'm an intro, you can skip me too.</IntroText>

@@ -1,4 +1,4 @@
-const rootReducer = (draft: any, action: any) => {
+const authReducer = (draft: any, action: any) => {
   switch (action.type) {
     case 'CHANGE_NAME': {
       draft.name = action.payload;
@@ -16,4 +16,4 @@ const rootReducer = (draft: any, action: any) => {
   }
 };
 
-export default rootReducer;
+export default authReducer;

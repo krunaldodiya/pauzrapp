@@ -4,7 +4,8 @@ import Home from './screens/home';
 import Intro from './screens/intro';
 import Post from './screens/post';
 import RequestOtp from './screens/request_otp';
-import RootProvider from './stores/providers/root';
+import AuthProvider from './stores/providers/auth';
+import UserProvider from './stores/providers/user';
 
 const AppNavigator = createStackNavigator(
   {
@@ -28,9 +29,11 @@ class App extends React.PureComponent {
     const AppContainer = createAppContainer(AppNavigator);
 
     return (
-      <RootProvider>
-        <AppContainer />
-      </RootProvider>
+      <UserProvider>
+        <AuthProvider>
+          <AppContainer />
+        </AuthProvider>
+      </UserProvider>
     );
   }
 }
