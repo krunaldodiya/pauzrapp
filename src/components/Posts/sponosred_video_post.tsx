@@ -1,21 +1,21 @@
-import {Icon} from 'native-base';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Video from 'react-native-video';
+import Icon from '../Icon';
 
-interface AffiliateVideoPostProps {
+interface SponsoredVideoPostProps {
   data: any;
 }
 
-interface AffiliateVideoPostState {
+interface SponsoredVideoPostState {
   paused: boolean;
   muted: boolean;
 }
 
-class AffiliateVideoPost extends React.PureComponent<
-  AffiliateVideoPostProps,
-  AffiliateVideoPostState
+class SponsoredVideoPost extends React.PureComponent<
+  SponsoredVideoPostProps,
+  SponsoredVideoPostState
 > {
   state = {
     paused: true,
@@ -70,4 +70,4 @@ class AffiliateVideoPost extends React.PureComponent<
   }
 }
 
-export default AffiliateVideoPost;
+export default SponsoredVideoPost;

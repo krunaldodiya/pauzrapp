@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react';
 import {Button, FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
-import AffiliateImagePost from '../components/affiliate_image_post';
-import AffiliateVideoPost from '../components/affiliate_video_post';
-import RegularImagePost from '../components/regular_image_post';
-import RegularVideoPost from '../components/regular_video_post';
-import SponsoredVideoPost from '../components/sponosred_video_post';
-import SponsoredImagePost from '../components/sponsored_image_post';
+import AffiliateImagePost from '../components/Posts/affiliate_image_post';
+import AffiliateVideoPost from '../components/Posts/affiliate_video_post';
+import RegularImagePost from '../components/Posts/regular_image_post';
+import RegularVideoPost from '../components/Posts/regular_video_post';
+import SponsoredVideoPost from '../components/Posts/sponosred_video_post';
+import SponsoredImagePost from '../components/Posts/sponsored_image_post';
 import User from '../models/user';
 import AuthProvider from '../store/providers/auth';
 

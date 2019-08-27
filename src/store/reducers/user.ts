@@ -1,5 +1,12 @@
 import {GET_AUTH_USER, GET_AUTH_USER_FAIL, GET_AUTH_USER_SUCCESS, CHANGE_NAME} from '../actions';
-import UserProvider from '../providers/user';
+import User from '../../models/user';
+
+export interface UserProvider {
+  users: User[];
+  errors: null | {};
+  loading: boolean;
+  loaded: boolean;
+}
 
 const initialState: UserProvider = {
   users: [{id: 1, name: 'krunal'}, {id: 2, name: 'aryan'}],
