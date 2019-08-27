@@ -1,7 +1,7 @@
 import {GET_AUTH_USER, GET_AUTH_USER_FAIL, GET_AUTH_USER_SUCCESS} from '../actions';
 
 const initialState = {
-  authUserId: 1,
+  authUserId: null,
   errors: null,
   loading: false,
   loaded: false,
