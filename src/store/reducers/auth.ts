@@ -1,14 +1,6 @@
 import {GET_AUTH_USER, GET_AUTH_USER_FAIL, GET_AUTH_USER_SUCCESS} from '../actions';
-import User from '../../models/user';
 
-export interface AuthProvider {
-  authUserId: null | number;
-  errors: null | {};
-  loading: boolean;
-  loaded: boolean;
-}
-
-const initialState: AuthProvider = {
+const initialState = {
   authUserId: 1,
   errors: null,
   loading: false,

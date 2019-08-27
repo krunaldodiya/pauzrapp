@@ -2,9 +2,9 @@ import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {NavigationScreenProp} from 'react-navigation';
+import {useDispatch, useSelector} from 'react-redux';
 import {changeName} from '../store/actions';
 import getAuthUserSelector from '../store/selectors/auth';
-import {useSelector, useDispatch} from 'react-redux';
 
 interface IntroProps {
   navigation: NavigationScreenProp<any, any>;
@@ -23,7 +23,7 @@ const Intro = (props: IntroProps) => {
       </View>
 
       <TouchableOpacity
-        onPress={() => dispatch(changeName('kalpit'))}
+        onPress={() => dispatch(changeName({id: 1, name: 'kalpit'}))}
         style={{backgroundColor: 'red', marginRight: 10, padding: 15, borderRadius: 50}}>
         <Text
           style={{

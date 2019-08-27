@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Button, FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
+import {useSelector} from 'react-redux';
 import AffiliateImagePost from '../components/Posts/affiliate_image_post';
 import AffiliateVideoPost from '../components/Posts/affiliate_video_post';
 import RegularImagePost from '../components/Posts/regular_image_post';
@@ -8,11 +9,9 @@ import RegularVideoPost from '../components/Posts/regular_video_post';
 import SponsoredVideoPost from '../components/Posts/sponosred_video_post';
 import SponsoredImagePost from '../components/Posts/sponsored_image_post';
 import User from '../models/user';
-import AuthProvider from '../store/providers/auth';
 
 interface PostProps {
   navigation: NavigationScreenProp<any, any>;
-  auth: AuthProvider;
   changeName: any;
 }
 
@@ -60,8 +59,8 @@ class Post extends PureComponent<PostProps, PostState> {
   };
 
   render() {
-    const {auth} = this.props;
-    const user = auth.authUser;
+    const state = useSelector((state: any) => state);
+    const user = state.auth.authUser;
 
     return (
       <SafeAreaView style={{flex: 1}}>
