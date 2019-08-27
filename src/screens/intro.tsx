@@ -2,9 +2,9 @@ import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {NavigationScreenProp} from 'react-navigation';
-import {useSelector, useDispatch} from 'react-redux';
 import {changeName} from '../store/actions';
 import getAuthUserSelector from '../store/selectors/auth';
+import {useSelector, useDispatch} from 'react-redux';
 
 interface IntroProps {
   navigation: NavigationScreenProp<any, any>;
@@ -13,6 +13,7 @@ interface IntroProps {
 const Intro = (props: IntroProps) => {
   const state = useSelector((state: any) => state);
   const dispatch = useDispatch();
+
   const authUser = getAuthUserSelector(state);
 
   return (
