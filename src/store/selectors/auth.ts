@@ -1,15 +1,15 @@
 import {createSelector} from 'reselect';
 import User from '../../models/user';
 
-const userNameSelector = (state: any) => state.name;
-const userListSelector = (state: any) => state.users;
+const userNameSelector = (state: any) => state.auth.authUserId;
+const userListSelector = (state: any) => state.user.users;
 
-const getAuthUser = (name: string, users: User[]) => {
-  return users.find((user: User) => user.name == name);
+const getAuthUserSelector = (authUserId: number, users: User[]) => {
+  return users.find((user: User) => user.id == authUserId);
 };
 
 export default createSelector(
   userNameSelector,
   userListSelector,
-  getAuthUser
+  getAuthUserSelector
 );

@@ -3,7 +3,6 @@ import User from '../../models/user';
 
 export interface AuthProvider {
   authUserId: null | number;
-  authUser: null | User;
   errors: null | {};
   loading: boolean;
   loaded: boolean;
@@ -11,7 +10,6 @@ export interface AuthProvider {
 
 const initialState: AuthProvider = {
   authUserId: 1,
-  authUser: null,
   errors: null,
   loading: false,
   loaded: false,
@@ -30,16 +28,17 @@ const authReducer = (state = initialState, action: any) => {
     case GET_AUTH_USER_FAIL: {
       return {
         ...state,
-        loading: true,
-        loaded: false,
+        loading: false,
+        loaded: true,
       };
     }
 
     case GET_AUTH_USER_SUCCESS: {
       return {
         ...state,
-        loading: true,
-        loaded: false,
+        errors: null,
+        loading: false,
+        loaded: true,
       };
     }
 

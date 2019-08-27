@@ -20,7 +20,7 @@ const userReducer = (state = initialState, action: any) => {
     case CHANGE_NAME: {
       const newUsers = state.users.map(user => {
         if (user.id == 1) {
-          return {...user, name: 'hello'};
+          return {...user, name: action.payload};
         }
 
         return user;

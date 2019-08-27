@@ -1,6 +1,6 @@
 const CHANGE_NAME = 'CHANGE_NAME';
 
-const changeName = (payload: any) => {
+const changeName = (payload: string) => {
   return {
     type: CHANGE_NAME,
     payload,

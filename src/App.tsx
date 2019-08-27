@@ -1,19 +1,21 @@
 import React from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {Provider} from 'react-redux';
-import HomeContainer from './screens/home';
-import IntroContainer from './screens/intro';
-import PostContainer from './screens/post';
+import Home from './screens/home';
+import Intro from './screens/intro';
+import Post from './screens/post';
+import RequestOtp from './screens/request_otp';
 import {store} from './store';
 
 const AppNavigator = createStackNavigator(
   {
-    Home: {screen: HomeContainer},
-    Intro: {screen: IntroContainer},
-    Post: {screen: PostContainer},
+    Home: {screen: Home},
+    Intro: {screen: Intro},
+    Post: {screen: Post},
+    RequestOtp: {screen: RequestOtp},
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Intro',
     defaultNavigationOptions: () => {
       return {
         header: null,
@@ -34,4 +36,4 @@ class App extends React.PureComponent {
   }
 }
 
-export default App;
+export default React.memo(App);

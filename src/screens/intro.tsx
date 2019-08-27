@@ -1,20 +1,42 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {NavigationScreenProp} from 'react-navigation';
+import {useSelector, useDispatch} from 'react-redux';
+import {changeName} from '../store/actions';
+import getAuthUserSelector from '../store/selectors/auth';
 
 interface IntroProps {
   navigation: NavigationScreenProp<any, any>;
 }
 
 const Intro = (props: IntroProps) => {
+  const state = useSelector((state: any) => state);
+  const dispatch = useDispatch();
+  const authUser = getAuthUserSelector(state);
+
   return (
     <View style={{flex: 1}}>
-      <View style={{padding: 10, marginBottom: 10}}>
-        <Text>I'm an intro, you can skip me too.</Text>
+      <View>
+        <Text>{authUser && authUser.name}</Text>
       </View>
 
+      <TouchableOpacity
+        onPress={() => dispatch(changeName('kalpit'))}
+        style={{backgroundColor: 'red', marginRight: 10, padding: 15, borderRadius: 50}}>
+        <Text
+          style={{
+            color: 'white',
+            textAlign: 'center',
+            fontWeight: 'bold',
+            fontSize: 18,
+          }}>
+          Change Name
+        </Text>
+      </TouchableOpacity>
+
       <View style={{padding: 10}}>
-        <Button title="skip" onPress={() => props.navigation.replace('Home')} />
+        <Button title="skip" onPress={() => props.navigation.replace('RequestOtp')} />
       </View>
     </View>
   );
