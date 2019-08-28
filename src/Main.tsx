@@ -1,23 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import getInitialRouteName from './libs/initial_route';
 import Home from './screens/home';
 import Intro from './screens/intro';
 import Post from './screens/post';
 import RequestOtp from './screens/request_otp';
-import getAuthUserSelector from './store/selectors/auth';
+import Splash from './screens/splash';
+import {getAuthUser} from './store/actions';
 
-const getAppNavigator = (authUser: any) => {
+const getAppNavigator = () => {
+  const state = useSelector((state: any) => state);
+
   return createStackNavigator(
     {
       Home: {screen: Home},
       Intro: {screen: Intro},
       Post: {screen: Post},
       RequestOtp: {screen: RequestOtp},
+      Splash: {screen: Splash},
     },
     {
-      initialRouteName: getInitialRouteName(authUser),
+      initialRouteName: getInitialRouteName(state),
       defaultNavigationOptions: () => {
         return {
           header: null,
@@ -28,10 +32,13 @@ const getAppNavigator = (authUser: any) => {
 };
 
 const Main = () => {
-  const state = useSelector((state: any) => state);
-  const authUser = getAuthUserSelector(state);
+  const dispatch = useDispatch();
 
-  const AppNavigator = getAppNavigator(authUser);
+  useEffect(() => {
+    dispatch(getAuthUser({}));
+  }, []);
+
+  const AppNavigator = getAppNavigator();
   const AppContainer = createAppContainer(AppNavigator);
 
   return <AppContainer />;
