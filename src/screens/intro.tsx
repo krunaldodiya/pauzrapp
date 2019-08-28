@@ -1,45 +1,75 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Image, SafeAreaView, Text, View} from 'react-native';
+import AppIntroSlider from 'react-native-app-intro-slider';
 import {NavigationScreenProp} from 'react-navigation';
-import {useDispatch, useSelector} from 'react-redux';
-import {changeName} from '../store/actions';
-import getAuthUserSelector from '../store/selectors/auth_user';
+import getAssets from '../libs/image';
+import screens from '../libs/screens';
 
 interface IntroProps {
   navigation: NavigationScreenProp<any, any>;
 }
 
-const Intro = (props: IntroProps) => {
-  const state = useSelector((state: any) => state);
-  const dispatch = useDispatch();
+const slides = [
+  {
+    key: 'somethun',
+    title: 'Title 1',
+    text: 'Description.\nSay something cool',
+    image: require('../../assets/images/intro/1.png'),
+    backgroundColor: '#59b2ab',
+  },
+  {
+    key: 'somethun-dos',
+    title: 'Title 2',
+    text: 'Other cool stuff',
+    image: require('../../assets/images/intro/2.png'),
+    backgroundColor: '#febe29',
+  },
+  {
+    key: 'somethun3',
+    title: 'Rocket guy',
+    text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
+    image: require('../../assets/images/intro/3.png'),
+    backgroundColor: '#22bcb5',
+  },
+  {
+    key: 'somethun4',
+    title: 'Rocket guy',
+    text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
+    image: require('../../assets/images/intro/3.png'),
+    backgroundColor: '#22bcb5',
+  },
+];
 
-  const authUser = getAuthUserSelector(state);
+const renderItem = (data: any) => {
+  const {item} = data;
 
   return (
-    <View style={{flex: 1}}>
-      <View>
-        <Text>{authUser && authUser.name}</Text>
-      </View>
-
-      <TouchableOpacity
-        onPress={() => dispatch(changeName({id: 1, name: 'kalpit', status: false}))}
-        style={{backgroundColor: 'red', marginRight: 10, padding: 15, borderRadius: 50}}>
-        <Text
-          style={{
-            color: 'white',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 18,
-          }}>
-          Change Name
-        </Text>
-      </TouchableOpacity>
-
-      <View style={{padding: 10}}>
-        <Button title="skip" onPress={() => props.navigation.replace('RequestOtp')} />
-      </View>
+    <View style={{}}>
+      <Text style={{}}>{item.title}</Text>
+      <Image style={{}} source={{uri: getAssets(item.image)}} />
+      <Text style={{}}>{item.text}</Text>
     </View>
+  );
+};
+
+const Intro = (props: IntroProps) => {
+  const {navigation} = props;
+
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <AppIntroSlider
+        slides={slides}
+        renderItem={data => renderItem(data)}
+        onDone={() => navigation.replace(screens.RequestOtp)}
+        onSkip={() => navigation.replace(screens.RequestOtp)}
+        showSkipButton
+        showDoneButton
+        showNextButton
+        showPrevButton
+        activeDotStyle={{backgroundColor: 'lightblue'}}
+        dotStyle={{backgroundColor: 'white'}}
+      />
+    </SafeAreaView>
   );
 };
 
