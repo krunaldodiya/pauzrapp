@@ -46,7 +46,7 @@ const Post = (props: any) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="light-content" backgroundColor="black" />
+      <StatusBar barStyle="light-content" backgroundColor="#0D62A2" />
 
       <View>
         <Button title="change name" onPress={changeName} />

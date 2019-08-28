@@ -4,9 +4,9 @@ import {SafeAreaView, Text, View, StatusBar, ActivityIndicator} from 'react-nati
 const Splash = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar backgroundColor="blue" barStyle="light-content" />
+      <StatusBar backgroundColor="#0D62A2" barStyle="light-content" />
 
-      <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'blue'}}>
+      <View style={{flex: 1, justifyContent: 'center', backgroundColor: '#0D62A2'}}>
         <ActivityIndicator color="white" size="large" />
       </View>
     </SafeAreaView>
