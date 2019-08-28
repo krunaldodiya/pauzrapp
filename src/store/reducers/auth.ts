@@ -8,30 +8,27 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action: any) => {
-  switch (action.type) {
+  const {type, payload} = action;
+
+  switch (type) {
     case GET_AUTH_USER: {
-      return {
-        ...state,
-        loading: true,
-        loaded: false,
-      };
+      state.loading = true;
+      state.loaded = false;
+      return state;
     }
 
     case GET_AUTH_USER_FAIL: {
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-      };
+      state.errors = payload.errors;
+      state.loading = false;
+      state.loaded = true;
+      return state;
     }
 
     case GET_AUTH_USER_SUCCESS: {
-      return {
-        ...state,
-        errors: null,
-        loading: false,
-        loaded: true,
-      };
+      state.authUserId = payload.user.id;
+      state.loading = false;
+      state.loaded = true;
+      return state;
     }
 
     default:

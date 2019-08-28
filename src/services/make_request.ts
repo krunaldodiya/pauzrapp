@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {getAuthToken} from './auth';
 
-const makeRequest = async (url, data, type) => {
+const makeRequest = async (url: string, data: any, type: 'POST' | 'GET') => {
   const authToken = await getAuthToken();
   const headers = {
     'Content-Type': 'application/json',
