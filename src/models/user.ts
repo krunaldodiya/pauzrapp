@@ -1,6 +1,7 @@
 interface User {
-  id: null | number;
-  name: null | string;
+  id: number;
+  name: string;
+  status: boolean;
 }
 
 export default User;

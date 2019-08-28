@@ -9,8 +9,6 @@ import RequestOtp from './screens/request_otp';
 import getAuthUserSelector from './store/selectors/auth';
 
 const getAppNavigator = (authUser: any) => {
-  const initialRouteName = getInitialRouteName(authUser);
-
   return createStackNavigator(
     {
       Home: {screen: Home},
@@ -19,7 +17,7 @@ const getAppNavigator = (authUser: any) => {
       RequestOtp: {screen: RequestOtp},
     },
     {
-      initialRouteName,
+      initialRouteName: getInitialRouteName(authUser),
       defaultNavigationOptions: () => {
         return {
           header: null,

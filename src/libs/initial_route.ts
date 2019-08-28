@@ -1,8 +1,10 @@
-const getInitialRouteName = authUser => {
+import User from '../models/user';
+
+const getInitialRouteName = (authUser: User) => {
   if (authUser) {
     const {status} = authUser;
 
-    if (status === 0) {
+    if (status === false) {
       return 'EditProfile';
     }
 
