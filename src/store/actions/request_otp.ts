@@ -1,6 +1,7 @@
 const REQUEST_OTP = 'REQUEST_OTP';
 const REQUEST_OTP_SUCCESS = 'REQUEST_OTP_SUCCESS';
 const REQUEST_OTP_FAIL = 'REQUEST_OTP_FAIL';
+const SET_COUNTRY = 'SET_COUNTRY';
 
 const requestOtp = (payload: any) => {
   return {
@@ -23,11 +24,20 @@ const requestOtpFail = (payload: any) => {
   };
 };
 
+const setCountry = (payload: any) => {
+  return {
+    type: SET_COUNTRY,
+    payload,
+  };
+};
+
 export {
   REQUEST_OTP,
   REQUEST_OTP_SUCCESS,
   REQUEST_OTP_FAIL,
+  SET_COUNTRY,
   requestOtp,
   requestOtpSuccess,
   requestOtpFail,
+  setCountry,
 };

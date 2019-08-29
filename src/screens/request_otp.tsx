@@ -3,16 +3,17 @@ import {
   Button,
   SafeAreaView,
   StatusBar,
-  TextInput,
-  View,
   Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
-import {requestOtp} from '../store/actions';
+import {useDispatch, useSelector} from 'react-redux';
 import screens from '../libs/screens';
+import {requestOtp} from '../store/actions';
 
 const RequestOtp = (props: any) => {
+  const country = useSelector((state: any) => state.otp.country);
   const dispatch = useDispatch();
   const [mobile, setMobile] = useState();
 
@@ -22,12 +23,12 @@ const RequestOtp = (props: any) => {
 
       <View style={{flex: 1, justifyContent: 'center', backgroundColor: '#0D62A2'}}>
         <TouchableOpacity onPress={() => props.navigation.push(screens.SelectCountry)}>
-          <View>
-            <Text>Select Country</Text>
+          <View style={{padding: 20}}>
+            <Text style={{color: 'white'}}>{country ? country.name : 'Select Country'}</Text>
           </View>
         </TouchableOpacity>
 
-        <View>
+        <View style={{padding: 20}}>
           <TextInput
             value={mobile}
             style={{color: 'white'}}
@@ -37,7 +38,7 @@ const RequestOtp = (props: any) => {
         </View>
 
         <View>
-          <Button title="send otp" onPress={() => dispatch(requestOtp({mobile}))} />
+          <Button title="send otp" onPress={() => dispatch(requestOtp({mobile, country}))} />
         </View>
       </View>
     </SafeAreaView>

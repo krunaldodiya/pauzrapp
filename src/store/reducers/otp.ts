@@ -1,12 +1,5 @@
-import {
-  REQUEST_OTP,
-  REQUEST_OTP_FAIL,
-  REQUEST_OTP_SUCCESS,
-  VERIFY_OTP,
-  VERIFY_OTP_FAIL,
-  VERIFY_OTP_SUCCESS,
-} from '../actions';
 import Country from '../../models/country';
+import {REQUEST_OTP, REQUEST_OTP_FAIL, REQUEST_OTP_SUCCESS, SET_COUNTRY} from '../actions';
 
 interface InitialState {
   mobile: number | null;
@@ -33,35 +26,26 @@ const otpReducer = (state = initialState, action: any) => {
     case REQUEST_OTP: {
       state.mobile = payload.mobile;
       state.loading = true;
+      return state;
     }
 
     case REQUEST_OTP_SUCCESS: {
       state.otp = payload.otp;
       state.loading = false;
       state.loaded = true;
+      return state;
     }
 
     case REQUEST_OTP_FAIL: {
       state.errors = payload.errors;
       state.loading = false;
       state.loaded = true;
+      return state;
     }
 
-    case VERIFY_OTP: {
-      state.otp = payload.otp;
-      state.loading = true;
-    }
-
-    case VERIFY_OTP_SUCCESS: {
-      state.otp = payload.otp;
-      state.loading = false;
-      state.loaded = true;
-    }
-
-    case VERIFY_OTP_FAIL: {
-      state.errors = payload.errors;
-      state.loading = false;
-      state.loaded = true;
+    case SET_COUNTRY: {
+      state.country = payload.country;
+      return state;
     }
 
     default: {

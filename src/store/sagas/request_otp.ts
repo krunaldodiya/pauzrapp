@@ -1,16 +1,13 @@
-import {Alert} from 'react-native';
 import {call, put, takeEvery} from 'redux-saga/effects';
-
-import {REQUEST_OTP, REQUEST_OTP_SUCCESS, REQUEST_OTP_FAIL} from '../actions';
-
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
+import {REQUEST_OTP, REQUEST_OTP_FAIL, REQUEST_OTP_SUCCESS} from '../actions';
 
 function* requestOtp(action: any) {
-  const {mobile} = action.payload;
+  const {payload} = action;
 
   try {
-    const {data} = yield call(makeRequest, api.requestOtp, {mobile}, 'POST');
+    const {data} = yield call(makeRequest, api.requestOtp, payload, 'POST');
 
     yield put({
       type: REQUEST_OTP_SUCCESS,
