@@ -1,6 +1,6 @@
-import { baseUrlProd } from './vars';
+import {baseUrlProd} from './vars';
 
-const getAssets = url => {
+const getAssets = (url: string) => {
   return `${baseUrlProd}/storage/${url}`;
 };
 

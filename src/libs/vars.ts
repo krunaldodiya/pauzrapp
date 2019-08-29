@@ -14,4 +14,4 @@ const wsUrl = wsUrlProd;
 
 const awesomeThemeSecretKey = 'zekFUtG3Kp4HNpVe';
 
-export { baseUrlProd, httpUrl, wsUrl, themeUrlProd, awesomeThemeSecretKey };
+export {baseUrlProd, httpUrl, wsUrl, themeUrlProd, awesomeThemeSecretKey};

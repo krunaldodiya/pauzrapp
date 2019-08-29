@@ -1,6 +1,6 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 
-import {GET_AUTH_USER, GET_AUTH_USER_SUCCESS, GET_AUTH_USER_FAIL} from '../actions/get_auth_user';
+import {GET_AUTH_USER, GET_AUTH_USER_SUCCESS, GET_AUTH_USER_FAIL} from '../actions';
 
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';

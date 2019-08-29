@@ -8,6 +8,7 @@ import Post from './screens/post';
 import RequestOtp from './screens/request_otp';
 import Splash from './screens/splash';
 import {getAuthUser} from './store/actions';
+import SelectCountry from './screens/select_country';
 
 const getAppNavigator = () => {
   const {authUserId, loading} = useSelector((state: any) => state.auth);
@@ -22,6 +23,7 @@ const getAppNavigator = () => {
       Post: {screen: Post},
       RequestOtp: {screen: RequestOtp},
       Splash: {screen: Splash},
+      SelectCountry: {screen: SelectCountry},
     },
     {
       initialRouteName: getInitialRouteName(loading, authUser),
