@@ -10,8 +10,10 @@ import Splash from './screens/splash';
 import {getAuthUser} from './store/actions';
 
 const getAppNavigator = () => {
-  const auth = useSelector((state: any) => state.auth);
-  const user = useSelector((state: any) => state.user);
+  const {authUserId, loading} = useSelector((state: any) => state.auth);
+  const authUser = useSelector((state: any) => {
+    return state.user.users.find((user: any) => user.id == authUserId);
+  });
 
   return createStackNavigator(
     {
@@ -22,7 +24,7 @@ const getAppNavigator = () => {
       Splash: {screen: Splash},
     },
     {
-      initialRouteName: getInitialRouteName(auth, user),
+      initialRouteName: getInitialRouteName(loading, authUser),
       defaultNavigationOptions: () => {
         return {
           header: null,
