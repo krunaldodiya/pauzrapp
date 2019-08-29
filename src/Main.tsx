@@ -41,7 +41,8 @@ const Main = () => {
   const dispatch = useDispatch();
   const {authUserId, loaded} = useSelector((state: any) => state.auth);
   const authUser = useSelector((state: any) => {
-    return state.user.users.find((user: any) => user.id == authUserId);
+    const userIndex = state.user.users.findIndex((user: any) => user.id == authUserId);
+    return authUserId && userIndex >= 0 ? state.user.users[userIndex] : null;
   });
 
   useEffect(() => {
