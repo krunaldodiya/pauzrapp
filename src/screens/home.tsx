@@ -1,9 +1,8 @@
-import React from 'react';
 import {createMaterialTopTabNavigator} from 'react-navigation';
 import FocusContainer from '../screens/focus';
 import FunContainer from '../screens/fun';
 
-const Tabs = createMaterialTopTabNavigator(
+const Home = createMaterialTopTabNavigator(
   {
     Focus: FocusContainer,
     Fun: FunContainer,
@@ -15,4 +14,4 @@ const Tabs = createMaterialTopTabNavigator(
   }
 );
 
-export default React.memo(Tabs);
+export default Home;

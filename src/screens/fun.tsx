@@ -1,14 +1,14 @@
 import React from 'react';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
-import PostContainer from '../screens/post';
 import Icon from '../components/Icon';
+import PostContainer from '../screens/post';
 
 const FunTabNavigator = createBottomTabNavigator(
   {
     Intro: {
       screen: PostContainer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="camera" style={{color: tintColor, fontSize: 36}} />
         ),
       },
@@ -16,7 +16,7 @@ const FunTabNavigator = createBottomTabNavigator(
     Two: {
       screen: PostContainer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="trophy" style={{color: tintColor, fontSize: 36}} />
         ),
       },
@@ -24,7 +24,7 @@ const FunTabNavigator = createBottomTabNavigator(
     Three: {
       screen: PostContainer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="user" style={{color: tintColor, fontSize: 36}} />
         ),
       },
@@ -32,7 +32,7 @@ const FunTabNavigator = createBottomTabNavigator(
     Four: {
       screen: PostContainer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="search" style={{color: tintColor, fontSize: 36}} />
         ),
       },
@@ -40,7 +40,7 @@ const FunTabNavigator = createBottomTabNavigator(
     Five: {
       screen: PostContainer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="heart" style={{color: tintColor, fontSize: 36}} />
         ),
       },
@@ -77,4 +77,4 @@ const FunStackNavigator = createStackNavigator(
   }
 );
 
-export default React.memo(FunStackNavigator);
+export default FunStackNavigator;

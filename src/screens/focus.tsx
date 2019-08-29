@@ -1,13 +1,13 @@
 import React from 'react';
+import {SafeAreaView, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {
   createBottomTabNavigator,
   createDrawerNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import IntroContainer from '../screens/intro';
-import {SafeAreaView, View, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from '../components/Icon';
+import Timer from '../screens/timer';
 
 const DrawerMenu = (props: any) => {
   return (
@@ -24,25 +24,25 @@ const DrawerMenu = (props: any) => {
 const FocusTabNavigator = createBottomTabNavigator(
   {
     Intro: {
-      screen: IntroContainer,
+      screen: Timer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="Ionicons" name="ios-people" style={{color: tintColor, fontSize: 28}} />
         ),
       },
     },
     Two: {
-      screen: IntroContainer,
+      screen: Timer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="Ionicons" name="ios-pause" style={{color: tintColor, fontSize: 28}} />
         ),
       },
     },
     Three: {
-      screen: IntroContainer,
+      screen: Timer,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({tintColor}: any) => (
           <Icon type="Ionicons" name="ios-stats" style={{color: tintColor, fontSize: 28}} />
         ),
       },
@@ -96,4 +96,4 @@ const FocusDrawerNavigator = createDrawerNavigator(
   }
 );
 
-export default React.memo(FocusDrawerNavigator);
+export default FocusDrawerNavigator;

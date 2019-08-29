@@ -1,21 +1,21 @@
 import User from '../models/user';
 
-const getInitialRouteName = (authLoading: boolean, authUser: User) => {
-  if (authLoading) {
-    return 'Splash';
-  }
+const getInitialRouteName = (authLoaded: boolean, authUser: User) => {
+  if (authLoaded && authUser) {
+    if (authUser != null) {
+      const {status} = authUser;
 
-  if (authUser) {
-    const {status} = authUser;
+      if (status == 0) {
+        return 'EditProfile';
+      }
 
-    if (status == 0) {
-      return 'EditProfile';
+      return 'Home';
     }
 
-    return 'Home';
+    return 'Intro';
   }
 
-  return 'Intro';
+  return 'Splash';
 };
 
 export default getInitialRouteName;

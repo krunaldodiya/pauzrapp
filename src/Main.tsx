@@ -9,12 +9,11 @@ import Post from './screens/post';
 import RequestOtp from './screens/request_otp';
 import SelectCountry from './screens/select_country';
 import Splash from './screens/splash';
+import Timer from './screens/timer';
 import VerifyOtp from './screens/verify_otp';
 import {getAuthUser} from './store/actions';
 
 const getAppNavigator = (initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 'Home') => {
-  console.log(initialRouteName);
-
   return createStackNavigator(
     {
       Home: {screen: Home},
@@ -25,6 +24,7 @@ const getAppNavigator = (initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 
       Splash: {screen: Splash},
       SelectCountry: {screen: SelectCountry},
       EditProfile: {screen: EditProfile},
+      Timer: {screen: Timer},
     },
     {
       initialRouteName,
@@ -39,23 +39,20 @@ const getAppNavigator = (initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 
 
 const Main = () => {
   const dispatch = useDispatch();
+  const {authUserId, loaded} = useSelector((state: any) => state.auth);
+  const authUser = useSelector((state: any) => {
+    return state.user.users.find((user: any) => user.id == authUserId);
+  });
 
   useEffect(() => {
     dispatch(getAuthUser(null));
   }, []);
 
-  const {authUserId, loading} = useSelector((state: any) => state.auth);
-
-  const authUser = useSelector((state: any) => {
-    return state.user.users.find((user: any) => user.id == authUserId);
-  });
-
-  const initialRouteName = getInitialRouteName(loading, authUser);
-
+  const initialRouteName = getInitialRouteName(loaded, authUser);
   const AppNavigator = getAppNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
 
   return <AppContainer />;
 };
 
-export default React.memo(Main);
+export default Main;
