@@ -24,18 +24,21 @@ const locationReducer = (state = initialState, action: any) => {
   switch (type) {
     case GET_COUNTRIES: {
       state.loading = true;
+      return state;
     }
 
     case GET_COUNTRIES_SUCCESS: {
       state.countries = payload.countries;
       state.loading = false;
       state.loaded = true;
+      return state;
     }
 
     case GET_COUNTRIES_FAIL: {
       state.errors = payload.errors;
       state.loading = false;
       state.loaded = true;
+      return state;
     }
 
     default: {
