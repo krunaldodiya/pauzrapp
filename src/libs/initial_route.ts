@@ -1,8 +1,10 @@
 import User from '../models/user';
 
-const getInitialRouteName = (authLoaded: boolean, authUser: User) => {
-  if (authLoaded && authUser) {
-    if (authUser != null) {
+const getInitialRouteName = (auth: any, authUser: User) => {
+  const {loaded, authUserId} = auth;
+
+  if (loaded) {
+    if (authUserId) {
       const {status} = authUser;
 
       if (status == 0) {

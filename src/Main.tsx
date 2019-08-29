@@ -39,17 +39,18 @@ const getAppNavigator = (initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 
 
 const Main = () => {
   const dispatch = useDispatch();
-  const {authUserId, loaded} = useSelector((state: any) => state.auth);
+  const auth = useSelector((state: any) => state.auth);
   const authUser = useSelector((state: any) => {
-    const userIndex = state.user.users.findIndex((user: any) => user.id == authUserId);
-    return authUserId && userIndex >= 0 ? state.user.users[userIndex] : null;
+    return auth.authUserId
+      ? state.user.users.find((user: any) => user.id == auth.authUserId)
+      : null;
   });
 
   useEffect(() => {
     dispatch(getAuthUser(null));
   }, []);
 
-  const initialRouteName = getInitialRouteName(loaded, authUser);
+  const initialRouteName = getInitialRouteName(auth, authUser);
   const AppNavigator = getAppNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
 
