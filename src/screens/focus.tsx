@@ -96,4 +96,4 @@ const FocusDrawerNavigator = createDrawerNavigator(
   }
 );
 
-export default FocusDrawerNavigator;
+export default React.memo(FocusDrawerNavigator);

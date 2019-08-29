@@ -77,4 +77,4 @@ const FunStackNavigator = createStackNavigator(
   }
 );
 
-export default FunStackNavigator;
+export default React.memo(FunStackNavigator);

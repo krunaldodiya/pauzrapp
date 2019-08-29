@@ -10,7 +10,8 @@ import Splash from './screens/splash';
 import {getAuthUser} from './store/actions';
 
 const getAppNavigator = () => {
-  const state = useSelector((state: any) => state);
+  const auth = useSelector((state: any) => state.auth);
+  const user = useSelector((state: any) => state.user);
 
   return createStackNavigator(
     {
@@ -21,7 +22,7 @@ const getAppNavigator = () => {
       Splash: {screen: Splash},
     },
     {
-      initialRouteName: getInitialRouteName(state),
+      initialRouteName: getInitialRouteName(auth, user),
       defaultNavigationOptions: () => {
         return {
           header: null,
@@ -35,7 +36,7 @@ const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAuthUser({}));
+    dispatch(getAuthUser(null));
   }, []);
 
   const AppNavigator = getAppNavigator();

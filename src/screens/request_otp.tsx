@@ -3,7 +3,7 @@ import {Button, SafeAreaView, StatusBar, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {requestOtp} from '../store/actions';
 
-const RequestOtp = (props: any) => {
+const RequestOtp = () => {
   const dispatch = useDispatch();
   const [mobile, setMobile] = useState();
 
@@ -29,4 +29,4 @@ const RequestOtp = (props: any) => {
   );
 };
 
-export default RequestOtp;
+export default React.memo(RequestOtp);

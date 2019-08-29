@@ -1,11 +1,9 @@
 import getAuthUserSelector from '../store/selectors/auth_user';
-import getAuthUserLoadingSelector from '../store/selectors/auth_user_loading';
 
-const getInitialRouteName = (state: any) => {
-  const authUser = getAuthUserSelector(state);
-  const authUserLoading = getAuthUserLoadingSelector(state);
+const getInitialRouteName = (auth: any, user: any) => {
+  const authUser = getAuthUserSelector({auth, user});
 
-  if (authUserLoading) {
+  if (auth.loading) {
     return 'Splash';
   }
 
