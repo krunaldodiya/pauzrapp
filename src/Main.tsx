@@ -2,19 +2,18 @@ import React, {useEffect} from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {useDispatch, useSelector} from 'react-redux';
 import getInitialRouteName from './libs/initial_route';
+import EditProfile from './screens/edit_profile';
 import Home from './screens/home';
 import Intro from './screens/intro';
 import Post from './screens/post';
 import RequestOtp from './screens/request_otp';
-import Splash from './screens/splash';
-import {getAuthUser} from './store/actions';
 import SelectCountry from './screens/select_country';
+import Splash from './screens/splash';
+import VerifyOtp from './screens/verify_otp';
+import {getAuthUser} from './store/actions';
 
-const getAppNavigator = () => {
-  const {authUserId, loading} = useSelector((state: any) => state.auth);
-  const authUser = useSelector((state: any) => {
-    return state.user.users.find((user: any) => user.id == authUserId);
-  });
+const getAppNavigator = (initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 'Home') => {
+  console.log(initialRouteName);
 
   return createStackNavigator(
     {
@@ -22,11 +21,13 @@ const getAppNavigator = () => {
       Intro: {screen: Intro},
       Post: {screen: Post},
       RequestOtp: {screen: RequestOtp},
+      VerifyOtp: {screen: VerifyOtp},
       Splash: {screen: Splash},
       SelectCountry: {screen: SelectCountry},
+      EditProfile: {screen: EditProfile},
     },
     {
-      initialRouteName: getInitialRouteName(loading, authUser),
+      initialRouteName,
       defaultNavigationOptions: () => {
         return {
           header: null,
@@ -43,7 +44,15 @@ const Main = () => {
     dispatch(getAuthUser(null));
   }, []);
 
-  const AppNavigator = getAppNavigator();
+  const {authUserId, loading} = useSelector((state: any) => state.auth);
+
+  const authUser = useSelector((state: any) => {
+    return state.user.users.find((user: any) => user.id == authUserId);
+  });
+
+  const initialRouteName = getInitialRouteName(loading, authUser);
+
+  const AppNavigator = getAppNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
 
   return <AppContainer />;

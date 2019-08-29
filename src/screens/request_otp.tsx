@@ -38,7 +38,13 @@ const RequestOtp = (props: any) => {
         </View>
 
         <View>
-          <Button title="send otp" onPress={() => dispatch(requestOtp({mobile, country}))} />
+          <Button
+            title="send otp"
+            onPress={() => {
+              dispatch(requestOtp({mobile, country}));
+              props.navigation.replace(screens.VerifyOtp);
+            }}
+          />
         </View>
       </View>
     </SafeAreaView>

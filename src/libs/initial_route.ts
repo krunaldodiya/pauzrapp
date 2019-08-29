@@ -1,4 +1,6 @@
-const getInitialRouteName = (authLoading: any, authUser: any) => {
+import User from '../models/user';
+
+const getInitialRouteName = (authLoading: boolean, authUser: User) => {
   if (authLoading) {
     return 'Splash';
   }
@@ -6,7 +8,7 @@ const getInitialRouteName = (authLoading: any, authUser: any) => {
   if (authUser) {
     const {status} = authUser;
 
-    if (status === false) {
+    if (status == 0) {
       return 'EditProfile';
     }
 

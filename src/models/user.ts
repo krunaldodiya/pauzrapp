@@ -1,7 +1,7 @@
 interface User {
   id: number;
   name: string;
-  status: boolean;
+  status: number;
 }
 
 export default User;

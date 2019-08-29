@@ -1,4 +1,5 @@
 import User from '../../models/user';
+import {SET_USER} from '../actions';
 
 interface InitialState {
   users: User[];
@@ -18,8 +19,16 @@ const userReducer = (state = initialState, action: any) => {
   const {type, payload} = action;
 
   switch (type) {
-    case 'ADD_USER': {
-      state.users.push({id: 1, name: 'krunal', status: true});
+    case SET_USER: {
+      const {user} = payload;
+      const index = state.users.findIndex(e => e.id === user.id);
+
+      if (index === -1) {
+        state.users.push(user);
+      } else {
+        state.users[index] = user;
+      }
+
       return state;
     }
 

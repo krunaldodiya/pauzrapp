@@ -2,7 +2,7 @@ import {AsyncStorage} from 'react-native';
 
 const AUTH_TOKEN_KEY = 'authToken';
 
-const setAuthToken = async value => {
+const setAuthToken = async (value: any) => {
   return AsyncStorage.setItem(AUTH_TOKEN_KEY, value);
 };
 

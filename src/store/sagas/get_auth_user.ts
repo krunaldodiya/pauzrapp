@@ -1,18 +1,16 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
-
-import {GET_AUTH_USER, GET_AUTH_USER_SUCCESS, GET_AUTH_USER_FAIL} from '../actions';
-
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
+import {GET_AUTH_USER, GET_AUTH_USER_FAIL, GET_AUTH_USER_SUCCESS} from '../actions';
 
-function* getAuthUser() {
+function* getAuthUser(action: any) {
   try {
     const {data} = yield call(makeRequest, api.me, {}, 'POST');
     const {user} = data;
 
     yield put({
       type: GET_AUTH_USER_SUCCESS,
-      payload: {authUser: user},
+      payload: {user: user},
     });
   } catch (error) {
     yield put({

@@ -17,13 +17,14 @@ const authReducer = (state = initialState, action: any) => {
     }
 
     case GET_AUTH_USER_FAIL: {
-      state.errors = payload.errors;
       state.loading = false;
       state.loaded = true;
+      state.errors = payload.errors;
       return state;
     }
 
     case GET_AUTH_USER_SUCCESS: {
+      state.errors = null;
       state.authUserId = payload.user.id;
       state.loading = false;
       state.loaded = true;
