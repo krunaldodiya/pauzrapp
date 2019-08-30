@@ -39,6 +39,8 @@ const getAppNavigator = (initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 
 
 const Main = () => {
   const dispatch = useDispatch();
+
+  const online = useSelector((state: any) => state.offline.online);
   const auth = useSelector((state: any) => state.auth);
   const authUser = useSelector((state: any) => {
     return auth.authUserId
@@ -47,7 +49,7 @@ const Main = () => {
   });
 
   useEffect(() => {
-    dispatch(getAuthUser(null));
+    online && dispatch(getAuthUser(null));
   }, []);
 
   const initialRouteName = getInitialRouteName(auth, authUser);
@@ -57,4 +59,4 @@ const Main = () => {
   return <AppContainer />;
 };
 
-export default Main;
+export default React.memo(Main);

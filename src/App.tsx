@@ -1,12 +1,12 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import Main from './Main';
+import Init from './Init';
 import {store} from './store';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Main />
+      <Init />
     </Provider>
   );
 };
