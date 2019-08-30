@@ -47,8 +47,8 @@ const Main = () => {
   const {online, netInfo} = useSelector((state: any) => state.offline);
   const auth = useSelector((state: any) => state.auth);
   const authUser = useSelector((state: any) => {
-    return auth.authUserId
-      ? state.user.users.find((user: any) => user.id == auth.authUserId)
+    return state.auth.authUserId
+      ? state.user.users.find((user: any) => user.id == state.auth.authUserId)
       : null;
   });
 

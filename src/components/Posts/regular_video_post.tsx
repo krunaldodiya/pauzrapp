@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, View} from 'react-native';
-import {TouchableHighlight} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import Icon from '../Icon';
 
@@ -31,7 +31,7 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
       .replace('.mp4', '.jpg');
 
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={() => {
           this.setState({muted: !muted});
         }}>
@@ -62,7 +62,7 @@ class RegularVideoPost extends React.PureComponent<RegularVideoPostProps, Regula
             </View>
           )}
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }

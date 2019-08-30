@@ -1,20 +1,20 @@
-import React from 'react';
-import {Button, FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import AffiliateImagePost from '../components/Posts/affiliate_image_post';
 import AffiliateVideoPost from '../components/Posts/affiliate_video_post';
 import RegularImagePost from '../components/Posts/regular_image_post';
 import RegularVideoPost from '../components/Posts/regular_video_post';
 import SponsoredVideoPost from '../components/Posts/sponosred_video_post';
 import SponsoredImagePost from '../components/Posts/sponsored_image_post';
+import {getFeeds} from '../store/actions';
 
 const Post = (props: any) => {
-  const user = useSelector((state: any) => {
-    return state.user.users.find((user: any) => user.id == state.auth.authUserId);
-  });
-
   const dispatch = useDispatch();
-  const changeName = () => dispatch({type: 'CHANGE_NAME'});
+
+  useEffect(() => {
+    dispatch(getFeeds(null));
+  }, []);
 
   const renderItem = (data: any) => {
     const {item} = data;
@@ -47,11 +47,6 @@ const Post = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#0D62A2" />
-
-      <View>
-        <Button title="change name" onPress={changeName} />
-        <Text>{user.name}</Text>
-      </View>
 
       <View style={{flex: 1}}>
         <FlatList
