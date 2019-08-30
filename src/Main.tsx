@@ -53,7 +53,7 @@ const Main = () => {
   });
 
   useEffect(() => {
-    online && dispatch(getAuthUser(null));
+    auth.authUserId == null && dispatch(getAuthUser(null));
   }, []);
 
   const initialRouteName = getInitialRouteName(online, auth, authUser);

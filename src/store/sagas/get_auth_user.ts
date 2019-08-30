@@ -1,9 +1,13 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, select, takeEvery} from 'redux-saga/effects';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 import {GET_AUTH_USER, GET_AUTH_USER_FAIL, GET_AUTH_USER_SUCCESS} from '../actions';
 
 function* getAuthUser(action: any) {
+  const online = yield select((state: any) => state.offline.online);
+
+  if (!online) return;
+
   try {
     const {data} = yield call(makeRequest, api.me, {}, 'POST');
     const {user} = data;

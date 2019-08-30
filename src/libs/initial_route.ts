@@ -9,9 +9,7 @@ const getInitialRouteName = (online: any, auth: any, authUser: User) => {
     }
 
     if (authUserId) {
-      const {status} = authUser;
-
-      if (status == 0) {
+      if (authUser && authUser.status == 0) {
         return 'EditProfile';
       }
 
