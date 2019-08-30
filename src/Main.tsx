@@ -13,6 +13,7 @@ import Splash from './screens/splash';
 import Timer from './screens/timer';
 import VerifyOtp from './screens/verify_otp';
 import {getAuthUser} from './store/actions';
+import {getAuthUserSelector} from './store/selectors/auth_user';
 
 const getAppNavigator = (
   initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 'Home' | 'NoInternet'
@@ -44,19 +45,21 @@ const getAppNavigator = (
 const Main = () => {
   const dispatch = useDispatch();
 
-  const {online, netInfo} = useSelector((state: any) => state.offline);
+  const offline = useSelector((state: any) => state.offline);
   const auth = useSelector((state: any) => state.auth);
-  const authUser = useSelector((state: any) => {
-    return state.auth.authUserId
-      ? state.user.users.find((user: any) => user.id == state.auth.authUserId)
-      : null;
-  });
+
+  const {loaded} = auth;
+  const {online, netInfo} = offline;
+
+  const authUser = useSelector(getAuthUserSelector);
 
   useEffect(() => {
-    auth.authUserId == null && dispatch(getAuthUser(null));
-  }, []);
+    if (netInfo.reach != 'NONE' && authUser == null) {
+      dispatch(getAuthUser(null));
+    }
+  }, [offline]);
 
-  const initialRouteName = getInitialRouteName(online, auth, authUser);
+  const initialRouteName = getInitialRouteName(online, loaded, authUser);
   const AppNavigator = getAppNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
 
