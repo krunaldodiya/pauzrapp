@@ -18,7 +18,7 @@ const VerifyOtp = (props: any) => {
         <View style={{padding: 20}}>
           <TextInput
             value={otp}
-            style={{color: 'white'}}
+            style={{color: 'white', borderWidth: 1, borderColor: 'white', paddingLeft: 10}}
             onChangeText={value => setOtp(value)}
             keyboardType="number-pad"
           />

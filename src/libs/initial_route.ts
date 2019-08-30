@@ -3,11 +3,11 @@ import User from '../models/user';
 const getInitialRouteName = (online: any, auth: any, authUser: User) => {
   const {loaded, authUserId} = auth;
 
-  if (!online && !authUserId) {
-    return 'NoInternet';
-  }
-
   if (loaded) {
+    if (!online && !authUserId) {
+      return 'NoInternet';
+    }
+
     if (authUserId) {
       const {status} = authUser;
 

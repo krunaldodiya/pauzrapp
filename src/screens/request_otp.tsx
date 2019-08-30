@@ -31,7 +31,7 @@ const RequestOtp = (props: any) => {
         <View style={{padding: 20}}>
           <TextInput
             value={mobile}
-            style={{color: 'white'}}
+            style={{color: 'white', borderWidth: 1, borderColor: 'white', paddingLeft: 10}}
             onChangeText={value => setMobile(value)}
             keyboardType="number-pad"
           />
