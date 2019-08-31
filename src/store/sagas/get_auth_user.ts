@@ -14,7 +14,7 @@ function* getAuthUser(action: any) {
 
     yield put({
       type: GET_AUTH_USER_SUCCESS,
-      payload: {user: user},
+      payload: {user},
     });
   } catch (error) {
     yield put({

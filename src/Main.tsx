@@ -49,12 +49,14 @@ const Main = () => {
   const auth = useSelector((state: any) => state.auth);
 
   const {loaded} = auth;
-  const {online, netInfo} = offline;
+  const {online} = offline;
 
   const authUser = useSelector(getAuthUserSelector);
 
   useEffect(() => {
-    if (netInfo.reach != 'NONE' && authUser == null) {
+    console.log(auth);
+
+    if (authUser == null) {
       dispatch(getAuthUser(null));
     }
   }, [offline]);
@@ -62,10 +64,6 @@ const Main = () => {
   const initialRouteName = getInitialRouteName(online, loaded, authUser);
   const AppNavigator = getAppNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
-
-  if (netInfo.reach == 'NONE') {
-    return null;
-  }
 
   return <AppContainer />;
 };

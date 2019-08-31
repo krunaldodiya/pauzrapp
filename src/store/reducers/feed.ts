@@ -1,15 +1,16 @@
-import Post from '../../models/post';
-import {SET_POST} from '../actions';
+import {GET_FEEDS_SUCCESS} from '../actions';
 
 interface InitialState {
-  posts: Post[];
+  feeds: any[];
+  meta: {};
   errors: null;
   loading: boolean;
   loaded: boolean;
 }
 
 const initialState: InitialState = {
-  posts: [],
+  feeds: [],
+  meta: {},
   errors: null,
   loading: false,
   loaded: false,
@@ -19,17 +20,10 @@ const postReducer = (state = initialState, action: any) => {
   const {type, payload} = action;
 
   switch (type) {
-    case SET_POST: {
-      const {post} = payload;
-      const index = state.posts.findIndex(e => e.id === post.id);
-
-      if (index === -1) {
-        state.posts.push(post);
-      } else {
-        state.posts[index] = post;
-      }
-
-      return state;
+    case GET_FEEDS_SUCCESS: {
+      const {feeds, meta} = payload;
+      state.feeds.push(Object.keys(feeds));
+      state.meta = meta;
     }
 
     default: {

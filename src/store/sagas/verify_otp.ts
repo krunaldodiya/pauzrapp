@@ -2,13 +2,7 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 import {api} from '../../libs/api';
 import {setAuthToken} from '../../services/auth';
 import makeRequest from '../../services/make_request';
-import {
-  GET_AUTH_USER_SUCCESS,
-  SET_USER,
-  VERIFY_OTP,
-  VERIFY_OTP_FAIL,
-  VERIFY_OTP_SUCCESS,
-} from '../actions';
+import {GET_AUTH_USER_SUCCESS, VERIFY_OTP, VERIFY_OTP_FAIL, VERIFY_OTP_SUCCESS} from '../actions';
 
 function* verifyOtp(action: any) {
   const {payload} = action;
@@ -22,11 +16,6 @@ function* verifyOtp(action: any) {
     yield put({
       type: VERIFY_OTP_SUCCESS,
       payload: {},
-    });
-
-    yield put({
-      type: SET_USER,
-      payload: {user},
     });
 
     yield put({
