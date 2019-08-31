@@ -20,20 +20,36 @@ export const auth = createModel({
   name: 'auth',
   state: intialState,
   reducers: {
-    setAuthUser(state: AuthState, payload: any) {
-      return {...state, ...payload};
+    setAuthUserLoading(state: AuthState, payload: any) {
+      state.loading = true;
+      return state;
+    },
+    setAuthUserSuccess(state: AuthState, payload: any) {
+      state.errors = null;
+      state.authUserId = payload.user.id;
+      state.loading = false;
+      state.loaded = true;
+      return state;
+    },
+    setAuthUserFail(state: AuthState, payload: any) {
+      state.loading = false;
+      state.loaded = true;
+      state.errors = payload.errors;
+      return state;
     },
   },
-  effects: (dispatch: RematchDispatch) => {
+  effects: (dispatch: any) => {
     return {
-      async getAuthUser(payload: any, _rootState: AuthState) {
-        try {
-          const response = await makeRequest(api.me, payload, 'POST');
-          const {data} = response;
+      async getAuthUser(payload: any, state: any) {
+        dispatch.auth.setAuthUserLoading(true);
 
-          dispatch.auth.setAuthUser({authUser: data.user, errors: null});
+        try {
+          const {data} = await makeRequest(api.me, payload, 'POST');
+          const {user} = data;
+
+          dispatch.auth.setAuthUserSuccess({user});
         } catch (error) {
-          dispatch.auth.setAuthUser({errors: error.response.data});
+          dispatch.auth.setAuthUserFail({errors: error.response.data});
         }
       },
     };

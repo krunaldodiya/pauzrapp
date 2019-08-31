@@ -3,15 +3,11 @@ import {init, RematchRootState} from '@rematch/core';
 import immerPlugin from '@rematch/immer';
 import createLoadingPlugin from '@rematch/loading';
 import createRematchPersist from '@rematch/persist';
-import updatedPlugin from '@rematch/updated';
+import selectorsPlugin from '@rematch/select';
 // models
 import * as models from './models';
 
-const updated = updatedPlugin();
 // plugins
-const loading = createLoadingPlugin({});
-const immer = immerPlugin(); // should be after persist plugin
-
 const persistPlugin = createRematchPersist({
   version: 1,
   key: 'root',
@@ -21,9 +17,13 @@ const persistPlugin = createRematchPersist({
   debug: true,
 });
 
+const immer = immerPlugin(); // should be after persist plugin
+const loading = createLoadingPlugin({});
+const select = selectorsPlugin();
+
 export const store = init({
   models,
-  plugins: [loading, updated, persistPlugin, immer],
+  plugins: [persistPlugin, immer, loading, select],
 });
 
 export type Store = typeof store;

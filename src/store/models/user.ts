@@ -18,8 +18,8 @@ export const user = createModel({
   name: 'user',
   state: intialState,
   reducers: {
-    'auth/setAuthUser': (state: any, payload: any) => {
-      console.log(payload);
+    'auth/setAuthUserSuccess': (state: any, payload: any) => {
+      console.log('from subscription', payload);
     },
   },
 });
