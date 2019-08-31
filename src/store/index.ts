@@ -4,29 +4,26 @@ import immerPlugin from '@rematch/immer';
 import createLoadingPlugin from '@rematch/loading';
 import createRematchPersist from '@rematch/persist';
 import updatedPlugin from '@rematch/updated';
-import {composeWithDevTools} from 'redux-devtools-extension';
 // models
 import * as models from './models';
 
 const updated = updatedPlugin();
 // plugins
 const loading = createLoadingPlugin({});
-const immer = immerPlugin();
+const immer = immerPlugin(); // should be after persist plugin
 
 const persistPlugin = createRematchPersist({
+  version: 1,
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['feeds'],
   throttle: 5000,
-  version: 1,
+  debug: true,
 });
 
 export const store = init({
   models,
-  plugins: [loading, immer, updated, persistPlugin],
-  redux: {
-    enhancers: [composeWithDevTools()],
-  },
+  plugins: [loading, updated, persistPlugin, immer],
 });
 
 export type Store = typeof store;

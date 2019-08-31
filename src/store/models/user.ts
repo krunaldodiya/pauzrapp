@@ -14,7 +14,7 @@ const intialState: UserState = {
   errors: null,
 };
 
-export const auth = createModel({
+export const user = createModel({
   name: 'user',
   state: intialState,
   reducers: {

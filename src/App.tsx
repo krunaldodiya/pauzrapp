@@ -5,12 +5,10 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Main from './Main';
 import {store} from './store';
 
-const persistor = getPersistor();
-
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
+      <PersistGate persistor={getPersistor()}>
         <Main />
       </PersistGate>
     </Provider>
