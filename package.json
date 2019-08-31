@@ -8,10 +8,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.6.1",
     "@react-native-community/netinfo": "^4.1.5",
-    "@redux-offline/redux-offline": "^2.5.2-native.0",
+    "@rematch/core": "^1.1.0",
+    "@rematch/immer": "^1.1.0",
+    "@rematch/loading": "^1.1.3",
+    "@rematch/persist": "^1.1.6",
+    "@rematch/updated": "^0.1.5",
     "axios": "^0.19.0",
-    "immer": "^3.2.0",
     "lodash": "^4.17.15",
     "react": "16.8.6",
     "react-native": "0.60.5",
@@ -25,11 +29,9 @@
     "react-native-snackbar": "^2.0.2",
     "react-native-vector-icons": "^6.6.0",
     "react-native-video": "^5.0.0",
-    "react-navigation": "^3.12.0",
+    "react-navigation": "^3.12.1",
     "react-redux": "^7.1.0",
-    "redux": "^4.0.4",
-    "redux-immer": "^1.0.3",
-    "redux-saga": "^1.0.5"
+    "redux": "^4.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",

@@ -45,11 +45,11 @@ const getAppNavigator = (
 const Main = () => {
   const dispatch = useDispatch();
 
-  const offline = useSelector((state: any) => state.offline);
+  // const offline = useSelector((state: any) => state.offline);
   const auth = useSelector((state: any) => state.auth);
 
   const {loaded} = auth;
-  const {online} = offline;
+  // const {online} = offline;
 
   const authUser = useSelector(getAuthUserSelector);
 
@@ -57,9 +57,9 @@ const Main = () => {
     if (authUser == null) {
       dispatch(getAuthUser(null));
     }
-  }, [offline]);
+  }, []);
 
-  const initialRouteName = getInitialRouteName(online, loaded, authUser);
+  const initialRouteName = getInitialRouteName(true, loaded, authUser);
   const AppNavigator = getAppNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
 

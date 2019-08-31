@@ -1,26 +1,34 @@
-import {offline} from '@redux-offline/redux-offline';
-import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
-import {applyMiddleware, createStore} from 'redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import {init, RematchRootState} from '@rematch/core';
+import immerPlugin from '@rematch/immer';
+import createLoadingPlugin from '@rematch/loading';
+import createRematchPersist from '@rematch/persist';
+import updatedPlugin from '@rematch/updated';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
+// models
+import * as models from './models';
 
-const sagaMiddleware = createSagaMiddleware();
+const updated = updatedPlugin();
+// plugins
+const loading = createLoadingPlugin({});
+const immer = immerPlugin();
 
-const middlewares = [sagaMiddleware];
-
-const {rootReducer} = require('./reducers');
-
-const composeEnhancers = composeWithDevTools({
-  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+const persistPlugin = createRematchPersist({
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['feeds'],
+  throttle: 5000,
+  version: 1,
 });
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(...middlewares), offline(offlineConfig))
-);
+export const store = init({
+  models,
+  plugins: [loading, immer, updated, persistPlugin],
+  redux: {
+    enhancers: [composeWithDevTools()],
+  },
+});
 
-const {rootSaga} = require('./sagas');
-
-sagaMiddleware.run(rootSaga);
-
-export {store};
+export type Store = typeof store;
+export type Dispatch = typeof store.dispatch;
+export type iRootState = RematchRootState<typeof models>;

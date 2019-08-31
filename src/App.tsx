@@ -1,26 +1,18 @@
-import React, {useState} from 'react';
+import {getPersistor} from '@rematch/persist';
+import React from 'react';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import Main from './Main';
-import {store} from './store';
+import store from './store';
+
+const persistor = getPersistor();
 
 const App = () => {
-  const [init, setInit] = useState(false);
-
-  store.subscribe(() => {
-    const state: any = store.getState();
-
-    if (!init && state.lastAction.type == 'persist/REHYDRATE') {
-      setInit(true);
-    }
-  });
-
-  if (!init) {
-    return null;
-  }
-
   return (
     <Provider store={store}>
-      <Main />
+      <PersistGate persistor={persistor} loading={null}>
+        <Main />
+      </PersistGate>
     </Provider>
   );
 };
