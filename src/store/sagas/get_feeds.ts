@@ -15,7 +15,7 @@ function* getFeeds(action: any) {
 
     yield put({
       type: GET_FEEDS_SUCCESS,
-      payload: {feeds: mapKeys(feeds), meta},
+      payload: {feeds: mapKeys(feeds, 'id'), meta},
     });
   } catch (error) {
     yield put({

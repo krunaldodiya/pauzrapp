@@ -22,7 +22,8 @@ const postReducer = (state = initialState, action: any) => {
   switch (type) {
     case GET_FEEDS_SUCCESS: {
       const {feeds, meta} = payload;
-      state.feeds.push(Object.keys(feeds));
+      const uniqueFeeds = Object.keys(feeds).filter((feed: any) => state.feeds.indexOf(feed) < 0);
+      state.feeds.push(...uniqueFeeds);
       state.meta = meta;
     }
 

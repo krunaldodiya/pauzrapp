@@ -54,8 +54,6 @@ const Main = () => {
   const authUser = useSelector(getAuthUserSelector);
 
   useEffect(() => {
-    console.log(auth);
-
     if (authUser == null) {
       dispatch(getAuthUser(null));
     }
