@@ -1,12 +1,6 @@
 import React, {useEffect} from 'react';
-import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
-import {useDispatch} from 'react-redux';
-import AffiliateImagePost from '../components/Posts/affiliate_image_post';
-import AffiliateVideoPost from '../components/Posts/affiliate_video_post';
-import RegularImagePost from '../components/Posts/regular_image_post';
-import RegularVideoPost from '../components/Posts/regular_video_post';
-import SponsoredVideoPost from '../components/Posts/sponosred_video_post';
-import SponsoredImagePost from '../components/Posts/sponsored_image_post';
+import {FlatList, SafeAreaView, StatusBar, View, Text} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {getFeeds} from '../store/actions';
 
 const Post = (props: any) => {
@@ -16,30 +10,18 @@ const Post = (props: any) => {
     dispatch(getFeeds(null));
   }, []);
 
+  const feed = useSelector((state: any) => state.feed);
+  const post = useSelector((state: any) => state.post);
+
   const renderItem = (data: any) => {
     const {item} = data;
+    const currentPost = post.posts[item];
 
     return (
       <React.Fragment>
-        {item.type == 'regular' && item.content_type == 'image' && <RegularImagePost data={data} />}
-
-        {item.type == 'regular' && item.content_type == 'video' && <RegularVideoPost data={data} />}
-
-        {item.type == 'sponsored' && item.content_type == 'image' && (
-          <SponsoredImagePost data={data} />
-        )}
-
-        {item.type == 'sponsored' && item.content_type == 'video' && (
-          <SponsoredVideoPost data={data} />
-        )}
-
-        {item.type == 'affiliate' && item.content_type == 'image' && (
-          <AffiliateImagePost data={data} />
-        )}
-
-        {item.type == 'affiliate' && item.content_type == 'video' && (
-          <AffiliateVideoPost data={data} />
-        )}
+        <View>
+          <Text>{currentPost.id}</Text>
+        </View>
       </React.Fragment>
     );
   };
@@ -51,7 +33,7 @@ const Post = (props: any) => {
       <View style={{flex: 1}}>
         <FlatList
           initialNumToRender={10}
-          data={require('./posts.json')}
+          data={feed.feeds}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
         />

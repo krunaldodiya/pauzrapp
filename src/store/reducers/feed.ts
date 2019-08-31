@@ -16,7 +16,7 @@ const initialState: InitialState = {
   loaded: false,
 };
 
-const postReducer = (state = initialState, action: any) => {
+const feedReducer = (state = initialState, action: any) => {
   const {type, payload} = action;
 
   switch (type) {
@@ -33,4 +33,4 @@ const postReducer = (state = initialState, action: any) => {
   }
 };
 
-export default postReducer;
+export default feedReducer;
