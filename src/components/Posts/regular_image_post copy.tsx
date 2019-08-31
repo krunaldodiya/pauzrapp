@@ -1,7 +1,6 @@
 import React from 'react';
-import {Dimensions, View, Text} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import getAssets from '../../libs/image';
 
 interface RegularImagePostProps {
   data: any;
@@ -10,24 +9,22 @@ interface RegularImagePostProps {
 const RegularImagePost = (props: RegularImagePostProps) => {
   const {data} = props;
   const {item} = data;
-
   const {width} = Dimensions.get('window');
 
   return (
     <View
       style={{
         width: width,
+        height: width,
+        marginBottom: 10,
         justifyContent: 'center',
       }}>
-      <View style={{padding: 10}}>
-        <Text style={{fontSize: 16}}>{item.when}</Text>
-      </View>
       <FastImage
         style={{
           width: width,
           height: width,
         }}
-        source={{uri: getAssets(item.url)}}
+        source={{uri: item.url}}
       />
     </View>
   );

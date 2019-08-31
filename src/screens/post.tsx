@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFeeds} from '../store/actions';
+import RegularImagePost from '../components/Posts/regular_image_post';
 
 const Post = (props: any) => {
   const dispatch = useDispatch();
@@ -13,15 +14,14 @@ const Post = (props: any) => {
   const feed = useSelector((state: any) => state.feed);
   const post = useSelector((state: any) => state.post);
 
-  const renderItem = (data: any) => {
-    const {item} = data;
-    const currentPost = post.posts[item];
+  const sortedFeed = feed.feeds
+    .map((feed: any) => post.posts[feed])
+    .sort((a: any, b: any) => a.id < b.id);
 
+  const renderItem = (data: any) => {
     return (
       <React.Fragment>
-        <View>
-          <Text>{currentPost.id}</Text>
-        </View>
+        <RegularImagePost data={data} />
       </React.Fragment>
     );
   };
@@ -32,10 +32,10 @@ const Post = (props: any) => {
 
       <View style={{flex: 1}}>
         <FlatList
-          initialNumToRender={10}
-          data={feed.feeds}
+          data={sortedFeed}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
+          ItemSeparatorComponent={() => <View style={{height: 10, backgroundColor: '#ccc'}} />}
         />
       </View>
     </SafeAreaView>
