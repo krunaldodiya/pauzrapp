@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFeeds} from '../store/actions';
+// import {getFeeds} from '../store/actions';
 import RegularImagePost from '../components/Posts/regular_image_post';
 
 const Post = (props: any) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFeeds(null));
+    // dispatch(getFeeds(null));
   }, []);
 
   const feed = useSelector((state: any) => state.feed);

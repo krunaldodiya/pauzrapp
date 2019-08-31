@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {FlatList, TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCountries, setCountry} from '../store/actions';
+// import {getCountries, setCountry} from '../store/actions';
 
 const SelectCountry = (props: any) => {
   const [keywords, setKeywords] = useState('');
@@ -18,7 +18,7 @@ const SelectCountry = (props: any) => {
 
   useEffect(() => {
     if (!countries.length) {
-      dispatch(getCountries(null));
+      // dispatch(getCountries(null));
     }
   }, []);
 
@@ -33,7 +33,7 @@ const SelectCountry = (props: any) => {
       <TouchableOpacity
         style={{padding: 10}}
         onPress={() => {
-          dispatch(setCountry({country: item}));
+          // dispatch(setCountry({country: item}));
           props.navigation.pop();
         }}>
         <Text style={{color: '#000'}}>{item.name}</Text>

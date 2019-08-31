@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import screens from '../libs/screens';
-import {requestOtp} from '../store/actions';
+// import {requestOtp} from '../store/actions';
 
 const RequestOtp = (props: any) => {
   const country = useSelector((state: any) => state.otp.country);

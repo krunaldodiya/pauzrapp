@@ -12,7 +12,7 @@ import SelectCountry from './screens/select_country';
 import Splash from './screens/splash';
 import Timer from './screens/timer';
 import VerifyOtp from './screens/verify_otp';
-import {getAuthUser} from './store/actions';
+// import {getAuthUser} from './store/actions';
 import {getAuthUserSelector} from './store/selectors/auth_user';
 
 const getAppNavigator = (
@@ -55,7 +55,7 @@ const Main = () => {
 
   useEffect(() => {
     if (authUser == null) {
-      dispatch(getAuthUser(null));
+      // dispatch(getAuthUser(null));
     }
   }, []);
 
