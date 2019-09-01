@@ -11,7 +11,7 @@ const intialState: UserState = {
   loading: false,
   loaded: false,
   errors: null,
-  users: null,
+  users: {},
 };
 
 export const user = createModel({
@@ -19,7 +19,8 @@ export const user = createModel({
   state: intialState,
   reducers: {
     'auth/setAuthUserSuccess': (state: any, payload: any) => {
-      console.log('from subscription', payload);
+      state.users[payload.user.id] = payload.user;
+      return state;
     },
   },
 });
