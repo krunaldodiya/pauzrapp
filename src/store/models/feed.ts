@@ -3,7 +3,7 @@ import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 
 interface FeedState {
-  feeds: any[];
+  feeds: number[];
   meta: {};
   errors: null;
   loading: boolean;
@@ -25,24 +25,37 @@ export const feed = createModel({
     setState(state: FeedState, payload: any) {
       return {...state, ...payload};
     },
-    setAuthUserSuccess(state: FeedState, payload: any) {
+    sortByIdDesc(oldFeed: number, newFeed: number) {
+      return newFeed - oldFeed;
+    },
+    sortByIdAsc(oldFeed: number, newFeed: number) {
+      return oldFeed - newFeed;
+    },
+    getFeedsSuccess(state: FeedState, payload: any) {
+      const {feeds, meta} = payload;
+      const uniqueFeeds = feeds
+        .filter((feed: any) => state.feeds.indexOf(feed.id) < 0)
+        .map((feed: any) => feed.id);
+
+      state.feeds.push(...uniqueFeeds);
+      state.meta = meta;
       state.errors = null;
+
       return state;
     },
   },
   effects: (dispatch: any) => {
     return {
-      async getAuthUser(payload: any, state: any) {
-        dispatch.auth.setState({loading: true});
+      async getFeeds(payload: any, state: any) {
+        dispatch.feed.setState({loading: true});
 
         try {
-          const {data} = await makeRequest(api.me, payload, 'POST');
-          const {user} = data;
+          const {data} = await makeRequest(api.getFeeds, payload, 'POST');
+          const {feeds, meta} = data;
 
-          dispatch.auth.setAuthUserSuccess({user});
-          dispatch.auth.setState({loading: false, loaded: true});
+          dispatch.feed.getFeedsSuccess({feeds, meta});
         } catch (error) {
-          dispatch.auth.setState({loading: false, loaded: true, errors: error.response.data});
+          dispatch.feed.setState({loading: false, loaded: true, errors: error.response.data});
         }
       },
     };

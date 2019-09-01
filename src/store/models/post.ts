@@ -1,6 +1,5 @@
 import {createModel} from '@rematch/core';
-import {api} from '../../libs/api';
-import makeRequest from '../../services/make_request';
+import {mapKeys} from 'lodash';
 
 interface PostState {
   posts: any;
@@ -23,26 +22,15 @@ export const post = createModel({
     setState(state: PostState, payload: any) {
       return {...state, ...payload};
     },
-    setAuthUserSuccess(state: PostState, payload: any) {
-      state.errors = null;
+    'feed/getFeedsSuccess'(state: PostState, payload: any) {
+      const {feeds} = payload;
+      state.posts = Object.assign(state.posts, mapKeys(feeds, 'id'));
       return state;
     },
   },
   effects: (dispatch: any) => {
     return {
-      async getAuthUser(payload: any, state: any) {
-        dispatch.auth.setState({loading: true});
-
-        try {
-          const {data} = await makeRequest(api.me, payload, 'POST');
-          const {user} = data;
-
-          dispatch.auth.setAuthUserSuccess({user});
-          dispatch.auth.setState({loading: false, loaded: true});
-        } catch (error) {
-          dispatch.auth.setState({loading: false, loaded: true, errors: error.response.data});
-        }
-      },
+      //
     };
   },
 });

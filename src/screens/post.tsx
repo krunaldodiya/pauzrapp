@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
-import {FlatList, SafeAreaView, StatusBar, View, Text} from 'react-native';
+import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-// import {getFeeds} from '../store/actions';
 import RegularImagePost from '../components/Posts/regular_image_post';
+import PostModel from '../models/post';
 
 const Post = (props: any) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getFeeds(null));
+    dispatch({type: 'feed/getFeeds', payload: null});
   }, []);
 
   const feed = useSelector((state: any) => state.feed);
@@ -16,7 +16,7 @@ const Post = (props: any) => {
 
   const sortedFeed = feed.feeds
     .map((feed: any) => post.posts[feed])
-    .sort((a: any, b: any) => a.id < b.id);
+    .sort((a: PostModel, b: PostModel) => b.id - a.id);
 
   const renderItem = (data: any) => {
     return (
