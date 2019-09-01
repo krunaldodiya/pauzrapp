@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Button, SafeAreaView, StatusBar, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-// import {verifyOtp} from '../store/actions';
 import screens from '../libs/screens';
 
 const VerifyOtp = (props: any) => {
@@ -28,7 +27,7 @@ const VerifyOtp = (props: any) => {
           <Button
             title="verify otp"
             onPress={() => {
-              // dispatch(verifyOtp({country, mobile, otp, fcm_token: ''}));
+              dispatch({type: 'otp/verifyOtp', payload: {country, mobile, otp, fcm_token: ''}});
               props.navigation.replace(screens.VerifyOtp);
             }}
           />

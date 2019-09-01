@@ -21,7 +21,7 @@ export const auth = createModel({
   state: intialState,
   reducers: {
     setAuthUserLoading(state: AuthState, payload: any) {
-      state.loading = true;
+      state.loading = payload.loading;
       return state;
     },
     setAuthUserSuccess(state: AuthState, payload: any) {
@@ -41,7 +41,7 @@ export const auth = createModel({
   effects: (dispatch: any) => {
     return {
       async getAuthUser(payload: any, state: any) {
-        dispatch.auth.setAuthUserLoading(true);
+        dispatch.auth.setAuthUserLoading({loading: true});
 
         try {
           const {data} = await makeRequest(api.me, payload, 'POST');

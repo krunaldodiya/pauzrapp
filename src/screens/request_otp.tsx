@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import screens from '../libs/screens';
-// import {requestOtp} from '../store/actions';
 
 const RequestOtp = (props: any) => {
   const country = useSelector((state: any) => state.otp.country);
@@ -41,7 +40,7 @@ const RequestOtp = (props: any) => {
           <Button
             title="send otp"
             onPress={() => {
-              dispatch(requestOtp({mobile, country}));
+              dispatch({type: 'otp/requestOtp', payload: {mobile, country}});
               props.navigation.replace(screens.VerifyOtp);
             }}
           />
