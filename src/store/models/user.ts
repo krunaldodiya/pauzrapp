@@ -3,15 +3,15 @@ import {createModel} from '@rematch/core';
 export type UserState = {
   loading: boolean;
   loaded: boolean;
-  users: any;
   errors: any;
+  users: any;
 };
 
 const intialState: UserState = {
   loading: false,
   loaded: false,
-  users: null,
   errors: null,
+  users: null,
 };
 
 export const user = createModel({
