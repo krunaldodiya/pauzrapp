@@ -14,7 +14,7 @@ export type OtpState = {
   country: Country | null;
 };
 
-const intialState: OtpState = {
+const initialState: OtpState = {
   loading: false,
   loaded: false,
   errors: null,
@@ -26,7 +26,7 @@ const intialState: OtpState = {
 
 export const otp = createModel({
   name: 'otp',
-  state: intialState,
+  state: initialState,
   reducers: {
     setState(state: OtpState, payload: any) {
       return {...state, ...payload};

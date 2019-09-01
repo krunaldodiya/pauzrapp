@@ -7,7 +7,7 @@ export type UserState = {
   users: any;
 };
 
-const intialState: UserState = {
+const initialState: UserState = {
   loading: false,
   loaded: false,
   errors: null,
@@ -16,7 +16,7 @@ const intialState: UserState = {
 
 export const user = createModel({
   name: 'user',
-  state: intialState,
+  state: initialState,
   reducers: {
     'auth/setAuthUserSuccess': (state: any, payload: any) => {
       state.users[payload.user.id] = payload.user;

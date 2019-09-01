@@ -2,29 +2,28 @@ import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 
-export type AuthState = {
+interface PostState {
+  posts: any;
+  errors: null;
   loading: boolean;
   loaded: boolean;
-  errors: any;
-  authUserId: number | null;
-};
+}
 
-const initialState: AuthState = {
+const initialState: PostState = {
+  posts: {},
+  errors: null,
   loading: false,
   loaded: false,
-  errors: null,
-  authUserId: null,
 };
 
-export const auth = createModel({
-  name: 'auth',
+export const post = createModel({
+  name: 'post',
   state: initialState,
   reducers: {
-    setState(state: AuthState, payload: any) {
+    setState(state: PostState, payload: any) {
       return {...state, ...payload};
     },
-    setAuthUserSuccess(state: AuthState, payload: any) {
-      state.authUserId = payload.user.id;
+    setAuthUserSuccess(state: PostState, payload: any) {
       state.errors = null;
       return state;
     },

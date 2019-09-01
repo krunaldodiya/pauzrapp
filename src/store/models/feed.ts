@@ -2,29 +2,30 @@ import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 
-export type AuthState = {
+interface FeedState {
+  feeds: any[];
+  meta: {};
+  errors: null;
   loading: boolean;
   loaded: boolean;
-  errors: any;
-  authUserId: number | null;
-};
+}
 
-const initialState: AuthState = {
+const initialState: FeedState = {
+  feeds: [],
+  meta: {},
+  errors: null,
   loading: false,
   loaded: false,
-  errors: null,
-  authUserId: null,
 };
 
-export const auth = createModel({
-  name: 'auth',
+export const feed = createModel({
+  name: 'feed',
   state: initialState,
   reducers: {
-    setState(state: AuthState, payload: any) {
+    setState(state: FeedState, payload: any) {
       return {...state, ...payload};
     },
-    setAuthUserSuccess(state: AuthState, payload: any) {
-      state.authUserId = payload.user.id;
+    setAuthUserSuccess(state: FeedState, payload: any) {
       state.errors = null;
       return state;
     },

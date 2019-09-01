@@ -10,7 +10,7 @@ export type LocationState = {
   cities: any[];
 };
 
-const intialState: LocationState = {
+const initialState: LocationState = {
   loading: false,
   loaded: false,
   errors: null,
@@ -20,7 +20,7 @@ const intialState: LocationState = {
 
 export const location = createModel({
   name: 'location',
-  state: intialState,
+  state: initialState,
   reducers: {
     setState(state: LocationState, payload: any) {
       return {...state, ...payload};
