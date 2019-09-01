@@ -2,7 +2,7 @@ import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 
-interface FeedState {
+interface NotificationState {
   feeds: number[];
   meta: {};
   errors: null;
@@ -10,7 +10,7 @@ interface FeedState {
   loaded: boolean;
 }
 
-const initialState: FeedState = {
+const initialState: NotificationState = {
   feeds: [],
   meta: {},
   errors: null,
@@ -18,14 +18,14 @@ const initialState: FeedState = {
   loaded: false,
 };
 
-export const feed = createModel({
-  name: 'feed',
+export const notification = createModel({
+  name: 'notification',
   state: initialState,
   reducers: {
-    setState(state: FeedState, payload: any) {
+    setState(state: NotificationState, payload: any) {
       return {...state, ...payload};
     },
-    getFeedsSuccess(state: FeedState, payload: any) {
+    getLotteryWinnersSuccess(state: NotificationState, payload: any) {
       const {feeds, meta} = payload;
       const uniqueFeeds = feeds
         .filter((feed: any) => state.feeds.indexOf(feed.id) < 0)
@@ -40,14 +40,14 @@ export const feed = createModel({
   },
   effects: (dispatch: any) => {
     return {
-      async getFeeds(payload: any, state: any) {
+      async getLotteryWinners(payload: any, state: any) {
         dispatch.feed.setState({loading: true});
 
         try {
-          const {data} = await makeRequest(api.getFeeds, payload, 'POST');
-          const {feeds, meta} = data;
+          const {data} = await makeRequest(api.getLotteryWinners, payload, 'POST');
+          const {winners} = data;
 
-          dispatch.feed.getFeedsSuccess({feeds, meta});
+          dispatch.feed.getLotteryWinnersSuccess({winners});
         } catch (error) {
           dispatch.feed.setState({loading: false, loaded: true, errors: error.response.data});
         }

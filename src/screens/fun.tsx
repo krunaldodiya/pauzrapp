@@ -1,44 +1,46 @@
 import React from 'react';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import Icon from '../components/Icon';
-import PostContainer from '../screens/post';
+import LotteryWinners from '../screens/lottery_winners';
+import Post from '../screens/post';
+import PublicProfile from './public_profile';
 
 const FunTabNavigator = createBottomTabNavigator(
   {
-    Intro: {
-      screen: PostContainer,
+    Feeds: {
+      screen: Post,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="camera" style={{color: tintColor, fontSize: 36}} />
         ),
       },
     },
-    Two: {
-      screen: PostContainer,
+    Lottery: {
+      screen: LotteryWinners,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="trophy" style={{color: tintColor, fontSize: 36}} />
         ),
       },
     },
-    Three: {
-      screen: PostContainer,
+    Profile: {
+      screen: PublicProfile,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="user" style={{color: tintColor, fontSize: 36}} />
         ),
       },
     },
-    Four: {
-      screen: PostContainer,
+    Search: {
+      screen: Post,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="search" style={{color: tintColor, fontSize: 36}} />
         ),
       },
     },
-    Five: {
-      screen: PostContainer,
+    Notifications: {
+      screen: Post,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="heart" style={{color: tintColor, fontSize: 36}} />
@@ -51,7 +53,7 @@ const FunTabNavigator = createBottomTabNavigator(
       showLabel: false,
       activeTintColor: 'red',
     },
-    initialRouteName: 'Two',
+    initialRouteName: 'Profile',
   }
 );
 
