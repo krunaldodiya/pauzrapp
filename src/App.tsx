@@ -6,16 +6,18 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Main from './Main';
 import {store} from './store';
 
+const persistor = getPersistor();
+
 const NetworkGate = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const unsubscribe: NetInfoSubscription = NetInfo.addEventListener((state: any) => {
-      dispatch({type: 'network/changed', payload: state});
-    });
+  const unsubscribe: NetInfoSubscription = NetInfo.addEventListener((state: any) => {
+    dispatch({type: 'network/changed', payload: state});
+  });
 
+  useEffect(() => {
     return () => {
-      unsubscribe();
+      unsubscribe && unsubscribe();
     };
   }, []);
 
@@ -25,7 +27,7 @@ const NetworkGate = () => {
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={getPersistor()} loading={null}>
+      <PersistGate persistor={persistor} loading={null}>
         <NetworkGate />
       </PersistGate>
     </Provider>

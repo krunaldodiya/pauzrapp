@@ -10,6 +10,7 @@ const NoInternet = (props: NoInternetProps) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar backgroundColor="#0D62A2" barStyle="light-content" />
+
       <View style={{flex: 1, justifyContent: 'center'}}>
         <Text style={{textAlign: 'center', fontSize: 26}}>No Internet</Text>
       </View>

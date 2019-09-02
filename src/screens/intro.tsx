@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, View, StatusBar} from 'react-native';
+import {Image, SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {NavigationScreenProp} from 'react-navigation';
 import screens from '../libs/screens';
