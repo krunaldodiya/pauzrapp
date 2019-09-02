@@ -1,11 +1,11 @@
 import React from 'react';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import Icon from '../components/Icon';
-import LotteryWinners from '../screens/lottery_winners';
-import Post from '../screens/post';
-import Notifications from './notifications';
-import PublicProfile from './public_profile';
-import Search from './search';
+import LotteryWinners from './fun/lottery_winners';
+import Post from './fun/post';
+import Notifications from './fun/notifications';
+import PublicProfile from './fun/public_profile';
+import Search from './fun/search';
 
 const FunTabNavigator = createBottomTabNavigator(
   {

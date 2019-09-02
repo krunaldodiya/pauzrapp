@@ -3,11 +3,11 @@ import EditProfile from './screens/edit_profile';
 import Home from './screens/home';
 import Intro from './screens/intro';
 import NoInternet from './screens/no_internet';
-import Post from './screens/post';
+import Post from './screens/fun/post';
 import RequestOtp from './screens/request_otp';
 import SelectCountry from './screens/select_country';
 import Splash from './screens/splash';
-import Timer from './screens/timer';
+import Timer from './screens/focus/timer';
 import VerifyOtp from './screens/verify_otp';
 
 const getAppNavigator = (

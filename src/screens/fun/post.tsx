@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import RegularImagePost from '../components/Posts/regular_image_post';
-import PostModel from '../models/post';
+import RegularImagePost from '../../components/Posts/regular_image_post';
+import PostModel from '../../models/post';
 
 const Post = (props: any) => {
   const dispatch = useDispatch();

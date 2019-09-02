@@ -7,7 +7,9 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 import Icon from '../components/Icon';
-import Timer from '../screens/timer';
+import Groups from './focus/groups';
+import Scoreboard from './focus/scoreboard';
+import Timer from './focus/timer';
 
 const DrawerMenu = (props: any) => {
   return (
@@ -23,15 +25,15 @@ const DrawerMenu = (props: any) => {
 
 const FocusTabNavigator = createBottomTabNavigator(
   {
-    Intro: {
-      screen: Timer,
+    Groups: {
+      screen: Groups,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="Ionicons" name="ios-people" style={{color: tintColor, fontSize: 28}} />
         ),
       },
     },
-    Two: {
+    Timer: {
       screen: Timer,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
@@ -39,8 +41,8 @@ const FocusTabNavigator = createBottomTabNavigator(
         ),
       },
     },
-    Three: {
-      screen: Timer,
+    Scoreboard: {
+      screen: Scoreboard,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="Ionicons" name="ios-stats" style={{color: tintColor, fontSize: 28}} />
