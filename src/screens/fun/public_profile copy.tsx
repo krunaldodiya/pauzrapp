@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
-import {Dimensions, Image, SafeAreaView, StatusBar, Text, View} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {FlatList, NavigationScreenProp} from 'react-navigation';
+import {Dimensions, Image, SafeAreaView, StatusBar, Text, View, Button} from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native-gesture-handler';
+import {NavigationScreenProp} from 'react-navigation';
 import {useSelector} from 'react-redux';
 import Icon from '../../components/Icon';
 import getAssets from '../../libs/image';
@@ -41,7 +46,7 @@ const PublicProfile = (props: PublicProfileProps) => {
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#0D62A2" />
 
-      <ScrollView style={{flex: 1}}>
+      <View style={{flex: 1}}>
         <View style={{flexDirection: 'row', padding: 10}}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -210,64 +215,7 @@ const PublicProfile = (props: PublicProfileProps) => {
             </View>
           </View>
         </View>
-
-        <View style={{marginTop: 10, marginBottom: 1, borderTopColor: '#eee', borderTopWidth: 1}}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => setTab(0)}
-                style={{
-                  height: 32,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderBottomColor: tab === 0 ? '#555' : '#eee',
-                  borderBottomWidth: 1,
-                  padding: 20,
-                }}>
-                <Icon
-                  name="grid"
-                  type="SimpleLineIcons"
-                  style={{color: tab === 0 ? '#555' : '#aaa', fontSize: 18}}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => setTab(1)}
-                style={{
-                  height: 32,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderBottomColor: tab === 1 ? '#555' : '#eee',
-                  borderBottomWidth: 1,
-                  padding: 20,
-                }}>
-                <Icon
-                  name="heart"
-                  type="SimpleLineIcons"
-                  style={{color: tab === 1 ? '#555' : '#aaa', fontSize: 18}}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-        <View style={{flex: 1}}>
-          <FlatList
-            numColumns={3}
-            keyboardShouldPersistTaps="handled"
-            data={postsList}
-            keyExtractor={(_, index) => index.toString()}
-            renderItem={renderItem}
-            // onEndReached={this.getFeeds}
-            // onEndReachedThreshold={0.5}
-            // ListFooterComponent={this.showLoading}
-          />
-        </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

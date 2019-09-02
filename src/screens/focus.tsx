@@ -55,7 +55,7 @@ const FocusTabNavigator = createBottomTabNavigator(
       showLabel: false,
       activeTintColor: 'red',
     },
-    initialRouteName: 'Two',
+    initialRouteName: 'Timer',
   }
 );
 
