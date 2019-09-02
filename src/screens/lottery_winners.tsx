@@ -1,27 +1,32 @@
-import React, {useEffect} from 'react';
-import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import RegularImagePost from '../components/Posts/regular_image_post';
-import PostModel from '../models/post';
 
 const LotteryWinners = (props: any) => {
   const dispatch = useDispatch();
+  const [meta, setMeta] = useState({});
 
   useEffect(() => {
-    dispatch({type: 'lottery/getLotteryWinners', payload: null});
+    const getLotteryWinners: any = dispatch({type: 'lottery/getLotteryWinners', payload: meta});
+
+    getLotteryWinners.then((data: any) => {
+      setMeta(data);
+    });
   }, []);
 
-  const feed = useSelector((state: any) => state.feed);
-  const post = useSelector((state: any) => state.post);
-
-  const sortedFeed = feed.feeds
-    .map((feed: any) => post.posts[feed])
-    .sort((a: PostModel, b: PostModel) => b.id - a.id);
+  const winners = useSelector((state: any) => state.lottery.winners);
+  const winnersList = Object.keys(winners)
+    .map(key => winners[key])
+    .sort((a: any, b: any) => b.id - a.id);
 
   const renderItem = (data: any) => {
+    const {item} = data;
+
     return (
       <React.Fragment>
-        <RegularImagePost data={data} />
+        <View>
+          <Text>{item.amount}</Text>
+        </View>
       </React.Fragment>
     );
   };
@@ -32,7 +37,7 @@ const LotteryWinners = (props: any) => {
 
       <View style={{flex: 1}}>
         <FlatList
-          data={sortedFeed}
+          data={winnersList}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
           ItemSeparatorComponent={() => <View style={{height: 10, backgroundColor: '#ccc'}} />}

@@ -4,7 +4,6 @@ import makeRequest from '../../services/make_request';
 
 interface FeedState {
   feeds: number[];
-  meta: {};
   errors: null;
   loading: boolean;
   loaded: boolean;
@@ -12,7 +11,6 @@ interface FeedState {
 
 const initialState: FeedState = {
   feeds: [],
-  meta: {},
   errors: null,
   loading: false,
   loaded: false,
@@ -26,13 +24,12 @@ export const feed = createModel({
       return {...state, ...payload};
     },
     getFeedsSuccess(state: FeedState, payload: any) {
-      const {feeds, meta} = payload;
+      const {feeds} = payload;
       const uniqueFeeds = feeds
         .filter((feed: any) => state.feeds.indexOf(feed.id) < 0)
         .map((feed: any) => feed.id);
 
       state.feeds.push(...uniqueFeeds);
-      state.meta = meta;
       state.errors = null;
 
       return state;
@@ -47,7 +44,8 @@ export const feed = createModel({
           const {data} = await makeRequest(api.getFeeds, payload, 'POST');
           const {feeds, meta} = data;
 
-          dispatch.feed.getFeedsSuccess({feeds, meta});
+          dispatch.feed.getFeedsSuccess({feeds});
+          return meta;
         } catch (error) {
           dispatch.feed.setState({loading: false, loaded: true, errors: error.response.data});
         }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import RegularImagePost from '../components/Posts/regular_image_post';
@@ -6,9 +6,14 @@ import PostModel from '../models/post';
 
 const Post = (props: any) => {
   const dispatch = useDispatch();
+  const [meta, setMeta] = useState({});
 
   useEffect(() => {
-    dispatch({type: 'feed/getFeeds', payload: null});
+    const getFeeds: any = dispatch({type: 'feed/getFeeds', payload: meta});
+
+    getFeeds.then((data: any) => {
+      setMeta(data);
+    });
   }, []);
 
   const feed = useSelector((state: any) => state.feed);

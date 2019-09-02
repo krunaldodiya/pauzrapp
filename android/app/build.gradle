@@ -77,9 +77,12 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    // bundleCommand: "ram-bundle",
-    // bundleConfig: "./metro.config.js",
+    bundleInDebug: true,
+    bundleInRelease:true,
+    bundleInRelease: true,
     enableHermes: true,
+    bundleCommand: "ram-bundle",
+    bundleConfig: "./metro.config.js",
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
