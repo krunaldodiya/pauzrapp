@@ -26,6 +26,8 @@ export const notification = createModel({
   effects: (dispatch: any) => {
     return {
       async getNotifications(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.notification.setState({loading: true});
 
         try {

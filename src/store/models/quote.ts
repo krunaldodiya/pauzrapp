@@ -46,6 +46,8 @@ export const quote = createModel({
   effects: (dispatch: any) => {
     return {
       async getQuotes(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.quote.setState({loading: true});
 
         try {

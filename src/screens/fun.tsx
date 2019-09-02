@@ -1,8 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import Icon from '../components/Icon';
+import Feeds from './fun/feeds';
 import LotteryWinners from './fun/lottery_winners';
-import Post from './fun/post';
 import Notifications from './fun/notifications';
 import PublicProfile from './fun/public_profile';
 import Search from './fun/search';
@@ -10,7 +10,7 @@ import Search from './fun/search';
 const FunTabNavigator = createBottomTabNavigator(
   {
     Feeds: {
-      screen: Post,
+      screen: Feeds,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="camera" style={{color: tintColor, fontSize: 36}} />

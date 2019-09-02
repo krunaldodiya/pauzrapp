@@ -16,6 +16,7 @@ const LotteryWinners = (props: any) => {
   }, []);
 
   const winners = useSelector((state: any) => state.lottery.winners);
+
   const winnersList = Object.keys(winners)
     .map(key => winners[key])
     .sort((a: any, b: any) => b.id - a.id);

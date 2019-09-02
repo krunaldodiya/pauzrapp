@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StatusBar, View, Text} from 'react-native';
+import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import RegularImagePost from '../../components/Posts/regular_image_post';
-import PostModel from '../../models/post';
 
-const Post = (props: any) => {
+const Feeds = (props: any) => {
   const dispatch = useDispatch();
   const [meta, setMeta] = useState({});
 
@@ -16,16 +15,13 @@ const Post = (props: any) => {
     });
   }, []);
 
-  const feed = useSelector((state: any) => state.feed);
-  const post = useSelector((state: any) => state.post);
+  const feeds = useSelector((state: any) => state.feed.feeds);
 
-  const sortedFeed = feed.feeds
-    .map((feed: any) => post.posts[feed])
-    .sort((a: PostModel, b: PostModel) => b.id - a.id);
+  const feedsList = Object.keys(feeds)
+    .map(key => feeds[key])
+    .sort((a: any, b: any) => b.id - a.id);
 
   const renderItem = (data: any) => {
-    if (!data.item) return null;
-
     return (
       <React.Fragment>
         <RegularImagePost data={data} />
@@ -39,7 +35,7 @@ const Post = (props: any) => {
 
       <View style={{flex: 1}}>
         <FlatList
-          data={sortedFeed}
+          data={feedsList}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
           ItemSeparatorComponent={() => <View style={{height: 10, backgroundColor: '#ccc'}} />}
@@ -49,4 +45,4 @@ const Post = (props: any) => {
   );
 };
 
-export default React.memo(Post);
+export default React.memo(Feeds);

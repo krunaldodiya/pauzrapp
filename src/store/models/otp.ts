@@ -2,7 +2,7 @@ import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import {setAuthToken} from '../../services/auth';
 import makeRequest from '../../services/make_request';
-import {Country} from '../interfaces/country';
+import Country from '../../models/country';
 
 export type OtpState = {
   loading: boolean;

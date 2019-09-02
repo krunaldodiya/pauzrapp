@@ -32,6 +32,8 @@ export const auth = createModel({
   effects: (dispatch: any) => {
     return {
       async getAuthUser(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.auth.setState({loading: true});
 
         try {

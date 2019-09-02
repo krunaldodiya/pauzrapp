@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {FlatList, NavigationScreenProp} from 'react-navigation';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from '../../components/Icon';
 import getAssets from '../../libs/image';
 import theme from '../../libs/theme';
@@ -13,9 +13,21 @@ interface PublicProfileProps {
 }
 
 const PublicProfile = (props: PublicProfileProps) => {
+  const dispatch = useDispatch();
   const [tab, setTab] = useState(0);
+  const [meta, setMeta] = useState({});
+
+  useEffect(() => {
+    const getPosts: any = dispatch({type: 'post/getPosts', payload: meta});
+
+    getPosts.then((data: any) => {
+      setMeta(data);
+    });
+  }, []);
+
   const authUser = useSelector(getAuthUserSelector);
   const posts = useSelector((state: any) => state.post.posts);
+
   const postsList = Object.keys(posts)
     .map(key => posts[key])
     .sort((a: any, b: any) => b.id - a.id);

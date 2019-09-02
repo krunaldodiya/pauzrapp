@@ -1,18 +1,19 @@
 import {createModel} from '@rematch/core';
+import {mapKeys} from 'lodash';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 interface FeedState {
-  feeds: number[];
-  errors: null;
   loading: boolean;
   loaded: boolean;
+  errors: null;
+  feeds: {};
 }
 
 const initialState: FeedState = {
-  feeds: [],
-  errors: null,
   loading: false,
   loaded: false,
+  errors: null,
+  feeds: {},
 };
 
 export const feed = createModel({
@@ -23,11 +24,7 @@ export const feed = createModel({
       return {...state, ...payload};
     },
     getFeedsSuccess(state: FeedState, payload: any) {
-      const uniqueFeeds = payload.feeds
-        .filter((feed: any) => state.feeds.indexOf(feed.id) < 0)
-        .map((feed: any) => feed.id);
-
-      state.feeds.push(...uniqueFeeds);
+      state.feeds = Object.assign(state.feeds, mapKeys(payload.feeds, 'id'));
       state.errors = null;
 
       state.loading = false;
@@ -43,8 +40,10 @@ export const feed = createModel({
 
         dispatch.feed.setState({loading: true});
 
+        const postData = {page: 1, user_id: rootState.auth.authUserId};
+
         try {
-          const {data} = await makeRequest(api.getFeeds, payload, 'POST');
+          const {data} = await makeRequest(api.getFeeds, postData, 'POST');
           const {feeds, meta} = data;
 
           dispatch.feed.getFeedsSuccess({feeds});
