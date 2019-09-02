@@ -2,16 +2,14 @@ import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 interface NotificationState {
-  feeds: number[];
-  meta: {};
+  notifications: [];
   errors: null;
   loading: boolean;
   loaded: boolean;
 }
 
 const initialState: NotificationState = {
-  feeds: [],
-  meta: {},
+  notifications: [],
   errors: null,
   loading: false,
   loaded: false,
@@ -24,33 +22,25 @@ export const notification = createModel({
     setState(state: NotificationState, payload: any) {
       return {...state, ...payload};
     },
-    getLotteryWinnersSuccess(state: NotificationState, payload: any) {
-      const {feeds, meta} = payload;
-      const uniqueFeeds = feeds
-        .filter((feed: any) => state.feeds.indexOf(feed.id) < 0)
-        .map((feed: any) => feed.id);
-
-      state.feeds.push(...uniqueFeeds);
-      state.meta = meta;
-      state.errors = null;
-
-      return state;
-    },
   },
   effects: (dispatch: any) => {
     return {
-      async getLotteryWinners(payload: any, rootState: any) {
+      async getNotifications(payload: any, rootState: any) {
         if (!rootState.network.isInternetReachable) return;
 
-        dispatch.feed.setState({loading: true});
+        dispatch.notification.setState({loading: true});
 
         try {
-          const {data} = await makeRequest(api.getLotteryWinners, payload, 'POST');
-          const {winners} = data;
+          const {data} = await makeRequest(api.getNotifications, payload, 'POST');
+          const {notifications} = data;
 
-          dispatch.feed.getLotteryWinnersSuccess({winners});
+          dispatch.notification.setState({loading: false, loaded: true, notifications});
         } catch (error) {
-          dispatch.feed.setState({loading: false, loaded: true, errors: error.response.data});
+          dispatch.notification.setState({
+            loading: false,
+            loaded: true,
+            errors: error.response.data,
+          });
         }
       },
     };

@@ -3,7 +3,9 @@ import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import Icon from '../components/Icon';
 import LotteryWinners from '../screens/lottery_winners';
 import Post from '../screens/post';
+import Notifications from './notifications';
 import PublicProfile from './public_profile';
+import Search from './search';
 
 const FunTabNavigator = createBottomTabNavigator(
   {
@@ -32,7 +34,7 @@ const FunTabNavigator = createBottomTabNavigator(
       },
     },
     Search: {
-      screen: Post,
+      screen: Search,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="search" style={{color: tintColor, fontSize: 36}} />
@@ -40,7 +42,7 @@ const FunTabNavigator = createBottomTabNavigator(
       },
     },
     Notifications: {
-      screen: Post,
+      screen: Notifications,
       navigationOptions: {
         tabBarIcon: ({tintColor}: any) => (
           <Icon type="EvilIcons" name="heart" style={{color: tintColor, fontSize: 36}} />

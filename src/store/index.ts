@@ -12,9 +12,6 @@ const persistPlugin = createRematchPersist({
   version: 1,
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['feeds'],
-  throttle: 5000,
-  debug: true,
 });
 
 const immer = immerPlugin(); // should be after persist plugin
