@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import {useDispatch, useSelector} from 'react-redux';
-import TimerCard from './card';
 import getAssets from '../../libs/image';
+import TimerCard from './card';
 
 interface TimerProps {
   navigation: NavigationScreenProp<any, any>;
@@ -11,7 +11,6 @@ interface TimerProps {
 
 const Timer = (props: TimerProps) => {
   const dispatch = useDispatch();
-  const [tab, setTab] = useState(0);
 
   useEffect(() => {
     dispatch({type: 'quote/getQuotes', payload: null});
@@ -19,8 +18,7 @@ const Timer = (props: TimerProps) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const nextTab = tab < quotes.length - 1 ? tab + 1 : 0;
-      setTab(nextTab);
+      dispatch({type: 'quote/nextTab', payload: null});
     }, 5000);
 
     return () => {
@@ -29,6 +27,7 @@ const Timer = (props: TimerProps) => {
   }, []);
 
   const quotes = useSelector((state: any) => state.quote.quotes);
+  const tab = useSelector((state: any) => state.quote.tab);
   const currentQuote = quotes[tab];
 
   const size = {width: Dimensions.get('window').width, height: Dimensions.get('window').height};
@@ -127,14 +126,26 @@ const Timer = (props: TimerProps) => {
             backgroundColor: 'transparent',
           }}>
           <TouchableOpacity
+            onLongPress={value => {
+              dispatch({type: 'quote/setState', payload: {playing: false}});
+            }}
+            onPressOut={() => {
+              dispatch({type: 'quote/setState', payload: {playing: true}});
+            }}
             onPress={() => {
-              tab > 0 && setTab(tab - 1);
+              dispatch({type: 'quote/previousTab', payload: null});
             }}
             style={{width: '50%'}}
           />
           <TouchableOpacity
+            onLongPress={() => {
+              dispatch({type: 'quote/setState', payload: {playing: false}});
+            }}
+            onPressOut={() => {
+              dispatch({type: 'quote/setState', payload: {playing: true}});
+            }}
             onPress={() => {
-              tab < quotes.length - 1 && setTab(tab + 1);
+              dispatch({type: 'quote/nextTab', payload: null});
             }}
             style={{width: '50%'}}
           />
