@@ -1,4 +1,4 @@
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo, {NetInfoSubscription} from '@react-native-community/netinfo';
 import {getPersistor} from '@rematch/persist';
 import React, {useEffect} from 'react';
 import {Provider, useDispatch} from 'react-redux';
@@ -10,7 +10,7 @@ const NetworkGate = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state: any) => {
+    const unsubscribe: NetInfoSubscription = NetInfo.addEventListener((state: any) => {
       dispatch({type: 'network/changed', payload: state});
     });
 
@@ -25,7 +25,7 @@ const NetworkGate = () => {
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={getPersistor()}>
+      <PersistGate persistor={getPersistor()} loading={null}>
         <NetworkGate />
       </PersistGate>
     </Provider>

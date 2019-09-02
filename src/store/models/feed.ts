@@ -1,7 +1,6 @@
 import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
-
 interface FeedState {
   feeds: number[];
   errors: null;
@@ -37,7 +36,9 @@ export const feed = createModel({
   },
   effects: (dispatch: any) => {
     return {
-      async getFeeds(payload: any, state: any) {
+      async getFeeds(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.feed.setState({loading: true});
 
         try {

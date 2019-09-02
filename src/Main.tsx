@@ -13,9 +13,7 @@ const Main = (props: any) => {
   const authUser = useSelector(getAuthUserSelector);
 
   useEffect(() => {
-    if (authUser == null) {
-      dispatch({type: 'auth/getAuthUser', payload: null});
-    }
+    dispatch({type: 'auth/getAuthUser', payload: null});
   }, []);
 
   const initialRouteName = getInitialRouteName(online, loaded, authUser);

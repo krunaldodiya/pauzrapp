@@ -1,8 +1,8 @@
 import {createModel} from '@rematch/core';
-import {Country} from '../interfaces/country';
-import makeRequest from '../../services/make_request';
 import {api} from '../../libs/api';
 import {setAuthToken} from '../../services/auth';
+import makeRequest from '../../services/make_request';
+import {Country} from '../interfaces/country';
 
 export type OtpState = {
   loading: boolean;
@@ -39,7 +39,9 @@ export const otp = createModel({
 
   effects: (dispatch: any) => {
     return {
-      async requestOtp(payload: any, state: any) {
+      async requestOtp(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.otp.setState({loading: true, mobile: payload.mobile});
 
         try {
@@ -52,7 +54,9 @@ export const otp = createModel({
         }
       },
 
-      async verifyOtp(payload: any, state: any) {
+      async verifyOtp(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.otp.setState({loading: true, clientOtp: payload.otp});
 
         try {

@@ -2,7 +2,6 @@ import {createModel} from '@rematch/core';
 import {mapKeys} from 'lodash';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
-
 interface LotteryState {
   winners: any;
   errors: null;
@@ -33,7 +32,9 @@ export const lottery = createModel({
   },
   effects: (dispatch: any) => {
     return {
-      async getLotteryWinners(payload: any, state: any) {
+      async getLotteryWinners(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.lottery.setState({loading: true});
 
         try {

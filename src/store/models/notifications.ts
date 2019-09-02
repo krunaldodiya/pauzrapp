@@ -1,7 +1,6 @@
 import {createModel} from '@rematch/core';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
-
 interface NotificationState {
   feeds: number[];
   meta: {};
@@ -40,7 +39,9 @@ export const notification = createModel({
   },
   effects: (dispatch: any) => {
     return {
-      async getLotteryWinners(payload: any, state: any) {
+      async getLotteryWinners(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.feed.setState({loading: true});
 
         try {

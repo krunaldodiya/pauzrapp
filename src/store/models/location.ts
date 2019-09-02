@@ -1,6 +1,6 @@
 import {createModel} from '@rematch/core';
-import makeRequest from '../../services/make_request';
 import {api} from '../../libs/api';
+import makeRequest from '../../services/make_request';
 
 export type LocationState = {
   loading: boolean;
@@ -28,7 +28,9 @@ export const location = createModel({
   },
   effects: (dispatch: any) => {
     return {
-      async getCountries(payload: any, state: any) {
+      async getCountries(payload: any, rootState: any) {
+        if (!rootState.network.isInternetReachable) return;
+
         dispatch.location.setState({loading: true});
 
         try {
