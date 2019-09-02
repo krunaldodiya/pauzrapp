@@ -1,13 +1,36 @@
-import React from 'react';
-import {Dimensions, ImageBackground, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
+import {useDispatch, useSelector} from 'react-redux';
 import TimerCard from './card';
+import getAssets from '../../libs/image';
 
 interface TimerProps {
   navigation: NavigationScreenProp<any, any>;
 }
 
 const Timer = (props: TimerProps) => {
+  const dispatch = useDispatch();
+  const [tab, setTab] = useState(0);
+
+  useEffect(() => {
+    dispatch({type: 'quote/getQuotes', payload: null});
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const nextTab = tab < quotes.length - 1 ? tab + 1 : 0;
+      setTab(nextTab);
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const quotes = useSelector((state: any) => state.quote.quotes);
+  const currentQuote = quotes[tab];
+
   const size = {width: Dimensions.get('window').width, height: Dimensions.get('window').height};
 
   return (
@@ -22,46 +45,98 @@ const Timer = (props: TimerProps) => {
             alignSelf: 'center',
             backgroundColor: 'skyblue',
           }}>
-          <ImageBackground
-            style={{
-              width: size.width - 30,
-              height: size.height - 160,
+          <View style={{flexDirection: 'row', marginBottom: 5}}>
+            {quotes.map((_quote: any, index: number) => {
+              const width = size.width / quotes.length - 4;
+
+              return (
+                <View
+                  key={index.toString()}
+                  style={{
+                    height: 3,
+                    width,
+                    backgroundColor: index == tab ? 'black' : 'grey',
+                    marginHorizontal: 2,
+                  }}
+                />
+              );
+            })}
+          </View>
+
+          <View>
+            <Image
+              style={{
+                width: size.width - 20,
+                height: size.height - 150,
+                borderRadius: 10,
+              }}
+              resizeMode="cover"
+              source={{uri: getAssets(currentQuote.image)}}
+            />
+          </View>
+        </View>
+
+        <View
+          style={{
+            position: 'absolute',
+            zIndex: 2,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignSelf: 'center',
+            bottom: 20,
+          }}>
+          <TimerCard
+            onTimerCardTap={() => {
+              props.navigation.push('Stop', {time: 10});
             }}
-            imageStyle={{borderRadius: 25}}
-            source={{
-              uri: 'https://i.pinimg.com/originals/16/00/9e/16009e232d2cea548b3a21b8c46b32cb.jpg',
+            cardMargin={5}
+            cardWidth={size.width / 3.1}
+            minutes={10}
+            points={5}
+          />
+          <TimerCard
+            onTimerCardTap={() => {
+              props.navigation.push('Stop', {time: 20});
             }}
+            cardMargin={5}
+            cardWidth={size.width / 3.1}
+            minutes={20}
+            points={10}
+          />
+          <TimerCard
+            onTimerCardTap={() => {
+              props.navigation.push('Stop', {time: 30});
+            }}
+            cardMargin={5}
+            cardWidth={size.width / 3.1}
+            minutes={30}
+            points={20}
           />
         </View>
 
         <View
           style={{
             position: 'absolute',
+            zIndex: 1,
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignSelf: 'center',
-            bottom: 30,
+            top: 0,
+            left: 0,
+            height: '100%',
+            backgroundColor: 'transparent',
           }}>
-          <TimerCard
-            onTimerCardTap={() => props.navigation.push('Stop', {time: 10})}
-            cardMargin={5}
-            cardWidth={Dimensions.get('window').width / 3.1}
-            minutes={10}
-            points={5}
+          <TouchableOpacity
+            onPress={() => {
+              tab > 0 && setTab(tab - 1);
+            }}
+            style={{width: '50%'}}
           />
-          <TimerCard
-            onTimerCardTap={() => props.navigation.push('Stop', {time: 20})}
-            cardMargin={5}
-            cardWidth={Dimensions.get('window').width / 3.1}
-            minutes={20}
-            points={10}
-          />
-          <TimerCard
-            onTimerCardTap={() => props.navigation.push('Stop', {time: 30})}
-            cardMargin={5}
-            cardWidth={Dimensions.get('window').width / 3.1}
-            minutes={30}
-            points={20}
+          <TouchableOpacity
+            onPress={() => {
+              tab < quotes.length - 1 && setTab(tab + 1);
+            }}
+            style={{width: '50%'}}
           />
         </View>
       </View>
