@@ -1,9 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {init, RematchRootState} from '@rematch/core';
 import immerPlugin from '@rematch/immer';
-import createLoadingPlugin from '@rematch/loading';
 import createRematchPersist from '@rematch/persist';
-import selectorsPlugin from '@rematch/select';
 // models
 import * as models from './models';
 
@@ -12,15 +10,14 @@ const persistPlugin = createRematchPersist({
   version: 1,
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ['loading'],
 });
 
 const immer = immerPlugin(); // should be after persist plugin
-const loading = createLoadingPlugin({});
-const select = selectorsPlugin();
 
 export const store = init({
   models,
-  plugins: [persistPlugin, immer, loading, select],
+  plugins: [persistPlugin, immer],
 });
 
 export type Store = typeof store;

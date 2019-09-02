@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import getAssets from '../../libs/image';
 import TimerCard from './card';
 
+const size = {width: Dimensions.get('window').width, height: Dimensions.get('window').height};
+
 interface TimerProps {
   navigation: NavigationScreenProp<any, any>;
 }
@@ -26,14 +28,12 @@ const Timer = (props: TimerProps) => {
     };
   }, []);
 
-  const quotesLoading = useSelector((state: any) => state.loading.effects.quote.getQuotes);
+  const quotesLoaded = useSelector((state: any) => state.quote.loaded);
   const quotes = useSelector((state: any) => state.quote.quotes);
   const tab = useSelector((state: any) => state.quote.tab);
   const currentQuote = quotes[tab];
 
-  const size = {width: Dimensions.get('window').width, height: Dimensions.get('window').height};
-
-  if (quotesLoading) return null;
+  if (!quotesLoaded) return null;
 
   return (
     <View style={{flex: 1}}>
