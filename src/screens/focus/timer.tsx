@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import {useDispatch, useSelector} from 'react-redux';
 import getAssets from '../../libs/image';
@@ -26,11 +26,14 @@ const Timer = (props: TimerProps) => {
     };
   }, []);
 
+  const quotesLoading = useSelector((state: any) => state.loading.effects.quote.getQuotes);
   const quotes = useSelector((state: any) => state.quote.quotes);
   const tab = useSelector((state: any) => state.quote.tab);
   const currentQuote = quotes[tab];
 
   const size = {width: Dimensions.get('window').width, height: Dimensions.get('window').height};
+
+  if (quotesLoading) return null;
 
   return (
     <View style={{flex: 1}}>

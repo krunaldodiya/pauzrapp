@@ -24,9 +24,9 @@ const LotteryWinners = (props: any) => {
 
     return (
       <React.Fragment>
-        <View>
+        <View style={{padding: 10}}>
           <Text>{item.user.name}</Text>
-          <Text>{item.amount}</Text>
+          <Text>Won {item.amount}</Text>
         </View>
       </React.Fragment>
     );

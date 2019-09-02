@@ -16,8 +16,18 @@ const Notifications = (props: any) => {
 
     return (
       <React.Fragment>
-        <View>
-          <Text>{item.type}</Text>
+        <View style={{padding: 10}}>
+          {item.type == 'App\\Notifications\\UserFollowed' && (
+            <View>
+              <Text>{item.user.name} liked your post.</Text>
+            </View>
+          )}
+
+          {item.type == 'App\\Notifications\\PostLiked' && (
+            <View>
+              <Text>{item.user.name} started following you.</Text>
+            </View>
+          )}
         </View>
       </React.Fragment>
     );
@@ -32,7 +42,7 @@ const Notifications = (props: any) => {
           data={notifications}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
-          ItemSeparatorComponent={() => <View style={{height: 10, backgroundColor: '#ccc'}} />}
+          ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#ccc'}} />}
         />
       </View>
     </SafeAreaView>
