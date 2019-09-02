@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StatusBar, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, StatusBar, Text, View, Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import getAssets from '../../libs/image';
 
 const LotteryWinners = (props: any) => {
   const dispatch = useDispatch();
@@ -24,9 +25,15 @@ const LotteryWinners = (props: any) => {
 
     return (
       <React.Fragment>
-        <View style={{padding: 10}}>
-          <Text>{item.user.name}</Text>
-          <Text>Won {item.amount}</Text>
+        <View style={{flexDirection: 'row', padding: 10}}>
+          <View>
+            <Image style={{width: 30, height: 30}} source={{uri: getAssets(item.user.avatar)}} />
+          </View>
+
+          <View style={{flex: 1}}>
+            <Text>{item.user.name}</Text>
+            <Text>Won {item.amount}</Text>
+          </View>
         </View>
       </React.Fragment>
     );
@@ -41,7 +48,7 @@ const LotteryWinners = (props: any) => {
           data={winnersList}
           renderItem={renderItem}
           keyExtractor={(_, index) => index.toString()}
-          ItemSeparatorComponent={() => <View style={{height: 10, backgroundColor: '#ccc'}} />}
+          ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#ccc'}} />}
         />
       </View>
     </SafeAreaView>

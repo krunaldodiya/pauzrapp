@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
+import {FlatList, SafeAreaView, StatusBar, View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import RegularImagePost from '../../components/Posts/regular_image_post';
 import PostModel from '../../models/post';
@@ -24,6 +24,8 @@ const Post = (props: any) => {
     .sort((a: PostModel, b: PostModel) => b.id - a.id);
 
   const renderItem = (data: any) => {
+    if (!data.item) return null;
+
     return (
       <React.Fragment>
         <RegularImagePost data={data} />

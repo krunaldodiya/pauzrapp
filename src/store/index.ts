@@ -10,7 +10,6 @@ const persistPlugin = createRematchPersist({
   version: 1,
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['loading'],
 });
 
 const immer = immerPlugin(); // should be after persist plugin

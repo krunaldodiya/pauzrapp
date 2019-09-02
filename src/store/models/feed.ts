@@ -23,13 +23,15 @@ export const feed = createModel({
       return {...state, ...payload};
     },
     getFeedsSuccess(state: FeedState, payload: any) {
-      const {feeds} = payload;
-      const uniqueFeeds = feeds
+      const uniqueFeeds = payload.feeds
         .filter((feed: any) => state.feeds.indexOf(feed.id) < 0)
         .map((feed: any) => feed.id);
 
       state.feeds.push(...uniqueFeeds);
       state.errors = null;
+
+      state.loading = false;
+      state.loaded = true;
 
       return state;
     },
