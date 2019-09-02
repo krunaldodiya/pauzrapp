@@ -77,10 +77,9 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    bundleInDebug: true,
-    bundleInRelease:true,
-    bundleInRelease: true,
     enableHermes: true,
+    // bundleInDebug: true,
+    // bundleInRelease: true,
     // bundleCommand: "ram-bundle",
     // bundleConfig: "./metro.config.js",
 ]
