@@ -3,17 +3,19 @@ import {mapKeys} from 'lodash';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 interface LotteryState {
-  winners: any;
-  errors: null;
   loading: boolean;
   loaded: boolean;
+  errors: null;
+  winners: {};
+  meta: {};
 }
 
 const initialState: LotteryState = {
-  winners: {},
-  errors: null,
   loading: false,
   loaded: false,
+  errors: null,
+  winners: {},
+  meta: {},
 };
 
 export const lottery = createModel({
@@ -25,7 +27,11 @@ export const lottery = createModel({
     },
     getLotteryWinnersSuccess(state: LotteryState, payload: any) {
       state.winners = Object.assign(state.winners, mapKeys(payload.winners, 'id'));
+      state.meta = payload.meta;
       state.errors = null;
+
+      state.loading = false;
+      state.loaded = true;
 
       return state;
     },
@@ -41,7 +47,7 @@ export const lottery = createModel({
           const {data} = await makeRequest(api.getLotteryWinners, payload, 'POST');
           const {winners, meta} = data;
 
-          dispatch.lottery.getLotteryWinnersSuccess({winners});
+          dispatch.lottery.getLotteryWinnersSuccess({winners, meta});
           return meta;
         } catch (error) {
           dispatch.lottery.setState({loading: false, loaded: true, errors: error.response.data});

@@ -15,14 +15,9 @@ interface PublicProfileProps {
 const PublicProfile = (props: PublicProfileProps) => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState(0);
-  const [meta, setMeta] = useState({});
 
   useEffect(() => {
-    const getPosts: any = dispatch({type: 'post/getPosts', payload: meta});
-
-    getPosts.then((data: any) => {
-      setMeta(data);
-    });
+    dispatch({type: 'post/getPosts', payload: {}});
   }, []);
 
   const authUser = useSelector(getAuthUserSelector);

@@ -5,14 +5,9 @@ import RegularImagePost from '../../components/Posts/regular_image_post';
 
 const Feeds = (props: any) => {
   const dispatch = useDispatch();
-  const [meta, setMeta] = useState({});
 
   useEffect(() => {
-    const getFeeds: any = dispatch({type: 'feed/getFeeds', payload: meta});
-
-    getFeeds.then((data: any) => {
-      setMeta(data);
-    });
+    dispatch({type: 'feed/getFeeds', payload: {}});
   }, []);
 
   const feeds = useSelector((state: any) => state.feed.feeds);

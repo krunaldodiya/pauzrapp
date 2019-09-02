@@ -5,14 +5,9 @@ import getAssets from '../../libs/image';
 
 const LotteryWinners = (props: any) => {
   const dispatch = useDispatch();
-  const [meta, setMeta] = useState({});
 
   useEffect(() => {
-    const getLotteryWinners: any = dispatch({type: 'lottery/getLotteryWinners', payload: meta});
-
-    getLotteryWinners.then((data: any) => {
-      setMeta(data);
-    });
+    dispatch({type: 'lottery/getLotteryWinners', payload: {}});
   }, []);
 
   const winners = useSelector((state: any) => state.lottery.winners);

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Dimensions, Image, Text, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
 import getAssets from '../../libs/image';
 
 interface RegularImagePostProps {
@@ -42,7 +41,7 @@ const RegularImagePost = (props: RegularImagePostProps) => {
       )}
 
       <View>
-        <FastImage style={{width, height}} source={{uri: getAssets(item.url)}} />
+        <Image style={{width, height}} source={{uri: getAssets(item.url)}} />
       </View>
     </View>
   );

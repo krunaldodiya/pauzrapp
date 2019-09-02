@@ -7,6 +7,7 @@ interface FeedState {
   loaded: boolean;
   errors: null;
   feeds: {};
+  meta: {};
 }
 
 const initialState: FeedState = {
@@ -14,6 +15,7 @@ const initialState: FeedState = {
   loaded: false,
   errors: null,
   feeds: {},
+  meta: {},
 };
 
 export const feed = createModel({
@@ -25,6 +27,7 @@ export const feed = createModel({
     },
     getFeedsSuccess(state: FeedState, payload: any) {
       state.feeds = Object.assign(state.feeds, mapKeys(payload.feeds, 'id'));
+      state.meta = payload.meta;
       state.errors = null;
 
       state.loading = false;
@@ -46,7 +49,7 @@ export const feed = createModel({
           const {data} = await makeRequest(api.getFeeds, postData, 'POST');
           const {feeds, meta} = data;
 
-          dispatch.feed.getFeedsSuccess({feeds});
+          dispatch.feed.getFeedsSuccess({feeds, meta});
           return meta;
         } catch (error) {
           dispatch.feed.setState({loading: false, loaded: true, errors: error.response.data});

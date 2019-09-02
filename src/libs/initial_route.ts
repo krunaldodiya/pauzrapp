@@ -1,11 +1,7 @@
 import User from '../models/user';
 
-const getInitialRouteName = (online: any, loaded: boolean, authUser: User) => {
-  if (loaded) {
-    if (!online && !authUser) {
-      return 'NoInternet';
-    }
-
+const getInitialRouteName = (loaded: boolean, authUserId: number, authUser: User) => {
+  if (loaded && authUserId) {
     if (authUser) {
       if (authUser.status == 0) {
         return 'EditProfile';

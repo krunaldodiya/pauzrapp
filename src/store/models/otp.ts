@@ -1,8 +1,9 @@
 import {createModel} from '@rematch/core';
+import {Alert} from 'react-native';
 import {api} from '../../libs/api';
+import Country from '../../models/country';
 import {setAuthToken} from '../../services/auth';
 import makeRequest from '../../services/make_request';
-import Country from '../../models/country';
 
 export type OtpState = {
   loading: boolean;
@@ -39,8 +40,12 @@ export const otp = createModel({
 
   effects: (dispatch: any) => {
     return {
+      async noNetwork() {
+        return Alert.alert('No Network', 'Please, check your internet connection.');
+      },
+
       async requestOtp(payload: any, rootState: any) {
-        if (!rootState.network.isInternetReachable) return;
+        if (!rootState.network.isInternetReachable) return this.noNetwork();
 
         dispatch.otp.setState({loading: true, mobile: payload.mobile});
 
@@ -55,7 +60,7 @@ export const otp = createModel({
       },
 
       async verifyOtp(payload: any, rootState: any) {
-        if (!rootState.network.isInternetReachable) return;
+        if (!rootState.network.isInternetReachable) return this.noNetwork();
 
         dispatch.otp.setState({loading: true, clientOtp: payload.otp});
 

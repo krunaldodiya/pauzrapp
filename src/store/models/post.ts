@@ -4,17 +4,19 @@ import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
 
 interface PostState {
-  posts: any;
-  errors: null;
   loading: boolean;
   loaded: boolean;
+  errors: null;
+  posts: {};
+  meta: {};
 }
 
 const initialState: PostState = {
-  posts: {},
-  errors: null,
   loading: false,
   loaded: false,
+  errors: null,
+  posts: {},
+  meta: {},
 };
 
 export const post = createModel({
@@ -26,6 +28,12 @@ export const post = createModel({
     },
     getPostsSuccess(state: PostState, payload: any) {
       state.posts = Object.assign(state.posts, mapKeys(payload.posts, 'id'));
+      state.meta = payload.meta;
+      state.errors = null;
+
+      state.loading = false;
+      state.loaded = true;
+
       return state;
     },
   },
@@ -42,7 +50,7 @@ export const post = createModel({
           const {data} = await makeRequest(api.getPosts, postData, 'POST');
           const {posts, meta} = data;
 
-          dispatch.post.getPostsSuccess({posts});
+          dispatch.post.getPostsSuccess({posts, meta});
           return meta;
         } catch (error) {
           dispatch.post.setState({loading: false, loaded: true, errors: error.response.data});
