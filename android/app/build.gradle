@@ -81,8 +81,8 @@ project.ext.react = [
     bundleInRelease:true,
     bundleInRelease: true,
     enableHermes: true,
-    bundleCommand: "ram-bundle",
-    bundleConfig: "./metro.config.js",
+    // bundleCommand: "ram-bundle",
+    // bundleConfig: "./metro.config.js",
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
