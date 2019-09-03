@@ -25,6 +25,9 @@ export const auth = createModel({
     },
     setAuthUserSuccess(state: AuthState, payload: any) {
       state.authUserId = payload.user.id;
+      state.errors = null;
+      state.loaded = true;
+      state.loading = false;
       return state;
     },
   },
@@ -38,7 +41,6 @@ export const auth = createModel({
           const {user} = data;
 
           dispatch.auth.setAuthUserSuccess({user});
-          dispatch.auth.setState({loading: false, loaded: true, errors: null});
         } catch (error) {
           const errors = error.response ? error.response.data : null;
           dispatch.auth.setState({loading: false, loaded: true, errors});
