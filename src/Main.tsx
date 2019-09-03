@@ -1,6 +1,6 @@
-import React from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import React, {useState} from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
-import {useSelector} from 'react-redux';
 import Auth from './Auth';
 import Guest from './Guest';
 
@@ -22,8 +22,15 @@ const getStackNavigator = (initialRouteName: string) => {
 };
 
 const Main = () => {
-  const authUserId = useSelector((state: any) => state.auth.authUserId);
-  const initialRouteName = authUserId ? 'Auth' : 'Guest';
+  const [initialRouteName, setInitialRouteName] = useState('Splash');
+
+  AsyncStorage.getItem('authToken').then((authToken: any) => {
+    return setInitialRouteName(authToken ? 'Auth' : 'Guest');
+  });
+
+  // const initialRouteName = authToken ? 'Auth' : 'Guest';
+  // const authUserId = useSelector((state: any) => state.auth.authUserId);
+  // const initialRouteName = authUserId ? 'Auth' : 'Guest';
 
   const AppNavigator = getStackNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
