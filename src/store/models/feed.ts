@@ -52,7 +52,8 @@ export const feed = createModel({
           dispatch.feed.getFeedsSuccess({feeds, meta});
           return meta;
         } catch (error) {
-          dispatch.feed.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.feed.setState({loading: false, loaded: true, errors});
         }
       },
     };

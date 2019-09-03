@@ -53,7 +53,8 @@ export const post = createModel({
           dispatch.post.getPostsSuccess({posts, meta});
           return meta;
         } catch (error) {
-          dispatch.post.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.post.setState({loading: false, loaded: true, errors});
         }
       },
     };

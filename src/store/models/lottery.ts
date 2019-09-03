@@ -50,7 +50,8 @@ export const lottery = createModel({
           dispatch.lottery.getLotteryWinnersSuccess({winners, meta});
           return meta;
         } catch (error) {
-          dispatch.lottery.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.lottery.setState({loading: false, loaded: true, errors});
         }
       },
     };

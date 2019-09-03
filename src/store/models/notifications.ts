@@ -36,11 +36,8 @@ export const notification = createModel({
 
           dispatch.notification.setState({loading: false, loaded: true, notifications});
         } catch (error) {
-          dispatch.notification.setState({
-            loading: false,
-            loaded: true,
-            errors: error.response.data,
-          });
+          const errors = error.response ? error.response.data : null;
+          dispatch.notification.setState({loading: false, loaded: true, errors});
         }
       },
     };

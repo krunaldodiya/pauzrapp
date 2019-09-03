@@ -41,7 +41,8 @@ export const auth = createModel({
           dispatch.auth.setAuthUserSuccess({user});
           dispatch.auth.setState({loading: false, loaded: true});
         } catch (error) {
-          dispatch.auth.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.auth.setState({loading: false, loaded: true, errors});
         }
       },
     };

@@ -56,11 +56,8 @@ export const quote = createModel({
 
           dispatch.quote.setState({loading: false, loaded: true, errors: null, quotes});
         } catch (error) {
-          dispatch.quote.setState({
-            loading: false,
-            loaded: true,
-            errors: error.response.data,
-          });
+          const errors = error.response ? error.response.data : null;
+          dispatch.quote.setState({loading: false, loaded: true, errors});
         }
       },
     };

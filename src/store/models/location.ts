@@ -39,7 +39,8 @@ export const location = createModel({
 
           dispatch.location.setState({loading: false, loaded: true, errors: null, countries});
         } catch (error) {
-          dispatch.location.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.location.setState({loading: false, loaded: true, errors});
         }
       },
     };

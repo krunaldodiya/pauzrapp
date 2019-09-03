@@ -55,7 +55,8 @@ export const otp = createModel({
 
           dispatch.otp.setState({loading: false, loaded: true, errors: null, clientOtp: otp});
         } catch (error) {
-          dispatch.otp.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.notification.setState({loading: false, loaded: true, errors});
         }
       },
 
@@ -73,7 +74,8 @@ export const otp = createModel({
           dispatch.auth.setAuthUserSuccess({user});
           dispatch.otp.setState({loading: false, loaded: true, errors: null});
         } catch (error) {
-          dispatch.otp.setState({loading: false, loaded: true, errors: error.response.data});
+          const errors = error.response ? error.response.data : null;
+          dispatch.notification.setState({loading: false, loaded: true, errors});
         }
       },
     };
