@@ -3,12 +3,14 @@ import React, {useState} from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import Auth from './Auth';
 import Guest from './Guest';
+import Splash from './screens/splash';
 
 const getStackNavigator = (initialRouteName: string) => {
   return createStackNavigator(
     {
       Auth: {screen: Auth},
       Guest: {screen: Guest},
+      Splash: {screen: Splash},
     },
     {
       initialRouteName,
