@@ -1,14 +1,14 @@
 import React from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {useSelector} from 'react-redux';
-import Auth from './Auth';
-import Guest from './Guest';
+import EditProfile from './screens/edit_profile';
+import Home from './screens/home';
 
 const getStackNavigator = (initialRouteName: string) => {
   return createStackNavigator(
     {
-      Auth: {screen: Auth},
-      Guest: {screen: Guest},
+      Home: {screen: Home},
+      EditProfile: {screen: EditProfile},
     },
     {
       initialRouteName,
@@ -21,9 +21,9 @@ const getStackNavigator = (initialRouteName: string) => {
   );
 };
 
-const Main = () => {
-  const authUserId = useSelector((state: any) => state.auth.authUserId);
-  const initialRouteName = authUserId ? 'Auth' : 'Guest';
+const Auth = () => {
+  const authUserStatus = useSelector((state: any) => state.auth.authUserStatus);
+  const initialRouteName = authUserStatus == 1 ? 'Home' : 'EditProfile';
 
   const AppNavigator = getStackNavigator(initialRouteName);
   const AppContainer = createAppContainer(AppNavigator);
@@ -31,4 +31,4 @@ const Main = () => {
   return <AppContainer />;
 };
 
-export default Main;
+export default Auth;

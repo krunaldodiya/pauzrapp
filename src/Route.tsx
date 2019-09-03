@@ -8,7 +8,7 @@ import SelectCountry from './screens/select_country';
 import Splash from './screens/splash';
 import VerifyOtp from './screens/verify_otp';
 
-const getAppNavigator = (
+const getStackNavigator = (
   initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 'Home' | 'NoInternet'
 ) => {
   return createStackNavigator(
@@ -33,4 +33,4 @@ const getAppNavigator = (
   );
 };
 
-export default getAppNavigator;
+export default getStackNavigator;

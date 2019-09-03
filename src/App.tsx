@@ -24,14 +24,16 @@ const NetworkGate = () => {
   return <Main />;
 };
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
-        <NetworkGate />
-      </PersistGate>
-    </Provider>
-  );
-};
+class App extends React.PureComponent {
+  render() {
+    return (
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <NetworkGate />
+        </PersistGate>
+      </Provider>
+    );
+  }
+}
 
 export default React.memo(App);

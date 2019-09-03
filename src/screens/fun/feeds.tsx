@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {FlatList, SafeAreaView, StatusBar, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import RegularImagePost from '../../components/Posts/regular_image_post';
+import getListByKey from '../../store/selectors/list_by_key';
 
 const Feeds = (props: any) => {
   const dispatch = useDispatch();
@@ -11,10 +12,7 @@ const Feeds = (props: any) => {
   }, []);
 
   const feeds = useSelector((state: any) => state.feed.feeds);
-
-  const feedsList = Object.keys(feeds)
-    .map(key => feeds[key])
-    .sort((a: any, b: any) => b.id - a.id);
+  const feedsList = getListByKey(feeds);
 
   const renderItem = (data: any) => {
     return (
