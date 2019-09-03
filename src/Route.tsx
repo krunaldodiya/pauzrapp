@@ -8,9 +8,7 @@ import SelectCountry from './screens/select_country';
 import Splash from './screens/splash';
 import VerifyOtp from './screens/verify_otp';
 
-const getStackNavigator = (
-  initialRouteName: 'Splash' | 'Intro' | 'EditProfile' | 'Home' | 'NoInternet'
-) => {
+const getStackNavigator = (initialRouteName: string) => {
   return createStackNavigator(
     {
       Home: {screen: Home},

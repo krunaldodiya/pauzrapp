@@ -1,40 +1,18 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import React, {useState} from 'react';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
-import Auth from './Auth';
-import Guest from './Guest';
-import Splash from './screens/splash';
-
-const getStackNavigator = (initialRouteName: string) => {
-  return createStackNavigator(
-    {
-      Auth: {screen: Auth},
-      Guest: {screen: Guest},
-      Splash: {screen: Splash},
-    },
-    {
-      initialRouteName,
-      defaultNavigationOptions: () => {
-        return {
-          header: null,
-        };
-      },
-    }
-  );
-};
+import React, {useEffect, useState} from 'react';
+import {createAppContainer} from 'react-navigation';
+import getStackNavigator from './Route';
+import {getInitialRoute} from './services/auth';
 
 const Main = () => {
-  const [initialRouteName, setInitialRouteName] = useState('Splash');
+  const [initialRoute, setInitialRoute] = useState('Splash');
 
-  AsyncStorage.getItem('authToken').then((authToken: any) => {
-    return setInitialRouteName(authToken ? 'Auth' : 'Guest');
-  });
+  useEffect(() => {
+    getInitialRoute()
+      .then(initialRoute => setInitialRoute(initialRoute ? initialRoute : 'Intro'))
+      .catch(e => console.log(e));
+  }, []);
 
-  // const initialRouteName = authToken ? 'Auth' : 'Guest';
-  // const authUserId = useSelector((state: any) => state.auth.authUserId);
-  // const initialRouteName = authUserId ? 'Auth' : 'Guest';
-
-  const AppNavigator = getStackNavigator(initialRouteName);
+  const AppNavigator = getStackNavigator(initialRoute);
   const AppContainer = createAppContainer(AppNavigator);
 
   return <AppContainer />;

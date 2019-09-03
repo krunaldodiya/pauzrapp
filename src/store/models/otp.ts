@@ -2,7 +2,7 @@ import {createModel} from '@rematch/core';
 import {Alert} from 'react-native';
 import {api} from '../../libs/api';
 import Country from '../../models/country';
-import {setAuthToken} from '../../services/auth';
+import {setAuthToken, setInitialRoute} from '../../services/auth';
 import makeRequest from '../../services/make_request';
 
 export type OtpState = {
@@ -70,6 +70,7 @@ export const otp = createModel({
           const {user, access_token} = data;
 
           await setAuthToken(access_token);
+          await setInitialRoute(user.status == 1 ? 'Home' : 'EditProfile');
 
           dispatch.auth.setAuthUserSuccess({user});
           dispatch.otp.setState({loading: false, loaded: true, errors: null});
