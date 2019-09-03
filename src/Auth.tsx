@@ -31,4 +31,4 @@ const Auth = () => {
   return <AppContainer />;
 };
 
-export default Auth;
+export default React.memo(Auth);

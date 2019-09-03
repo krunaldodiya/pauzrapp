@@ -31,4 +31,4 @@ const Main = () => {
   return <AppContainer />;
 };
 
-export default Main;
+export default React.memo(Main);

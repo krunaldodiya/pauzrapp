@@ -1,10 +1,11 @@
+import React from 'react';
 import {createStackNavigator} from 'react-navigation';
 import Intro from './screens/intro';
 import RequestOtp from './screens/request_otp';
 import SelectCountry from './screens/select_country';
 import VerifyOtp from './screens/verify_otp';
 
-export default createStackNavigator(
+const Guest = createStackNavigator(
   {
     Intro: {screen: Intro},
     SelectCountry: {screen: SelectCountry},
@@ -20,3 +21,5 @@ export default createStackNavigator(
     },
   }
 );
+
+export default React.memo(Guest);
