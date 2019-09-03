@@ -10,10 +10,10 @@ const Feeds = (props: any) => {
     dispatch({type: 'feed/getFeeds', payload: {}});
   }, []);
 
-  const feed = useSelector((state: any) => state.feed);
+  const feeds = useSelector((state: any) => state.feed.feeds);
 
-  const feedsList = Object.keys(feed.feeds)
-    .map(key => feed.feeds[key])
+  const feedsList = Object.keys(feeds)
+    .map(key => feeds[key])
     .sort((a: any, b: any) => b.id - a.id);
 
   const renderItem = (data: any) => {

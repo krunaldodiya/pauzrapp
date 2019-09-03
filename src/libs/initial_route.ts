@@ -2,11 +2,7 @@ import User from '../models/user';
 
 const getInitialRouteName = (loaded: boolean, authUserId: number, authUser: User) => {
   if (loaded) {
-    if (!authUserId) {
-      return 'Intro';
-    }
-
-    if (authUser) {
+    if (authUserId) {
       if (authUser.status == 0) {
         return 'EditProfile';
       }
@@ -14,7 +10,7 @@ const getInitialRouteName = (loaded: boolean, authUserId: number, authUser: User
       return 'Home';
     }
 
-    return 'Splash';
+    return 'Intro';
   }
 
   return 'Splash';

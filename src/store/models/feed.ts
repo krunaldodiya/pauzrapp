@@ -2,6 +2,7 @@ import {createModel} from '@rematch/core';
 import {mapKeys} from 'lodash';
 import {api} from '../../libs/api';
 import makeRequest from '../../services/make_request';
+
 interface FeedState {
   loading: boolean;
   loaded: boolean;

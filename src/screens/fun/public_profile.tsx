@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icon from '../../components/Icon';
 import getAssets from '../../libs/image';
 import theme from '../../libs/theme';
-import {getAuthUserSelector} from '../../store/selectors/auth_user';
+// import {getAuthUserSelector} from '../../store/selectors/auth_user';
 
 interface PublicProfileProps {
   navigation: NavigationScreenProp<any, any>;
@@ -20,7 +20,10 @@ const PublicProfile = (props: PublicProfileProps) => {
     dispatch({type: 'post/getPosts', payload: {}});
   }, []);
 
-  const authUser = useSelector(getAuthUserSelector);
+  const authUserId = useSelector((state: any) => state.auth.authUserId);
+  const users = useSelector((state: any) => state.user.users);
+  const authUser = authUserId ? users[authUserId] : null;
+
   const posts = useSelector((state: any) => state.post.posts);
 
   const postsList = Object.keys(posts)

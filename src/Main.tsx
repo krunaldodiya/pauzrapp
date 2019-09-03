@@ -3,7 +3,6 @@ import {createAppContainer} from 'react-navigation';
 import {useDispatch, useSelector} from 'react-redux';
 import getInitialRouteName from './libs/initial_route';
 import getAppNavigator from './Route';
-import {getAuthUserSelector} from './store/selectors/auth_user';
 
 const Main = (props: any) => {
   const dispatch = useDispatch();
@@ -14,7 +13,9 @@ const Main = (props: any) => {
 
   const loaded = useSelector((state: any) => state.auth.loaded);
   const authUserId = useSelector((state: any) => state.auth.authUserId);
-  const authUser = useSelector(getAuthUserSelector);
+  const users = useSelector((state: any) => state.user.users);
+
+  const authUser = authUserId ? users[authUserId] : null;
 
   const initialRouteName = getInitialRouteName(loaded, authUserId, authUser);
   const AppNavigator = getAppNavigator(initialRouteName);
