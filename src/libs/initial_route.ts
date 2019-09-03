@@ -1,13 +1,11 @@
-import User from '../models/user';
-
-const getInitialRouteName = (loaded: boolean, authUserId: number, authUser: User) => {
+const getInitialRouteName = (loaded: boolean, authUserId: number, authUserStatus: number) => {
   if (loaded) {
     if (authUserId) {
-      if (authUser.status == 0) {
-        return 'EditProfile';
+      if (authUserStatus == 1) {
+        return 'Home';
       }
 
-      return 'Home';
+      return 'EditProfile';
     }
 
     return 'Intro';

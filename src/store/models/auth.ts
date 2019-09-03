@@ -7,6 +7,7 @@ export type AuthState = {
   loaded: boolean;
   errors: any;
   authUserId: number | null;
+  authUserStatus: number | null;
 };
 
 const initialState: AuthState = {
@@ -14,6 +15,7 @@ const initialState: AuthState = {
   loaded: false,
   errors: null,
   authUserId: null,
+  authUserStatus: null,
 };
 
 export const auth = createModel({
@@ -25,7 +27,7 @@ export const auth = createModel({
     },
     setAuthUserSuccess(state: AuthState, payload: any) {
       state.authUserId = payload.user.id;
-      state.errors = null;
+      state.authUserStatus = payload.user.status;
       return state;
     },
   },
@@ -39,7 +41,7 @@ export const auth = createModel({
           const {user} = data;
 
           dispatch.auth.setAuthUserSuccess({user});
-          dispatch.auth.setState({loading: false, loaded: true});
+          dispatch.auth.setState({loading: false, loaded: true, errors: null});
         } catch (error) {
           const errors = error.response ? error.response.data : null;
           dispatch.auth.setState({loading: false, loaded: true, errors});
