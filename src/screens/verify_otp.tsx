@@ -1,17 +1,26 @@
 import React, {useState} from 'react';
 import {Button, SafeAreaView, StatusBar, TextInput, View} from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import {useDispatch, useSelector} from 'react-redux';
 import screens from '../libs/screens';
 
 const VerifyOtp = (props: any) => {
-  const {country, mobile} = useSelector((state: any) => state.otp);
-
   const dispatch = useDispatch();
   const [otp, setOtp] = useState();
+
+  const {country, mobile} = useSelector((state: any) => state.otp);
+  const loading = useSelector((state: any) => state.otp.loading);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar backgroundColor="#0D62A2" barStyle="light-content" />
+
+      <Spinner
+        visible={loading}
+        textContent={'Loading...'}
+        textStyle={{color: '#FFF'}}
+        overlayColor="rgba(0, 0, 0, 0.75)"
+      />
 
       <View style={{flex: 1, justifyContent: 'center', backgroundColor: '#0D62A2'}}>
         <View style={{padding: 20}}>

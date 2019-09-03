@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import {useDispatch, useSelector} from 'react-redux';
 import screens from '../libs/screens';
 
@@ -16,9 +17,18 @@ const RequestOtp = (props: any) => {
   const dispatch = useDispatch();
   const [mobile, setMobile] = useState();
 
+  const loading = useSelector((state: any) => state.otp.loading);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar backgroundColor="#0D62A2" barStyle="light-content" />
+
+      <Spinner
+        visible={loading}
+        textContent={'Loading...'}
+        textStyle={{color: '#FFF'}}
+        overlayColor="rgba(0, 0, 0, 0.75)"
+      />
 
       <View style={{flex: 1, justifyContent: 'center', backgroundColor: '#0D62A2'}}>
         <TouchableOpacity onPress={() => props.navigation.push(screens.SelectCountry)}>

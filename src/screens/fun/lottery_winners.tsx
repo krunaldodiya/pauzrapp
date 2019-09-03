@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StatusBar, Text, View, Image} from 'react-native';
+import React, {useEffect} from 'react';
+import {FlatList, Image, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import getAssets from '../../libs/image';
 
@@ -10,10 +10,10 @@ const LotteryWinners = (props: any) => {
     dispatch({type: 'lottery/getLotteryWinners', payload: {}});
   }, []);
 
-  const winners = useSelector((state: any) => state.lottery.winners);
+  const lottery = useSelector((state: any) => state.lottery);
 
-  const winnersList = Object.keys(winners)
-    .map(key => winners[key])
+  const winnersList = Object.keys(lottery.winners)
+    .map(key => lottery.winners[key])
     .sort((a: any, b: any) => b.id - a.id);
 
   const renderItem = (data: any) => {
