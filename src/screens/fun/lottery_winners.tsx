@@ -30,6 +30,11 @@ const LotteryWinners = (props: any) => {
             <Text>{item.user.name}</Text>
             <Text>Won {item.amount}</Text>
           </View>
+
+          <View>
+            <Text>{item.date}</Text>
+            <Text>{item.time}</Text>
+          </View>
         </View>
       </React.Fragment>
     );
