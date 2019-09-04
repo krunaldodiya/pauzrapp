@@ -1,39 +1,34 @@
-import NetInfo, {NetInfoSubscription} from '@react-native-community/netinfo';
 import {getPersistor} from '@rematch/persist';
-import React, {useEffect} from 'react';
-import {Provider, useDispatch} from 'react-redux';
+import React from 'react';
+import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import Main from './Main';
+import {getInitialRoute} from './services/auth';
 import {store} from './store';
 
 const persistor = getPersistor();
 
-const NetworkGate = () => {
-  const dispatch = useDispatch();
-
-  const unsubscribe: NetInfoSubscription = NetInfo.addEventListener((state: any) => {
-    dispatch({type: 'network/changed', payload: state});
-  });
-
-  useEffect(() => {
-    return () => {
-      unsubscribe && unsubscribe();
-    };
-  }, []);
-
-  return <Main />;
-};
-
 class App extends React.PureComponent {
+  state = {
+    initialRoute: 'Splash',
+  };
+
+  async componentDidMount() {
+    const route = await getInitialRoute();
+    this.setState({initialRoute: route ? route : 'Intro'});
+  }
+
   render() {
+    const {initialRoute} = this.state;
+
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
-          <NetworkGate />
+          <Main initialRoute={initialRoute} />
         </PersistGate>
       </Provider>
     );
   }
 }
 
-export default React.memo(App);
+export default App;

@@ -3,10 +3,10 @@ import EditProfile from './screens/edit_profile';
 import Home from './screens/home';
 import Intro from './screens/intro';
 import NoInternet from './screens/no_internet';
-import RequestOtp from './screens/request_otp';
+import RequestOtp from './screens/otp/request_otp';
 import SelectCountry from './screens/select_country';
 import Splash from './screens/splash';
-import VerifyOtp from './screens/verify_otp';
+import VerifyOtp from './screens/otp/verify_otp';
 
 const getStackNavigator = (initialRouteName: string) => {
   return createStackNavigator(

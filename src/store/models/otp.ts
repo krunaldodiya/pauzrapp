@@ -54,9 +54,11 @@ export const otp = createModel({
           const {otp} = data;
 
           dispatch.otp.setState({loading: false, loaded: true, errors: null, clientOtp: otp});
+
+          return otp;
         } catch (error) {
           const errors = error.response ? error.response.data : null;
-          dispatch.notification.setState({loading: false, loaded: true, errors});
+          dispatch.otp.setState({loading: false, loaded: true, errors});
         }
       },
 
@@ -69,14 +71,17 @@ export const otp = createModel({
           const {data} = await makeRequest(api.verifyOtp, payload, 'POST');
           const {user, access_token} = data;
 
+          const initialRoute = user.status == 1 ? 'Home' : 'EditProfile';
           await setAuthToken(access_token);
-          await setInitialRoute(user.status == 1 ? 'Home' : 'EditProfile');
+          await setInitialRoute(initialRoute);
 
           dispatch.auth.setAuthUserSuccess({user});
           dispatch.otp.setState({loading: false, loaded: true, errors: null});
+
+          return initialRoute;
         } catch (error) {
           const errors = error.response ? error.response.data : null;
-          dispatch.notification.setState({loading: false, loaded: true, errors});
+          dispatch.otp.setState({loading: false, loaded: true, errors});
         }
       },
     };

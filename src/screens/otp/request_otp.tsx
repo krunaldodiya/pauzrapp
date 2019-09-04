@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
-import {Button, SafeAreaView, StatusBar, TextInput, View} from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useDispatch, useSelector} from 'react-redux';
-import screens from '../libs/screens';
+import screens from '../../libs/screens';
 
-const VerifyOtp = (props: any) => {
+const RequestOtp = (props: any) => {
+  const country = useSelector((state: any) => state.otp.country);
   const dispatch = useDispatch();
-  const [otp, setOtp] = useState();
+  const [mobile, setMobile] = useState();
 
-  const {country, mobile} = useSelector((state: any) => state.otp);
   const loading = useSelector((state: any) => state.otp.loading);
 
   return (
@@ -23,20 +31,26 @@ const VerifyOtp = (props: any) => {
       />
 
       <View style={{flex: 1, justifyContent: 'center', backgroundColor: '#0D62A2'}}>
+        <TouchableOpacity onPress={() => props.navigation.push(screens.SelectCountry)}>
+          <View style={{padding: 20}}>
+            <Text style={{color: 'white'}}>{country ? country.name : 'Select Country'}</Text>
+          </View>
+        </TouchableOpacity>
+
         <View style={{padding: 20}}>
           <TextInput
-            value={otp}
+            value={mobile}
             style={{color: 'white', borderWidth: 1, borderColor: 'white', paddingLeft: 10}}
-            onChangeText={value => setOtp(value)}
+            onChangeText={value => setMobile(value)}
             keyboardType="number-pad"
           />
         </View>
 
         <View>
           <Button
-            title="verify otp"
+            title="send otp"
             onPress={() => {
-              dispatch({type: 'otp/verifyOtp', payload: {country, mobile, otp, fcm_token: ''}});
+              dispatch({type: 'otp/requestOtp', payload: {mobile, country}});
               props.navigation.replace(screens.VerifyOtp);
             }}
           />
@@ -46,4 +60,4 @@ const VerifyOtp = (props: any) => {
   );
 };
 
-export default React.memo(VerifyOtp);
+export default React.memo(RequestOtp);

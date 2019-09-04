@@ -23,7 +23,7 @@ const Timer = (props: TimerProps) => {
   useEffect(() => {
     const timer = setInterval(() => {
       nextTab();
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(timer);

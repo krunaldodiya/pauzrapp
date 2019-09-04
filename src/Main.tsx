@@ -1,15 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import NetInfo, {NetInfoSubscription} from '@react-native-community/netinfo';
+import React, {useEffect} from 'react';
 import {createAppContainer} from 'react-navigation';
+import {useDispatch} from 'react-redux';
 import getStackNavigator from './Route';
-import {getInitialRoute} from './services/auth';
 
-const Main = () => {
-  const [initialRoute, setInitialRoute] = useState('Splash');
+const Main = (props: any) => {
+  const {initialRoute} = props;
+  const dispatch = useDispatch();
+
+  const unsubscribe: NetInfoSubscription = NetInfo.addEventListener((state: any) => {
+    dispatch({type: 'network/changed', payload: state});
+  });
 
   useEffect(() => {
-    getInitialRoute()
-      .then(initialRoute => setInitialRoute(initialRoute ? initialRoute : 'Intro'))
-      .catch(e => console.log(e));
+    return () => {
+      unsubscribe && unsubscribe();
+    };
   }, []);
 
   const AppNavigator = getStackNavigator(initialRoute);
