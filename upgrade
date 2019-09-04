@@ -7,6 +7,8 @@ react-native-firebase native-base
 react-native-segmented-control-tab react-native-awesome-alerts
 redux react-redux redux-saga
 
+babel-plugin-transform-remove-console
+
 .eslintrc.js
 .prettierrc.js
 babel.config.js
