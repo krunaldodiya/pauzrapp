@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Dimensions, Image, TouchableOpacity, View, ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import {useDispatch, useSelector} from 'react-redux';
 import getAssets from '../../libs/image';
@@ -13,6 +13,8 @@ interface TimerProps {
 
 const Timer = (props: TimerProps) => {
   const dispatch = useDispatch();
+  const [tab, setTab] = useState(0);
+  const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
     dispatch({type: 'quote/getQuotes', payload: null});
@@ -20,17 +22,30 @@ const Timer = (props: TimerProps) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      dispatch({type: 'quote/nextTab', payload: null});
+      nextTab();
     }, 5000);
 
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [tab]);
+
+  const previousTab = () => {
+    if (!playing) return;
+
+    const previousTab = tab > 0 ? tab - 1 : quotes.length - 1;
+    setTab(previousTab);
+  };
+
+  const nextTab = () => {
+    if (!playing) return;
+
+    const nextTab = tab < quotes.length - 1 ? tab + 1 : 0;
+    setTab(nextTab);
+  };
 
   const quotesLoaded = useSelector((state: any) => state.quote.loaded);
   const quotes = useSelector((state: any) => state.quote.quotes);
-  const tab = useSelector((state: any) => state.quote.tab);
   const currentQuote = quotes[tab];
 
   if (!quotesLoaded) return null;
@@ -129,27 +144,15 @@ const Timer = (props: TimerProps) => {
             backgroundColor: 'transparent',
           }}>
           <TouchableOpacity
-            onLongPress={value => {
-              dispatch({type: 'quote/setState', payload: {playing: false}});
-            }}
-            onPressOut={() => {
-              dispatch({type: 'quote/setState', payload: {playing: true}});
-            }}
-            onPress={() => {
-              dispatch({type: 'quote/previousTab', payload: null});
-            }}
+            onLongPress={() => setPlaying(false)}
+            onPressOut={() => setPlaying(true)}
+            onPress={() => previousTab()}
             style={{width: '50%'}}
           />
           <TouchableOpacity
-            onLongPress={() => {
-              dispatch({type: 'quote/setState', payload: {playing: false}});
-            }}
-            onPressOut={() => {
-              dispatch({type: 'quote/setState', payload: {playing: true}});
-            }}
-            onPress={() => {
-              dispatch({type: 'quote/nextTab', payload: null});
-            }}
+            onLongPress={() => setPlaying(false)}
+            onPressOut={() => setPlaying(true)}
+            onPress={() => nextTab()}
             style={{width: '50%'}}
           />
         </View>
