@@ -15,7 +15,7 @@ const DrawerMenu = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1, padding: 10}}>
-        <TouchableOpacity onPress={() => console.log(props)}>
+        <TouchableOpacity onPress={() => console.log('props', props)}>
           <Text>Profile</Text>
         </TouchableOpacity>
       </View>
